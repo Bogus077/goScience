@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './assets/fonts/style.css';
+import './assets/global.scss';
 
-function App() {
+import { Provider } from 'react-redux';
+import { createStore } from './redux';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+import { ProtectedRoutes } from './utils/router/ProtectedRoutes';
+
+const store = createStore(); // Possible additional params to store init func
+const persistor = persistStore(store);
+
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Routes>
+            <Route path={'/'} element={<></>} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path={'/room'} element={<></>} />
+              <Route path={'/room/:roomId'} element={<></>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   );
 }
-
-export default App;

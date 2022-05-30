@@ -1,0 +1,146 @@
+@mixin roomWrapper {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  background-color: #c1d6ff;
+  overflow-x: scroll;
+}
+
+@mixin roomBackground {
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-width: calc(1440px * 0.4);
+  height: calc(1024px * 0.4);
+  position: relative;
+}
+
+@mixin generalAdaptives {
+  .wrapper {
+    @include roomWrapper;
+  }
+
+  .background {
+    @include roomBackground;
+  }
+
+  @media screen and (min-width: 576px) {
+    .wrapper {
+      justify-content: center;
+      overflow-x: hidden;
+    }
+  }
+
+  @media screen and (min-width: 700px) and (min-height: 512px) {
+    $sizeMultiplier: 0.5;
+    .background {
+      width: calc(1440px * $sizeMultiplier);
+      height: calc(1024px * $sizeMultiplier);
+    }
+  }
+
+  @media screen and (min-width: 870px) and (min-height: 614px) {
+    $sizeMultiplier: 0.6;
+    .background {
+      width: calc(1440px * $sizeMultiplier);
+      height: calc(1024px * $sizeMultiplier);
+    }
+  }
+
+  @media screen and (min-width: 1020px) and (min-height: 716px) {
+    $sizeMultiplier: 0.7;
+    .background {
+      width: calc(1440px * $sizeMultiplier);
+      height: calc(1024px * $sizeMultiplier);
+    }
+  }
+
+  @media screen and (min-width: 1175px) and (min-height: 819px) {
+    $sizeMultiplier: 0.8;
+    .background {
+      width: calc(1440px * $sizeMultiplier);
+      height: calc(1024px * $sizeMultiplier);
+    }
+  }
+
+  @media screen and (min-width: 1440px) and (min-height: 1024px) {
+    $sizeMultiplier: 0.9;
+    .background {
+      width: calc(1440px * $sizeMultiplier);
+      height: calc(1024px * $sizeMultiplier);
+    }
+  }
+
+  @media screen and (min-width: 1460px) and (min-height: 1024px) {
+    $sizeMultiplier: 1;
+    .background {
+      width: 1440px;
+      height: 1024px;
+    }
+  }
+}
+
+@mixin standartObjectStyles {
+  .objects {
+    position: absolute;
+    cursor: pointer;
+
+    $sizeMultiplier: 0.4;
+    width: calc($objectWidth * $sizeMultiplier * 0.5);
+    height: calc($objectHeight * $sizeMultiplier * 0.5);
+  }
+
+  @media screen and (min-width: 700px) and (min-height: 512px) {
+    $sizeMultiplier: 0.5;
+
+    .objects {
+      width: calc($objectWidth * $sizeMultiplier * 0.5);
+      height: calc($objectHeight * $sizeMultiplier * 0.5);
+    }
+  }
+
+  @media screen and (min-width: 870px) and (min-height: 614px) {
+    $sizeMultiplier: 0.6;
+
+    .objects {
+      width: calc($objectWidth * $sizeMultiplier * 0.5);
+      height: calc($objectHeight * $sizeMultiplier * 0.5);
+    }
+  }
+
+  @media screen and (min-width: 1020px) and (min-height: 716px) {
+    $sizeMultiplier: 0.7;
+
+    .objects {
+      width: calc($objectWidth * $sizeMultiplier * 0.5);
+      height: calc($objectHeight * $sizeMultiplier * 0.5);
+    }
+  }
+
+  @media screen and (min-width: 1175px) and (min-height: 819px) {
+    $sizeMultiplier: 0.8;
+
+    .objects {
+      width: calc($objectWidth * $sizeMultiplier * 0.5);
+      height: calc($objectHeight * $sizeMultiplier * 0.5);
+    }
+  }
+
+  @media screen and (min-width: 1440px) and (min-height: 1024px) {
+    $sizeMultiplier: 0.9;
+
+    .objects {
+      width: calc($objectWidth * $sizeMultiplier * 0.5);
+      height: calc($objectHeight * $sizeMultiplier * 0.5);
+    }
+  }
+
+  @media screen and (min-width: 1460px) and (min-height: 1024px) {
+    $sizeMultiplier: 1;
+
+    .objects {
+      width: calc($objectWidth * $sizeMultiplier * 0.5);
+      height: calc($objectHeight * $sizeMultiplier * 0.5);
+    }
+  }
+}

@@ -1,0 +1,57 @@
+html {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #202124;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  position: relative;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+a {
+  display: block;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+.display-none {
+  display: none;
+}
