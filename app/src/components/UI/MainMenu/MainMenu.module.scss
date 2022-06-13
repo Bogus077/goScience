@@ -1,0 +1,47 @@
+@import '../../../assets/helpers/index.scss';
+
+.menu {
+  height: 100vh;
+  width: 100px;
+  background-color: #fff;
+  box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__classChanger {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  &__user {
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid $disableColor;
+    padding: 25px 0;
+  }
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background-color: #ff6633;
+  border-radius: 50%;
+}

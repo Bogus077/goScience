@@ -1,7 +1,9 @@
+@import './helpers/index.scss';
+
 html {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Exo2', sans-serif;
   font-size: 14px;
-  color: #202124;
+  color: $mainTextColor;
 }
 
 *,

@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { userReducer } from './userSlice';
-import { teamReducer } from './teamSlice';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 
@@ -16,7 +15,6 @@ export const createStore = () =>
   configureStore({
     reducer: {
       user: persistedUserReducer,
-      team: teamReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

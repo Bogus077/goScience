@@ -1,0 +1,20 @@
+@import '../../../../assets/helpers/index.scss';
+
+.item {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover:not(.item_active) {
+    background-color: $mainColorHover;
+  }
+
+  &_active {
+    background-color: $mainColor;
+  }
+}
