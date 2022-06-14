@@ -1,4 +1,5 @@
 import React from 'react';
+import { ClassChanger } from '../../ClassChanger';
 import styles from './MainMenu.module.scss';
 import { MainMenuItem } from './MainMenuItem';
 
@@ -21,7 +22,7 @@ export const MainMenu = () => {
       </div>
 
       <div className={styles.menu__classChanger}>
-        <span>Класс</span>
+        <ClassChanger />
       </div>
 
       <div className={styles.menu__user}>

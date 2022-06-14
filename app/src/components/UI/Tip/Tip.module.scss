@@ -1,0 +1,48 @@
+@import '../../../assets/helpers/index.scss';
+$side: 100%;
+
+.tip {
+  background-color: #fff;
+  border-radius: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid $disableColor;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  cursor: default;
+  transition: 0.3s;
+  z-index: -1;
+
+  &_visible {
+    opacity: 1;
+    z-index: 100;
+  }
+
+  &__wrapper {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &_top {
+    bottom: $side;
+  }
+
+  &_bottom {
+    top: $side;
+  }
+
+  &_left {
+    right: $side;
+  }
+
+  &_right {
+    left: $side;
+  }
+}
