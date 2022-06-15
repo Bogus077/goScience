@@ -1,0 +1,19 @@
+@import '../../../assets/helpers/index.scss';
+
+.logout {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    transform: translateX(3px);
+  }
+
+  &__text {
+    margin-left: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: $secondaryColor;
+  }
+}

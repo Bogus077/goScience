@@ -1,0 +1,45 @@
+@import '../../../assets/helpers/index.scss';
+
+.round {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid $disableColor;
+  border-radius: 100%;
+  color: $disableColor;
+  font-size: 24px;
+  font-weight: bold;
+  transform: rotate(-45deg);
+
+  &_25 {
+    border-right-color: $warningColor;
+    color: $warningColor;
+  }
+
+  &_50 {
+    border-right-color: $warningColor;
+    border-bottom-color: $warningColor;
+    color: $warningColor;
+  }
+
+  &_75 {
+    border-right-color: $positiveColor;
+    border-bottom-color: $positiveColor;
+    border-left-color: $positiveColor;
+    color: $positiveColor;
+  }
+
+  &_100 {
+    border-right-color: $positiveColor;
+    border-bottom-color: $positiveColor;
+    border-left-color: $positiveColor;
+    border-top-color: $positiveColor;
+    color: $positiveColor;
+  }
+}
+
+.fact {
+  transform: rotate(45deg);
+}

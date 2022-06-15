@@ -10,9 +10,14 @@ const cx = classNames.bind(styles);
 type Props = {
   name: 'plan' | 'assistant' | 'classSettings' | 'stats';
   active?: boolean;
+  expanded?: boolean;
 };
 
-export const MainMenuItem = ({ name, active = false }: Props) => {
+export const MainMenuItem = ({
+  name,
+  active = false,
+  expanded = false,
+}: Props) => {
   const item = { label: 'Название', icon: <></> };
 
   switch (name) {
@@ -34,5 +39,12 @@ export const MainMenuItem = ({ name, active = false }: Props) => {
       break;
   }
 
-  return <div className={cx('item', { item_active: active })}>{item.icon}</div>;
+  return (
+    <div className={styles.item__wrapper}>
+      <div className={cx('item', { item_active: active })}>{item.icon}</div>
+      <div className={cx('item__label', { item__label_expanded: expanded })}>
+        {item.label}
+      </div>
+    </div>
+  );
 };
