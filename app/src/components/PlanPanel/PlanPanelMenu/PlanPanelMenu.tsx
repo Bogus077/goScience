@@ -5,7 +5,10 @@ import { PlanPanelMenuItem } from './PlanPanelMenuItem';
 export const PlanPanelMenu = () => {
   return (
     <div className={styles.menu}>
-      <PlanPanelMenuItem />
+      <PlanPanelMenuItem title="study" active />
+      <PlanPanelMenuItem title="motivation" />
+      <PlanPanelMenuItem title="discipline" />
+      <PlanPanelMenuItem title="collective" />
     </div>
   );
 };
