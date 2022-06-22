@@ -23,6 +23,8 @@ export function App() {
           <Routes>
             <Route path={'/'} element={<StudyPage />} />
             <Route element={<ProtectedRoutes />}>
+              <Route path={'/plan'} element={<StudyPage />} />
+              <Route path={'/plan/:pageSlug'} element={<StudyPage />} />
               <Route path={'/room'} element={<></>} />
               <Route path={'/room/:roomId'} element={<></>} />
             </Route>

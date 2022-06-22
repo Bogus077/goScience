@@ -1,4 +1,9 @@
 export const frontendRoutes = {
   dashboard: '/',
-  demo: '/dashboards/demo',
+  plan: {
+    study: '/plan/study',
+    motivation: '/plan/motivation',
+    discipline: '/plan/discipline',
+    team: '/plan/team',
+  },
 };
