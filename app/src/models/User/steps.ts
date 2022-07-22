@@ -18,5 +18,5 @@ export type UserStep = {
       title: string;
     };
   };
-  errors?: string[];
+  errors?: Array<string | undefined>;
 };

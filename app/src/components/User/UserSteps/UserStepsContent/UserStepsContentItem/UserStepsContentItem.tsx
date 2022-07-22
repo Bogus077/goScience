@@ -30,6 +30,20 @@ export const UserStepsContentItem = ({
       : setStep((prevState) => prevState - 1);
   }, [setStep, step.buttons.prevButton]);
 
+  /**
+   * Перехватываем нажатие клавиши enter
+   */
+  //TODO: fix onEnter button
+  // useEffect(() => {
+  //   if (step.buttons.nextButton.available) {
+  //     document.addEventListener('keydown', function (event) {
+  //       if (event.code === 'Enter') {
+  //         handleNextStep();
+  //       }
+  //     });
+  //   }
+  // }, [handleNextStep, step.buttons.nextButton.available]);
+
   return (
     <div className={styles.content}>
       {step.img && (

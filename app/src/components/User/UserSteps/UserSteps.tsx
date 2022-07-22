@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { UserStep } from '../../../models/User/steps';
 import styles from './UserSteps.module.scss';
 import { UserStepsContent } from './UserStepsContent';

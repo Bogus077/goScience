@@ -1,10 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { CreateClassRequest, CreateClassResponse } from '../models/Class/class';
 import {
   AuthorizationRequest,
   AuthorizationResponse,
   CheckPhoneRequest,
   CheckPhoneResponse,
 } from '../models/User/auth';
+import { SignUpRequest, SignUpResponse } from '../models/User/signUp';
 import { rosatomBaseQueryWithReAuth } from '../utils/api';
 
 export const GSAPI = createApi({
@@ -28,7 +30,28 @@ export const GSAPI = createApi({
         body: params,
       }),
     }),
+
+    signUp: build.mutation<SignUpResponse, SignUpRequest>({
+      query: (params) => ({
+        url: '/user/signUp',
+        method: 'post',
+        body: params,
+      }),
+    }),
+
+    createClass: build.mutation<CreateClassResponse, CreateClassRequest>({
+      query: (params) => ({
+        url: '/class/createClass',
+        method: 'post',
+        body: params,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useCheckPhoneMutation } = GSAPI;
+export const {
+  useLoginMutation,
+  useCheckPhoneMutation,
+  useSignUpMutation,
+  useCreateClassMutation,
+} = GSAPI;

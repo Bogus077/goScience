@@ -7,7 +7,7 @@ export type AuthorizationRequest = {
 };
 
 /**
- * Ответ авторизации (пользователь + токен)
+ * Ответ авторизации (токен)
  */
 export type AuthorizationResponse = {
   accessToken: string;

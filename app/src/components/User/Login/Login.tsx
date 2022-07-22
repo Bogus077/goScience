@@ -7,11 +7,16 @@ import { FormikContext, useFormik } from 'formik';
 import { getFormikBaseProps } from '../../../utils/formik/baseProps';
 import { InputPhone } from '../../UI/Form/InputPhone';
 import loginBookImg from '../../../assets/img/loginbook.jpg';
-import { loginValidationSchema } from '../../../models/Validations/validations';
+import {
+  authInitialValues,
+  loginValidationSchema,
+} from '../../../models/Validations/validations';
 import { useCheckPhoneMutation, useLoginMutation } from '../../../redux/GSApi';
 import { AuthorizationRequest } from '../../../models/User/auth';
 import { FetchError } from '../../../models/Api/errors';
 import { useNavigate } from 'react-router-dom';
+import { frontendRoutes } from '../../../utils/router/routes';
+import { VALIDATION_ERRORS } from '../../../models/Validations/errors';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -25,17 +30,12 @@ export const Login = () => {
     }
     const result = await logIn(values);
     if ('data' in result && result.data) {
-      navigate('/');
+      navigate(frontendRoutes.dashboard);
     }
   };
 
-  const initialValues = {
-    phone: '',
-    password: '',
-  };
-
   const formik = useFormik({
-    initialValues,
+    initialValues: authInitialValues,
     validationSchema: loginValidationSchema,
     onSubmit: handleSubmit,
     ...getFormikBaseProps(),
@@ -49,20 +49,23 @@ export const Login = () => {
           'Используйте номер телефона, который указывали при регистрации.',
         link: {
           title: 'У меня ещё нет аккаунта',
-          url: '/#',
+          url: frontendRoutes.user.registration,
         },
         img: loginBookImg,
         buttons: {
           nextButton: {
             available:
-              formik.errors.phone !== undefined || formik.values.phone === ''
+              formik.errors.phone !== undefined ||
+              formik.values.phone === '' ||
+              formik.values.phone.search(/_/) !== -1 ||
+              isCheckPhoneLoading
                 ? false
                 : true,
             title: 'Дальше',
             isLoading: isCheckPhoneLoading,
           },
           prevButton: {
-            handleClick: () => navigate('/'),
+            handleClick: () => navigate(frontendRoutes.dashboard),
             title: 'Отмена',
           },
         },
@@ -114,7 +117,7 @@ export const Login = () => {
       const result = await checkPhone({ phone: formik.values.phone });
 
       if ('data' in result && !result.data.phoneExist) {
-        formik.setFieldError('phone', 'Номер телефона не зарегистрирован');
+        formik.setFieldError('phone', VALIDATION_ERRORS.PHONE.IS_NOT_EXISTS);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -138,8 +141,11 @@ export const Login = () => {
     if (isError && error && 'data' in error) {
       const errorData = error as FetchError;
       errorData.data.errorMessage === 'Invalid password'
-        ? formik.setFieldError('password', 'Неправильный пароль')
-        : formik.setFieldError('password', 'Ошибка сервера');
+        ? formik.setFieldError('password', VALIDATION_ERRORS.PASSWORD.WRONG)
+        : formik.setFieldError(
+            'password',
+            VALIDATION_ERRORS.SERVER.UNTYPED_ERROR
+          );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, isError]);

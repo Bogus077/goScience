@@ -11,6 +11,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { ProtectedRoutes } from './utils/router/ProtectedRoutes';
 import { StudyPage, LoginPage } from './pages';
+import { RegistrationPage } from './pages/Registration';
+import { frontendRoutes } from './utils/router/routes';
 
 const store = createStore(); // Possible additional params to store init func
 const persistor = persistStore(store);
@@ -21,13 +23,18 @@ export function App() {
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <Routes>
-            <Route path={'/login'} element={<LoginPage />} />
+            <Route path={frontendRoutes.user.login} element={<LoginPage />} />
+            <Route
+              path={frontendRoutes.user.registration}
+              element={<RegistrationPage />}
+            />
             <Route element={<ProtectedRoutes />}>
-              <Route path={'/'} element={<StudyPage />} />
-              <Route path={'/plan'} element={<StudyPage />} />
-              <Route path={'/plan/:pageSlug'} element={<StudyPage />} />
-              <Route path={'/room'} element={<></>} />
-              <Route path={'/room/:roomId'} element={<></>} />
+              <Route path={frontendRoutes.dashboard} element={<StudyPage />} />
+              <Route path={frontendRoutes.plan.index} element={<StudyPage />} />
+              <Route
+                path={`${frontendRoutes.plan.index}:pageSlug`}
+                element={<StudyPage />}
+              />
             </Route>
           </Routes>
         </BrowserRouter>

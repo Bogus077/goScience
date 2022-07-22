@@ -30,6 +30,12 @@ const authSlice = createSlice({
         state.authorization = payload;
       }
     );
+    builder.addMatcher(
+      GSAPI.endpoints.signUp.matchFulfilled,
+      (state, { payload }) => {
+        state.authorization = { accessToken: payload.accessToken };
+      }
+    );
   },
 });
 
