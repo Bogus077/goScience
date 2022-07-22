@@ -1,0 +1,1 @@
+export { StudyTableRow } from './StudyTableRow';

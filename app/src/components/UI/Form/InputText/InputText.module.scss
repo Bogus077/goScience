@@ -1,0 +1,39 @@
+@import '../../../../assets/helpers/index.scss';
+
+.input {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  & input {
+    width: 200px;
+    height: 30px;
+    border: 1px solid $disableColor;
+    border-radius: 4px;
+    background-color: $backgroundColor;
+    padding: 0 35px 0 10px;
+
+    &::placeholder {
+      color: $secondaryColor;
+    }
+  }
+
+  &__label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  &_invalid input {
+    border-color: $negativeColor;
+  }
+
+  &__error {
+    color: $negativeColor;
+  }
+
+  &__validateIcon {
+    position: absolute;
+    left: 175px;
+    top: 30px;
+  }
+}

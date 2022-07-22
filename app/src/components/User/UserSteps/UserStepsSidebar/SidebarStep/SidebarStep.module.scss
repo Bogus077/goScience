@@ -1,0 +1,50 @@
+@import '../../../../../assets/helpers/index.scss';
+
+.step {
+  display: flex;
+  align-items: center;
+  padding: 10px 40px;
+  cursor: pointer;
+
+  &__number {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 12px;
+    margin-right: 10px;
+    color: $secondaryColor;
+  }
+
+  &__label {
+    font-weight: bold;
+    transition: 0.3s;
+    color: $secondaryColor;
+  }
+
+  &:hover &__label {
+    transform: translateX(3px);
+  }
+
+  &_current &__number {
+    background-color: $mainColor;
+    color: #fff;
+  }
+
+  &_current &__label {
+    color: $mainTextColor;
+  }
+
+  &_prev &__number {
+    background-color: $positiveColor;
+    color: #fff;
+  }
+
+  &_prev &__label {
+    color: $mainTextColor;
+  }
+}

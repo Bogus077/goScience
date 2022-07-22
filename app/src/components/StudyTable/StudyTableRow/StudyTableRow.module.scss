@@ -1,0 +1,22 @@
+@import '../../../assets/helpers/colors.scss';
+
+.row {
+  min-height: 70px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-top: 1px solid $disableColor;
+  padding: 10px 0px;
+
+  &__arrow {
+    padding: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &_active {
+      transform: rotate(180deg);
+      color: $mainColor;
+    }
+  }
+}

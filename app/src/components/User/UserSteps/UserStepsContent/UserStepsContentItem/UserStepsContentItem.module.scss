@@ -1,0 +1,49 @@
+@import '../../../../../assets/helpers/index.scss';
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+
+  &__header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  &__link {
+    color: $secondaryColor;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  &__description {
+    max-width: 50%;
+    color: $secondaryColor;
+  }
+
+  &__img {
+    position: absolute;
+    z-index: -1;
+    bottom: 0px;
+    right: 0px;
+  }
+
+  &__main {
+    margin-top: 40px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+}

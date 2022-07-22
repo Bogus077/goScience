@@ -1,20 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { userReducer } from './userSlice';
+import { authReducer } from './authSlice';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
+import { GSAPI } from './GSApi';
 
 const persistUserConfig = {
   key: 'KKUser',
   storage,
-  whitelist: ['authorization', 'user'],
+  whitelist: ['authorization'],
 };
 
-const persistedUserReducer = persistReducer(persistUserConfig, userReducer);
+const persistedUserReducer = persistReducer(persistUserConfig, authReducer);
 
 export const createStore = () =>
   configureStore({
     reducer: {
-      user: persistedUserReducer,
+      authorization: persistedUserReducer,
+      [GSAPI.reducerPath]: GSAPI.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

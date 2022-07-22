@@ -1,0 +1,35 @@
+@import '../../../../assets/helpers/index.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 30px;
+  margin-top: 20px;
+  border: 1px solid $mainColor;
+  color: $mainColor;
+  background-color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &__label {
+    transition: 0.3s;
+    color: inherit;
+    font-weight: bold;
+  }
+
+  &:hover &__label {
+    transform: translateX(5px);
+  }
+
+  &_inactive {
+    border-color: $disableColor;
+    color: $disableColor;
+  }
+
+  &_warning {
+    border-color: $negativeColor;
+    color: $negativeColor;
+  }
+}

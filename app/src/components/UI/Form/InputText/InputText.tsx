@@ -1,0 +1,52 @@
+import { useField } from 'formik';
+import React, { useMemo } from 'react';
+import classNames from 'classnames/bind';
+import styles from './InputText.module.scss';
+import { IconCross } from '../../Icons/Forms/IconCross';
+const cx = classNames.bind(styles);
+
+type InputTextTypes = {
+  label?: string;
+  name: string;
+  placeholder?: string;
+  type?: string;
+  required?: boolean;
+  disabled?: boolean;
+  onChange?: () => void;
+  onBlur?: () => void;
+};
+
+export const InputText = ({
+  label,
+  name,
+  placeholder,
+  type,
+  required,
+  disabled,
+  onBlur,
+}: InputTextTypes) => {
+  const [field, { error }] = useField<string>(name);
+
+  const isInvalid = useMemo(() => {
+    return Boolean(error);
+  }, [error]);
+
+  return (
+    <div className={cx('input', { input_invalid: isInvalid })}>
+      {label && <span className={styles.input__label}>{label}</span>}
+      <input
+        {...field}
+        type={type}
+        placeholder={placeholder}
+        disabled={disabled}
+        onBlur={onBlur}
+      />
+      {isInvalid && (
+        <div className={styles.input__validateIcon}>
+          <IconCross />
+        </div>
+      )}
+      {isInvalid && <span className={styles.input__error}>{error}</span>}
+    </div>
+  );
+};
