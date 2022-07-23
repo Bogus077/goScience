@@ -35,5 +35,9 @@
     position: absolute;
     left: 175px;
     top: 30px;
+
+    &_up {
+      top: 9px;
+    }
   }
 }

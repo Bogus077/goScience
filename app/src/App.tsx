@@ -32,7 +32,7 @@ export function App() {
               <Route path={frontendRoutes.dashboard} element={<StudyPage />} />
               <Route path={frontendRoutes.plan.index} element={<StudyPage />} />
               <Route
-                path={`${frontendRoutes.plan.index}:pageSlug`}
+                path={`${frontendRoutes.plan.index}/:pageSlug`}
                 element={<StudyPage />}
               />
             </Route>

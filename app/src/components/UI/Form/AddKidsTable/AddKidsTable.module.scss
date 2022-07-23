@@ -1,0 +1,15 @@
+@import '../../../../assets/helpers/index.scss';
+
+.table {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+
+  &__header {
+    font-weight: bold;
+  }
+
+  &__subheader {
+    color: $secondaryColor;
+  }
+}

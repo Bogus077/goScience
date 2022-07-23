@@ -35,11 +35,19 @@
     position: absolute;
     left: 175px;
     top: 30px;
+
+    &_up {
+      top: 9px;
+    }
   }
 
   &__icon {
     position: absolute;
     left: 10px;
     top: 30px;
+
+    &_up {
+      top: 9px;
+    }
   }
 }

@@ -1,0 +1,23 @@
+@import '../../../../../assets/helpers/index.scss';
+
+.row {
+  display: flex;
+  align-items: center;
+  padding: 10px 0px;
+  background-color: rgba(255, 255, 255, 0.9);
+
+  & .col {
+    width: 220px;
+  }
+
+  & .col:first-child {
+    width: 20px;
+  }
+}
+
+.delete {
+  margin-left: 10px;
+  color: $secondaryColor;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,1 @@
+export { AddKidsTableRow } from './AddKidsTableRow';

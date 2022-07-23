@@ -45,3 +45,8 @@ export const signUpValidationSchema = object({
   surname: string().required(VALIDATION_ERRORS.REQUIRED),
   classLabel: string().required(VALIDATION_ERRORS.REQUIRED),
 });
+
+export const addKidInitialValues = {
+  name: '',
+  surname: '',
+};

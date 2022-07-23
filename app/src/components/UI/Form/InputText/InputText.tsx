@@ -42,7 +42,11 @@ export const InputText = ({
         onBlur={onBlur}
       />
       {isInvalid && (
-        <div className={styles.input__validateIcon}>
+        <div
+          className={cx('input__validateIcon', {
+            input__validateIcon_up: !label,
+          })}
+        >
           <IconCross />
         </div>
       )}

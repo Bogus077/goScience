@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { frontendRoutes } from '../../utils/router/routes';
 import { ActivityBar } from '../ActivityBar';
@@ -8,6 +8,10 @@ import { PlanPanelMenu } from './PlanPanelMenu';
 
 export const PlanPanel = () => {
   const location = useLocation();
+
+  useEffect(() => {
+    document.title = 'Планирование | GS';
+  });
 
   //TODO: Cut out to backend settings
   const normative = 20;

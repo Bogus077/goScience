@@ -45,11 +45,15 @@ export const InputPhone = ({
         onBlur={onBlur}
       />
       {isInvalid && (
-        <div className={styles.input__validateIcon}>
+        <div
+          className={cx('input__validateIcon', {
+            input__validateIcon_up: !label,
+          })}
+        >
           <IconCross />
         </div>
       )}
-      <div className={styles.input__icon}>
+      <div className={cx('input__icon', { input__icon_up: !label })}>
         <IconPhone />
       </div>
       {isInvalid && <span className={styles.input__error}>{error}</span>}

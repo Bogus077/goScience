@@ -1,14 +1,16 @@
 import { FormikContext, useFormik } from 'formik';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SignUpRequest } from '../../../models/User/signUp';
 import {
+  addKidInitialValues,
   signUpInitialValues,
   signUpValidationSchema,
 } from '../../../models/Validations/validations';
 import {
   useCheckPhoneMutation,
   useCreateClassMutation,
+  useCreateKidMutation,
   useSignUpMutation,
 } from '../../../redux/GSApi';
 import { getFormikBaseProps } from '../../../utils/formik/baseProps';
@@ -21,6 +23,8 @@ import { FetchError } from '../../../models/Api/errors';
 import { UserSteps } from '../UserSteps';
 import { InputPhone } from '../../UI/Form/InputPhone';
 import { InputText } from '../../UI/Form/InputText';
+import { AddKidsTable } from '../../UI/Form/AddKidsTable';
+import { Kid } from '../../../models/Kid/kid';
 
 export const Registration = () => {
   const navigate = useNavigate();
@@ -35,6 +39,9 @@ export const Registration = () => {
   ] = useCreateClassMutation();
   const [checkPhone, { isLoading: isCheckPhoneLoading }] =
     useCheckPhoneMutation();
+  const [createKids, { isLoading: isCreateKidLoading }] =
+    useCreateKidMutation();
+  const [kids, setKids] = useState<Kid[]>([addKidInitialValues]);
 
   const handleSubmit = async (
     values: SignUpRequest & { password_confirm: string; classLabel: string }
@@ -50,7 +57,17 @@ export const Registration = () => {
       });
 
       if ('data' in createClassResponse && createClassResponse.data) {
-        navigate(frontendRoutes.dashboard);
+        const createKidsResponse = await createKids(
+          kids
+            .filter((kid) => kid.name !== '' && kid.surname !== '')
+            .map((kid) => {
+              return { ...kid, ClassId: createClassResponse.data.id };
+            })
+        );
+
+        if ('data' in createKidsResponse && createKidsResponse.data) {
+          navigate(frontendRoutes.dashboard);
+        }
       }
     }
   };
@@ -305,6 +322,7 @@ export const Registration = () => {
               type="text"
               onBlur={() => formik.validateField('classLabel')}
             />
+            <AddKidsTable kids={kids} setKids={setKids} />
           </div>
           <div>Страница подтверждения</div>
         </UserSteps>

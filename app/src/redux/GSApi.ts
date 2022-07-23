@@ -1,5 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { CreateClassRequest, CreateClassResponse } from '../models/Class/class';
+import { CreateKidsRequest, CreateKidsResponse } from '../models/Kid/kid';
 import {
   AuthorizationRequest,
   AuthorizationResponse,
@@ -46,6 +47,14 @@ export const GSAPI = createApi({
         body: params,
       }),
     }),
+
+    createKid: build.mutation<CreateKidsResponse, CreateKidsRequest>({
+      query: (params) => ({
+        url: '/kid/createKids',
+        method: 'post',
+        body: params,
+      }),
+    }),
   }),
 });
 
@@ -54,4 +63,5 @@ export const {
   useCheckPhoneMutation,
   useSignUpMutation,
   useCreateClassMutation,
+  useCreateKidMutation,
 } = GSAPI;
