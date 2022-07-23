@@ -1,15 +1,15 @@
 import { FormikContext, useFormik } from 'formik';
 import React, { useEffect } from 'react';
-import { Kid } from '../../../../../models/Kid/kid';
+import { KidRow } from '../../../../../models/Kid/kid';
 import { IconCheck } from '../../../Icons/Forms/IconCheck';
 import { IconCross } from '../../../Icons/Forms/IconCross';
 import { InputText } from '../../InputText';
 import styles from './AddKidsTableRow.module.scss';
 
 type AddKidsTableRowTypes = {
-  kids: Kid[];
+  kids: KidRow[];
   index: number;
-  setKids: React.Dispatch<React.SetStateAction<Kid[]>>;
+  setKids: React.Dispatch<React.SetStateAction<KidRow[]>>;
 };
 
 export const AddKidsTableRow = ({

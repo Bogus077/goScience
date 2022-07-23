@@ -11,12 +11,14 @@ type Props = {
   name: 'plan' | 'assistant' | 'classSettings' | 'stats';
   active?: boolean;
   expanded?: boolean;
+  onClick?: () => void;
 };
 
 export const MainMenuItem = ({
   name,
   active = false,
   expanded = false,
+  onClick = () => {},
 }: Props) => {
   const item = { label: 'Название', icon: <></> };
 
@@ -40,7 +42,10 @@ export const MainMenuItem = ({
   }
 
   return (
-    <div className={styles.item__wrapper}>
+    <div
+      className={styles.item__wrapper}
+      onClick={() => (active ? () => {} : onClick())}
+    >
       <div className={cx('item', { item_active: active })}>{item.icon}</div>
       <div className={cx('item__label', { item__label_expanded: expanded })}>
         {item.label}

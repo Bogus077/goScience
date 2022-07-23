@@ -24,7 +24,7 @@ import { UserSteps } from '../UserSteps';
 import { InputPhone } from '../../UI/Form/InputPhone';
 import { InputText } from '../../UI/Form/InputText';
 import { AddKidsTable } from '../../UI/Form/AddKidsTable';
-import { Kid } from '../../../models/Kid/kid';
+import { KidRow } from '../../../models/Kid/kid';
 
 export const Registration = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ export const Registration = () => {
     useCheckPhoneMutation();
   const [createKids, { isLoading: isCreateKidLoading }] =
     useCreateKidMutation();
-  const [kids, setKids] = useState<Kid[]>([addKidInitialValues]);
+  const [kids, setKids] = useState<KidRow[]>([addKidInitialValues]);
 
   const handleSubmit = async (
     values: SignUpRequest & { password_confirm: string; classLabel: string }

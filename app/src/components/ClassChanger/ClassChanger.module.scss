@@ -10,6 +10,10 @@
   &__name {
     font-size: 25px;
     color: $mainColor;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 80px;
   }
 
   &__menu {

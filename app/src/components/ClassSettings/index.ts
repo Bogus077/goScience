@@ -1,0 +1,1 @@
+export { ClassSettings } from './ClassSettings';

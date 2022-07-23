@@ -1,5 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { CreateClassRequest, CreateClassResponse } from '../models/Class/class';
+import {
+  CreateClassRequest,
+  CreateClassResponse,
+  GetUserClassesResponse,
+} from '../models/Class/class';
 import { CreateKidsRequest, CreateKidsResponse } from '../models/Kid/kid';
 import {
   AuthorizationRequest,
@@ -8,12 +12,13 @@ import {
   CheckPhoneResponse,
 } from '../models/User/auth';
 import { SignUpRequest, SignUpResponse } from '../models/User/signUp';
+import { getUserResponse } from '../models/User/user';
 import { rosatomBaseQueryWithReAuth } from '../utils/api';
 
 export const GSAPI = createApi({
   reducerPath: 'GS_REDUCER',
   baseQuery: rosatomBaseQueryWithReAuth,
-  tagTypes: ['Users', 'User'],
+  tagTypes: ['Users', 'User', 'Classes', 'Class'],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
     login: build.mutation<AuthorizationResponse, AuthorizationRequest>({
@@ -55,6 +60,31 @@ export const GSAPI = createApi({
         body: params,
       }),
     }),
+
+    getUser: build.query<getUserResponse, unknown>({
+      query: () => ({
+        url: '/user/getUser',
+      }),
+      providesTags: (result) =>
+        result ? [{ type: 'User' as const, id: result.id }] : [],
+    }),
+
+    getUsersClasses: build.query<GetUserClassesResponse, unknown>({
+      query: () => ({
+        url: '/class/getClasses',
+      }),
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'Class' as const,
+                id,
+              })),
+              'Classes',
+            ]
+          : ['Classes'];
+      },
+    }),
   }),
 });
 
@@ -64,4 +94,6 @@ export const {
   useSignUpMutation,
   useCreateClassMutation,
   useCreateKidMutation,
+  useGetUserQuery,
+  useGetUsersClassesQuery,
 } = GSAPI;

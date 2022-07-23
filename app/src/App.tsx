@@ -10,8 +10,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { ProtectedRoutes } from './utils/router/ProtectedRoutes';
-import { StudyPage, LoginPage } from './pages';
-import { RegistrationPage } from './pages/Registration';
+import {
+  StudyPage,
+  LoginPage,
+  ClassSettingsPage,
+  RegistrationPage,
+} from './pages';
 import { frontendRoutes } from './utils/router/routes';
 
 const store = createStore(); // Possible additional params to store init func
@@ -34,6 +38,10 @@ export function App() {
               <Route
                 path={`${frontendRoutes.plan.index}/:pageSlug`}
                 element={<StudyPage />}
+              />
+              <Route
+                path={frontendRoutes.settings.class}
+                element={<ClassSettingsPage />}
               />
             </Route>
           </Routes>

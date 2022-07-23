@@ -1,7 +1,18 @@
-export type Kid = {
+import { Taskgroup } from '../Tasks/tasks';
+
+export type KidRow = {
   name: string;
   surname: string;
   phone?: string;
+};
+
+export type Kid = {
+  id?: number;
+  name: string;
+  surname: string;
+  phone?: string;
+  ClassId?: string;
+  Taskgroups?: Taskgroup[];
 };
 
 /**

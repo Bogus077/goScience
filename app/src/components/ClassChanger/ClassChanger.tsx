@@ -2,10 +2,14 @@ import React from 'react';
 import { Tip } from '../UI/Tip';
 import styles from './ClassChanger.module.scss';
 
-export const ClassChanger = () => {
+type ClassChangerTypes = {
+  userClass: string;
+};
+
+export const ClassChanger = ({ userClass }: ClassChangerTypes) => {
   return (
     <div className={styles.class}>
-      <span className={styles.class__name}>5Г</span>
+      <span className={styles.class__name}>{userClass}</span>
       <div className={styles.class__menu}>
         <span>класс</span> <div className={styles.triangle} />
       </div>

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { Kid } from '../../../../models/Kid/kid';
+import { KidRow } from '../../../../models/Kid/kid';
 import { addKidInitialValues } from '../../../../models/Validations/validations';
 import styles from './AddKidsTable.module.scss';
 import { AddKidsTableRow } from './AddKidsTableRow';
 
 type AddKidsTableTypes = {
-  kids: Kid[];
-  setKids: React.Dispatch<React.SetStateAction<Kid[]>>;
+  kids: KidRow[];
+  setKids: React.Dispatch<React.SetStateAction<KidRow[]>>;
 };
 
 export const AddKidsTable = ({ kids, setKids }: AddKidsTableTypes) => {

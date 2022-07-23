@@ -11,4 +11,7 @@ export const frontendRoutes = {
     login: '/login',
     registration: '/registration',
   },
+  settings: {
+    class: '/settings',
+  },
 };
