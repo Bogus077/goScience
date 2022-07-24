@@ -5,7 +5,7 @@ import styles from './SwitchBar.module.scss';
 const cx = classNames.bind(styles);
 
 type SwitchBarTypes = {
-  items: { class: Class; active: boolean }[];
+  items: { label: string; active: boolean; id: number }[];
   handleChangeActive: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -23,10 +23,10 @@ export const SwitchBar = ({ items, handleChangeActive }: SwitchBarTypes) => {
           className={cx('bar__item', {
             bar__item_active: item.active,
           })}
-          key={item.class.id}
-          onClick={() => handleClick(item.active, item.class.id)}
+          key={item.id}
+          onClick={() => handleClick(item.active, item.id)}
         >
-          {item.class.label}
+          {item.label}
         </div>
       ))}
     </div>

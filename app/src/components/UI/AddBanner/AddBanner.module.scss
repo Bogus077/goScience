@@ -1,0 +1,23 @@
+@import '../../../assets/helpers/index.scss';
+
+.banner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: 2px dashed $disableColor;
+  font-size: 20px;
+  color: $secondaryColor;
+  cursor: pointer;
+
+  &:hover {
+    color: $mainTextColor;
+  }
+
+  & span {
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}

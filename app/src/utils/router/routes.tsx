@@ -14,4 +14,7 @@ export const frontendRoutes = {
   settings: {
     class: '/settings',
   },
+  kid: {
+    add: '/kid/add',
+  },
 };

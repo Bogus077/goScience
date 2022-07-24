@@ -1,0 +1,41 @@
+@import '../../../assets/helpers/index.scss';
+
+.form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__header {
+    height: 50px;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 10px;
+
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+
+  &__img {
+    display: flex;
+    position: absolute;
+    width: 50%;
+    height: 90%;
+    right: 20px;
+    bottom: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+  }
+}

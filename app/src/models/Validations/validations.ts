@@ -62,3 +62,11 @@ export const editKidValidationSchema = object({
   name: string().required(VALIDATION_ERRORS.REQUIRED),
   surname: string().required(VALIDATION_ERRORS.REQUIRED),
 });
+
+export const createKidInitialValues = {
+  name: '',
+  surname: '',
+  phone: '',
+};
+
+export const createKidValidationSchema = editKidValidationSchema;

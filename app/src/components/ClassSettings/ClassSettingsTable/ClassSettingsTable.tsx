@@ -16,6 +16,14 @@ export const ClassSettingsTable = ({ userClass }: ClassSettingsTableTypes) => {
       {userClass.Kids.map((kid) => (
         <ClassSettingRow kid={kid} key={kid.id} />
       ))}
+      {userClass.Kids.length === 0 && (
+        <div className={styles.table__empty}>
+          <span className={styles.table__empty_header}>Тут никого нет</span>
+          <span className={styles.table__empty_descr}>
+            В этот класс ещё не добавлен ни один ученик
+          </span>
+        </div>
+      )}
     </div>
   );
 };

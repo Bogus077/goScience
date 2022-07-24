@@ -64,6 +64,8 @@ export const GSAPI = createApi({
         method: 'post',
         body: params,
       }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Class' }, 'Classes'],
     }),
 
     getUser: build.query<getUserResponse, unknown>({

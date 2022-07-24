@@ -56,7 +56,15 @@ export const InputPhone = ({
       <div className={cx('input__icon', { input__icon_up: !label })}>
         <IconPhone />
       </div>
-      {isInvalid && <span className={styles.input__error}>{error}</span>}
+      {isInvalid && (
+        <span
+          className={cx('input__error', {
+            input__error_up: !label,
+          })}
+        >
+          {error}
+        </span>
+      )}
     </div>
   );
 };

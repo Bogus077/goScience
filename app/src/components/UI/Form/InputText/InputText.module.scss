@@ -30,8 +30,12 @@
   &__error {
     color: $negativeColor;
     position: absolute;
-    top: 30px;
+    top: 55px;
     font-size: 12px;
+
+    &_up {
+      top: 30px;
+    }
   }
 
   &__validateIcon {

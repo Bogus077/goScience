@@ -17,6 +17,7 @@ import {
   RegistrationPage,
 } from './pages';
 import { frontendRoutes } from './utils/router/routes';
+import { CreateKidPage } from './pages/Kid/CreateKid';
 
 const store = createStore(); // Possible additional params to store init func
 const persistor = persistStore(store);
@@ -32,6 +33,7 @@ export function App() {
               path={frontendRoutes.user.registration}
               element={<RegistrationPage />}
             />
+
             <Route element={<ProtectedRoutes />}>
               <Route path={frontendRoutes.dashboard} element={<StudyPage />} />
               <Route path={frontendRoutes.plan.index} element={<StudyPage />} />
@@ -39,9 +41,15 @@ export function App() {
                 path={`${frontendRoutes.plan.index}/:pageSlug`}
                 element={<StudyPage />}
               />
+
               <Route
                 path={frontendRoutes.settings.class}
                 element={<ClassSettingsPage />}
+              />
+
+              <Route
+                path={frontendRoutes.kid.add}
+                element={<CreateKidPage />}
               />
             </Route>
           </Routes>

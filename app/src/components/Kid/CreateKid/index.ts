@@ -1,0 +1,1 @@
+export { CreateKid } from './CreateKid';

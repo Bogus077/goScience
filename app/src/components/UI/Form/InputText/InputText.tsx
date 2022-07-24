@@ -50,7 +50,15 @@ export const InputText = ({
           <IconCross />
         </div>
       )}
-      {isInvalid && <span className={styles.input__error}>{error}</span>}
+      {isInvalid && (
+        <span
+          className={cx('input__error', {
+            input__error_up: !label,
+          })}
+        >
+          {error}
+        </span>
+      )}
     </div>
   );
 };
