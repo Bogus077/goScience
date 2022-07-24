@@ -1,0 +1,38 @@
+@import '../../../../assets/helpers/index.scss';
+
+.row {
+  display: flex;
+  align-items: center;
+  min-height: 75px;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid $disableColor;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.col {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+
+  &__button {
+    padding-left: 5px;
+    cursor: pointer;
+
+    &:not(.col_disabled):hover .col__do {
+      text-decoration: underline;
+    }
+  }
+
+  &__do {
+    padding-left: 5px;
+    color: $mainTextColor;
+  }
+
+  &_disabled &__do {
+    color: $secondaryColor;
+  }
+}

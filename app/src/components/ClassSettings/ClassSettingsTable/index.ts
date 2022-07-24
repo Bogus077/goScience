@@ -1,0 +1,1 @@
+export { ClassSettingsTable } from './ClassSettingsTable';

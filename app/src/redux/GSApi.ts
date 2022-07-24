@@ -4,7 +4,12 @@ import {
   CreateClassResponse,
   GetUserClassesResponse,
 } from '../models/Class/class';
-import { CreateKidsRequest, CreateKidsResponse } from '../models/Kid/kid';
+import {
+  CreateKidsRequest,
+  CreateKidsResponse,
+  UpdateKidsRequest,
+  UpdateKidsResponse,
+} from '../models/Kid/kid';
 import {
   AuthorizationRequest,
   AuthorizationResponse,
@@ -85,6 +90,16 @@ export const GSAPI = createApi({
           : ['Classes'];
       },
     }),
+
+    updateKid: build.mutation<UpdateKidsResponse, UpdateKidsRequest>({
+      query: (params) => ({
+        url: '/kid/update',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Class', id: result?.ClassId }, 'Classes'],
+    }),
   }),
 });
 
@@ -96,4 +111,5 @@ export const {
   useCreateKidMutation,
   useGetUserQuery,
   useGetUsersClassesQuery,
+  useUpdateKidMutation,
 } = GSAPI;

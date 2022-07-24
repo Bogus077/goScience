@@ -29,6 +29,9 @@
 
   &__error {
     color: $negativeColor;
+    position: absolute;
+    top: 30px;
+    font-size: 12px;
   }
 
   &__validateIcon {

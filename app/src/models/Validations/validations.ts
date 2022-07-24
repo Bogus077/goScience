@@ -50,3 +50,15 @@ export const addKidInitialValues = {
   name: '',
   surname: '',
 };
+
+/**
+ * Схема валидации таблица настроек класса
+ */
+export const editKidValidationSchema = object({
+  phone: string().matches(
+    VALIDATION_REGEXP.phone,
+    VALIDATION_ERRORS.PHONE.INCORRECT
+  ),
+  name: string().required(VALIDATION_ERRORS.REQUIRED),
+  surname: string().required(VALIDATION_ERRORS.REQUIRED),
+});

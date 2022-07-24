@@ -21,5 +21,5 @@ export const createStore = () =>
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: false,
-      }),
+      }).concat(GSAPI.middleware),
   });

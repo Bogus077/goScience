@@ -32,3 +32,18 @@ export type CreateKidsResponse = {
   phone?: string;
   ClassId: number;
 }[];
+
+export type UpdateKidsRequest = {
+  id: number;
+  name: string;
+  surname: string;
+  phone?: string;
+};
+
+export type UpdateKidsResponse = {
+  id: number;
+  name: string;
+  surname: string;
+  phone?: string;
+  ClassId: number;
+};
