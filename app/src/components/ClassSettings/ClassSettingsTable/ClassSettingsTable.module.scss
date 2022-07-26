@@ -22,22 +22,33 @@
   }
 
   &__empty {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #fff;
-    padding: 50px 20px;
+    padding: 50px 140px 50px 20px;
 
     &_header {
       font-size: 20px;
       font-weight: bold;
+      z-index: 1;
+      background-color: #fff;
     }
 
     &_descr {
       color: $secondaryColor;
       font-size: 16px;
       margin-top: 10px;
+      z-index: 1;
+      background-color: #fff;
+    }
+
+    img {
+      position: absolute;
+      z-index: 0;
+      right: 40px;
     }
   }
 }

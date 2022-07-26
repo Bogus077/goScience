@@ -16,6 +16,16 @@
     &::placeholder {
       color: $secondaryColor;
     }
+
+    @media screen and (max-width: 1200px) {
+      width: 150px;
+      padding-right: 10px;
+      padding-left: 25px;
+    }
+
+    @media screen and (max-width: 1024px) {
+      width: 100px;
+    }
   }
 
   &__label {
@@ -40,11 +50,11 @@
 
   &__validateIcon {
     position: absolute;
-    left: 175px;
+    right: 5px;
     top: 30px;
 
     &_up {
-      top: 9px;
+      top: 8px;
     }
   }
 

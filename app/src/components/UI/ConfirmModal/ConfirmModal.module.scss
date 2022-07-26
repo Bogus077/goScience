@@ -1,0 +1,83 @@
+@import '../../../assets/helpers/index.scss';
+
+.modal {
+  min-width: 400px;
+  min-height: 200px;
+  max-width: 50vw;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  overflow: hidden;
+
+  &__header {
+    height: 40px;
+    border-bottom: 1px solid $disableColor;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  &__message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 16px;
+    padding: 20px;
+  }
+
+  &__confirm {
+    display: flex;
+    position: relative;
+
+    & > * {
+      height: 40px;
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      text-transform: uppercase;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    &_negative {
+      background-color: $disableColor;
+      color: $secondaryColor;
+
+      &:hover {
+        color: $mainTextColor;
+      }
+    }
+
+    &_positive {
+      color: #fff;
+      opacity: 0.9;
+
+      &_red {
+        background-color: $negativeColor;
+      }
+
+      &_green {
+        background-color: $positiveColor;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

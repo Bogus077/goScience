@@ -3,6 +3,7 @@
 .row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   min-height: 75px;
   padding: 10px 20px;
   background-color: #fff;
@@ -20,6 +21,9 @@
 
   &__button {
     padding-left: 5px;
+    min-width: 95px;
+    display: flex;
+    justify-content: center;
     cursor: pointer;
 
     &:not(.col_disabled):hover .col__do {

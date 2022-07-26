@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FormikContext, useFormik } from 'formik';
 import { Kid } from '../../../../models/Kid/kid';
 import { editKidValidationSchema } from '../../../../models/Validations/validations';
@@ -8,8 +8,12 @@ import { IconCheck } from '../../../UI/Icons/Forms/IconCheck';
 import { IconCross } from '../../../UI/Icons/Forms/IconCross';
 import classNames from 'classnames/bind';
 import styles from './ClassSettingRow.module.scss';
-import { useUpdateKidMutation } from '../../../../redux/GSApi';
+import {
+  useRemoveKidMutation,
+  useUpdateKidMutation,
+} from '../../../../redux/GSApi';
 import { Loader } from '../../../UI/Loader';
+import { ConfirmModal } from '../../../UI/ConfirmModal';
 const cx = classNames.bind(styles);
 
 type ClassSettingRowTypes = {
@@ -18,8 +22,10 @@ type ClassSettingRowTypes = {
 
 export const ClassSettingRow = ({ kid }: ClassSettingRowTypes) => {
   const [isEdited, setIsEdited] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const [updateKid, { isLoading }] = useUpdateKidMutation();
+  const [removeKid, { isLoading: isRemoveLoading }] = useRemoveKidMutation();
 
   const initialValues = {
     name: kid.name,
@@ -27,23 +33,32 @@ export const ClassSettingRow = ({ kid }: ClassSettingRowTypes) => {
     phone: kid.phone ?? '',
   };
 
-  const handleSubmit = async (values: typeof initialValues) => {
-    if (isLoading) {
-      return;
-    }
+  const handleSubmit = useCallback(
+    async (values: typeof initialValues) => {
+      if (isLoading) {
+        return;
+      }
 
-    let updatingKid = {
-      id: kid.id ?? 999999,
-      name: values.name,
-      surname: values.surname,
-    };
+      let updatingKid = {
+        id: kid.id ?? 999999,
+        name: values.name,
+        surname: values.surname,
+      };
 
-    if (values.phone) {
-      updatingKid = { ...updatingKid, ...{ phone: values.phone } };
-    }
+      if (values.phone) {
+        updatingKid = { ...updatingKid, ...{ phone: values.phone } };
+      }
 
-    await updateKid(updatingKid);
-  };
+      await updateKid(updatingKid);
+    },
+    [isLoading, kid.id, updateKid]
+  );
+
+  const handleRemove = useCallback(async () => {
+    if (isRemoveLoading) return;
+    await removeKid({ id: kid.id ?? 999999 });
+    setModalOpen(false);
+  }, [isRemoveLoading, kid.id, removeKid]);
 
   const formik = useFormik({
     initialValues,
@@ -125,11 +140,28 @@ export const ClassSettingRow = ({ kid }: ClassSettingRowTypes) => {
             </span>
           </div>
         )}
-        <div className={cx('col', 'col__button')}>
-          <IconCross />
-          <span className={styles.col__do}>Удалить</span>
-        </div>
+        {isRemoveLoading ? (
+          <Loader />
+        ) : (
+          <div
+            className={cx('col', 'col__button')}
+            onClick={() => setModalOpen(true)}
+          >
+            <IconCross />
+            <span className={styles.col__do}>Удалить</span>
+          </div>
+        )}
       </FormikContext.Provider>
+      <ConfirmModal
+        isOpen={isModalOpen}
+        titleText="Удалить ученика"
+        message={`Вы действительно хотите удалить ученика: ${kid.name} ${kid.surname}? Это действие необратимо.`}
+        type="negative"
+        acceptText="Удалить"
+        rejectText="Отменить"
+        onAccept={handleRemove}
+        onReject={() => setModalOpen(false)}
+      />
     </div>
   );
 };

@@ -47,3 +47,9 @@ export type UpdateKidsResponse = {
   phone?: string;
   ClassId: number;
 };
+
+export type RemoveKidsRequest = {
+  id: number;
+};
+
+export type RemoveKidsResponse = string;

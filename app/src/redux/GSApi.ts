@@ -7,6 +7,8 @@ import {
 import {
   CreateKidsRequest,
   CreateKidsResponse,
+  RemoveKidsRequest,
+  RemoveKidsResponse,
   UpdateKidsRequest,
   UpdateKidsResponse,
 } from '../models/Kid/kid';
@@ -102,6 +104,16 @@ export const GSAPI = createApi({
       invalidatesTags: (result, error, arg) =>
         error ? [] : [{ type: 'Class', id: result?.ClassId }, 'Classes'],
     }),
+
+    removeKid: build.mutation<RemoveKidsResponse, RemoveKidsRequest>({
+      query: (params) => ({
+        url: '/kid/remove',
+        method: 'delete',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Class' }, 'Classes'],
+    }),
   }),
 });
 
@@ -114,4 +126,5 @@ export const {
   useGetUserQuery,
   useGetUsersClassesQuery,
   useUpdateKidMutation,
+  useRemoveKidMutation,
 } = GSAPI;
