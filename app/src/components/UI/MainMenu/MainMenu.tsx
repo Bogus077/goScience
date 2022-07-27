@@ -54,7 +54,10 @@ export const MainMenu = ({ user }: MainMenuTypes) => {
       </div>
 
       <div className={styles.menu__classChanger}>
-        <ClassChanger userClass={user.UserSetting?.Class?.label ?? '??'} />
+        <ClassChanger
+          userClass={user.UserSetting?.Class?.label ?? '??'}
+          classes={user.Classes}
+        />
       </div>
 
       <div className={styles.menu__user}>

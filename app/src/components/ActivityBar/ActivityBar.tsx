@@ -1,7 +1,6 @@
 import React from 'react';
 import { IconGraph } from '../UI/Icons/IconGraph';
 import { ProgressRound } from '../UI/ProgressRound';
-import { Tip } from '../UI/Tip';
 import styles from './ActivityBar.module.scss';
 
 type Props = {
@@ -49,14 +48,6 @@ export const ActivityBar = ({ normative, fact }: Props) => {
         </div>
         <div className={styles.progress}>
           <ProgressRound normative={normative} fact={fact} />
-          <Tip side="right">
-            <div style={{ padding: '20px', minWidth: '200px' }}>
-              <span>
-                Очки активности показывают, насколько продуктивным был
-                сегодняшний день по сравнению с остальными
-              </span>
-            </div>
-          </Tip>
         </div>
       </div>
       <div className={styles.bar__assistant}>

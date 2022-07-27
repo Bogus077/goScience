@@ -6,6 +6,10 @@ export type User = {
   name: string;
   surname: string;
   UserSetting?: UserSetting;
+  Classes: {
+    id: number;
+    label: string;
+  }[];
 };
 
 export type UserSetting = {
@@ -15,4 +19,8 @@ export type UserSetting = {
   Class?: Class;
 };
 
-export type getUserResponse = User;
+export type GetUserResponse = User;
+
+export type UpdateUserClassRequest = {
+  id: number;
+};

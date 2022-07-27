@@ -158,7 +158,7 @@ export const ClassSettingRow = ({ kid }: ClassSettingRowTypes) => {
         message={`Вы действительно хотите удалить ученика: ${kid.name} ${kid.surname}? Это действие необратимо.`}
         type="negative"
         acceptText="Удалить"
-        rejectText="Отменить"
+        rejectText="Отменить удаление"
         onAccept={handleRemove}
         onReject={() => setModalOpen(false)}
       />

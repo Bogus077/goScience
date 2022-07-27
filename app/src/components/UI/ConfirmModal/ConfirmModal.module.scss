@@ -1,5 +1,29 @@
 @import '../../../assets/helpers/index.scss';
 
+@keyframes slidein {
+  0% {
+    margin-right: 50px;
+    opacity: 0;
+  }
+
+  100% {
+    margin-right: 0px;
+    opacity: 1;
+  }
+}
+
+@keyframes slideout {
+  0% {
+    margin-right: 0px;
+    opacity: 1;
+  }
+
+  100% {
+    margin-right: 50px;
+    opacity: 0;
+  }
+}
+
 .modal {
   min-width: 400px;
   min-height: 200px;
@@ -9,6 +33,15 @@
   flex-direction: column;
   border-radius: 5px;
   overflow: hidden;
+  animation-duration: 0.3s;
+  animation-name: slidein;
+  animation-iteration-count: 1;
+
+  &_closed {
+    animation-duration: 0.3s;
+    animation-name: slideout;
+    animation-iteration-count: 1;
+  }
 
   &__header {
     height: 40px;

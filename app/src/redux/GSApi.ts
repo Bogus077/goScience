@@ -19,7 +19,7 @@ import {
   CheckPhoneResponse,
 } from '../models/User/auth';
 import { SignUpRequest, SignUpResponse } from '../models/User/signUp';
-import { getUserResponse } from '../models/User/user';
+import { GetUserResponse, UpdateUserClassRequest } from '../models/User/user';
 import { rosatomBaseQueryWithReAuth } from '../utils/api';
 
 export const GSAPI = createApi({
@@ -70,7 +70,7 @@ export const GSAPI = createApi({
         error ? [] : [{ type: 'Class' }, 'Classes'],
     }),
 
-    getUser: build.query<getUserResponse, unknown>({
+    getUser: build.query<GetUserResponse, unknown>({
       query: () => ({
         url: '/user/getUser',
       }),
@@ -114,6 +114,16 @@ export const GSAPI = createApi({
       invalidatesTags: (result, error, arg) =>
         error ? [] : [{ type: 'Class' }, 'Classes'],
     }),
+
+    changeUserClass: build.mutation<unknown, UpdateUserClassRequest>({
+      query: (params) => ({
+        url: '/class/change',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'User' }],
+    }),
   }),
 });
 
@@ -127,4 +137,5 @@ export const {
   useGetUsersClassesQuery,
   useUpdateKidMutation,
   useRemoveKidMutation,
+  useChangeUserClassMutation,
 } = GSAPI;
