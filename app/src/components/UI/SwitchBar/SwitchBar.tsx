@@ -7,9 +7,14 @@ const cx = classNames.bind(styles);
 type SwitchBarTypes = {
   items: { label: string; active: boolean; id: number }[];
   handleChangeActive: React.Dispatch<React.SetStateAction<number>>;
+  onAdd?: () => void;
 };
 
-export const SwitchBar = ({ items, handleChangeActive }: SwitchBarTypes) => {
+export const SwitchBar = ({
+  items,
+  handleChangeActive,
+  onAdd,
+}: SwitchBarTypes) => {
   const handleClick = (active: boolean, id: number) => {
     if (!active) {
       handleChangeActive(id);
@@ -29,6 +34,12 @@ export const SwitchBar = ({ items, handleChangeActive }: SwitchBarTypes) => {
           {item.label}
         </div>
       ))}
+
+      {onAdd && (
+        <div className={cx('bar__item')} onClick={onAdd}>
+          Добавить
+        </div>
+      )}
     </div>
   );
 };

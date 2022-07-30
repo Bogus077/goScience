@@ -5,7 +5,7 @@ export type User = {
   phone: string;
   name: string;
   surname: string;
-  UserSetting?: UserSetting;
+  UserSetting: UserSetting;
   Classes: {
     id: number;
     label: string;
@@ -16,7 +16,7 @@ export type UserSetting = {
   id: number;
   UserId: number;
   ClassId: number;
-  Class?: Class;
+  Class: Class;
 };
 
 export type GetUserResponse = User;

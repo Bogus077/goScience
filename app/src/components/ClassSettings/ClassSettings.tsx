@@ -36,6 +36,7 @@ export const ClassSettings = ({ classes }: ClassSettingsTypes) => {
           }),
         ]}
         handleChangeActive={setActiveClass}
+        onAdd={() => {}}
       />
       <div className={styles.settings__item}>
         <AddBanner label="Добавить ученика" onClick={handleAddKid} />

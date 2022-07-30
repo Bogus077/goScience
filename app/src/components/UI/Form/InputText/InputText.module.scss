@@ -4,9 +4,17 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 200px;
+
+  @media screen and (max-width: 1200px) {
+    width: 150px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 100px;
+  }
 
   & input {
-    width: 200px;
     height: 30px;
     border: 1px solid $disableColor;
     border-radius: 4px;
@@ -15,14 +23,6 @@
 
     &::placeholder {
       color: $secondaryColor;
-    }
-
-    @media screen and (max-width: 1200px) {
-      width: 150px;
-    }
-
-    @media screen and (max-width: 1024px) {
-      width: 100px;
     }
   }
 

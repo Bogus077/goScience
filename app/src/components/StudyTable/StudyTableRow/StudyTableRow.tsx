@@ -9,15 +9,9 @@ type TableRowTypes = {
   activity: number;
   name: string;
   lastName: string;
-  middleName: string;
 };
 
-export const StudyTableRow = ({
-  activity,
-  name,
-  lastName,
-  middleName,
-}: TableRowTypes) => {
+export const StudyTableRow = ({ activity, name, lastName }: TableRowTypes) => {
   const [extended, setExtended] = useState(true);
   return (
     <div className={styles.row}>
@@ -29,12 +23,7 @@ export const StudyTableRow = ({
       >
         <IconArrow size={11} />
       </div>
-      <UserCol
-        activity={activity}
-        name={name}
-        lastName={lastName}
-        middleName={middleName}
-      />
+      <UserCol activity={activity} name={name} lastName={lastName} />
     </div>
   );
 };

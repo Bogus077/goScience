@@ -5,21 +5,15 @@ type UserColTypes = {
   activity: number;
   name: string;
   lastName: string;
-  middleName: string;
 };
 
-export const UserCol = ({
-  activity,
-  name,
-  lastName,
-  middleName,
-}: UserColTypes) => {
+export const UserCol = ({ activity, name, lastName }: UserColTypes) => {
   return (
     <div className={styles.user}>
       <div className={styles.user__activity}>{activity}</div>
       <div className={styles.user__name}>
         <div>{lastName}</div>
-        <div>{`${name} ${middleName}`}</div>
+        <div>{name}</div>
       </div>
     </div>
   );

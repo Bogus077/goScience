@@ -1,4 +1,4 @@
-import { Taskgroup } from '../Tasks/tasks';
+import { Task, TaskDay, TaskMonth, TaskWeek } from '../Tasks/tasks';
 
 export type KidRow = {
   name: string;
@@ -12,7 +12,10 @@ export type Kid = {
   surname: string;
   phone?: string;
   ClassId?: string;
-  Taskgroups?: Taskgroup[];
+  TasksDays?: TaskDay[];
+  TasksWeeks?: TaskWeek[];
+  TasksMonths?: TaskMonth[];
+  TasksQuarters?: Task[];
 };
 
 /**

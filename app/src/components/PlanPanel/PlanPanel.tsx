@@ -1,13 +1,16 @@
 import React, { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useGetCurrentClassQuery } from '../../redux/GSApi';
 import { frontendRoutes } from '../../utils/router/routes';
 import { ActivityBar } from '../ActivityBar';
 import { StudyTable } from '../StudyTable';
+import { PageLoader } from '../UI/PageLoader';
 import styles from './PlanPanel.module.scss';
 import { PlanPanelMenu } from './PlanPanelMenu';
 
 export const PlanPanel = () => {
   const location = useLocation();
+  const { data, isLoading } = useGetCurrentClassQuery('');
 
   useEffect(() => {
     document.title = 'Планирование | GS';
@@ -20,7 +23,7 @@ export const PlanPanel = () => {
   const getMainComponent = useCallback(() => {
     switch (location.pathname) {
       case frontendRoutes.plan.study:
-        return <StudyTable />;
+        return <StudyTable kids={data?.Class.Kids ?? []} />;
       case frontendRoutes.plan.motivation:
         return <>Motivation</>;
       case frontendRoutes.plan.discipline:
@@ -28,9 +31,11 @@ export const PlanPanel = () => {
       case frontendRoutes.plan.team:
         return <>Team</>;
     }
-  }, [location.pathname]);
+  }, [data?.Class.Kids, location.pathname]);
 
-  return (
+  return !data || isLoading ? (
+    <PageLoader />
+  ) : (
     <div className={styles.plan}>
       <div className={styles.plan__nav}>
         <ActivityBar normative={normative} fact={fact} />

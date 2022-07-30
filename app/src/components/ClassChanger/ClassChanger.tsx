@@ -13,7 +13,7 @@ type ClassChangerTypes = {
 
 export const ClassChanger = ({ userClass, classes }: ClassChangerTypes) => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [changeClass, { isLoading: isLoading }] = useChangeUserClassMutation();
+  const [changeClass, { isLoading }] = useChangeUserClassMutation();
 
   const handleChange = (id: number) => {
     changeClass({ id });

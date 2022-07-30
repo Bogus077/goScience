@@ -1,21 +1,25 @@
+import { UserSetting } from '../User/user';
+
 export type Task = {
   id: number;
-  lable: string;
+  label: string;
   description: string;
-  date: string;
-  points: number;
   status: boolean;
-  TaskgroupId: number;
   createdAt: string;
   updatedAt: string;
 };
 
-export type Taskgroup = {
-  id: number;
-  KidId: number;
-  createdAt: string;
-  updatedAt: string;
-  TasksDays: Task[];
-  TasksWeeks: Task[];
-  TasksQuarters: Task[];
+export type TaskDay = Task & {
+  TasksWeekId?: number;
+  points: number;
 };
+
+export type TaskWeek = Task & {
+  TasksMonthId?: number;
+};
+
+export type TaskMonth = Task & {
+  TasksQuarterId?: number;
+};
+
+export type CurrentClassTasksResponse = UserSetting;

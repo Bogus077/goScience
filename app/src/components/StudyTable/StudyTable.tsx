@@ -1,9 +1,14 @@
 import React from 'react';
+import { Kid } from '../../models/Kid/kid';
 import { Select } from '../UI/Form/Select';
 import styles from './StudyTable.module.scss';
 import { StudyTableRow } from './StudyTableRow';
 
-export const StudyTable = () => {
+type StudyTableTypes = {
+  kids: Kid[];
+};
+
+export const StudyTable = ({ kids }: StudyTableTypes) => {
   return (
     <div className={styles.table}>
       <div className={styles.table__header}>
@@ -14,12 +19,14 @@ export const StudyTable = () => {
           options={['activity', 'lastname']}
         />
       </div>
-      <StudyTableRow
-        activity={11}
-        name="Иван"
-        lastName="Иванов"
-        middleName="Иванович"
-      />
+      {kids.map((kid) => (
+        <StudyTableRow
+          key={kid.id}
+          activity={11}
+          name={kid.name}
+          lastName={kid.surname}
+        />
+      ))}
     </div>
   );
 };

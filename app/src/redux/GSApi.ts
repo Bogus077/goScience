@@ -12,6 +12,7 @@ import {
   UpdateKidsRequest,
   UpdateKidsResponse,
 } from '../models/Kid/kid';
+import { CurrentClassTasksResponse } from '../models/Tasks/tasks';
 import {
   AuthorizationRequest,
   AuthorizationResponse,
@@ -25,7 +26,7 @@ import { rosatomBaseQueryWithReAuth } from '../utils/api';
 export const GSAPI = createApi({
   reducerPath: 'GS_REDUCER',
   baseQuery: rosatomBaseQueryWithReAuth,
-  tagTypes: ['Users', 'User', 'Classes', 'Class'],
+  tagTypes: ['Users', 'User', 'Classes', 'Class', 'Kids', 'Kid'],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
     login: build.mutation<AuthorizationResponse, AuthorizationRequest>({
@@ -124,6 +125,24 @@ export const GSAPI = createApi({
       invalidatesTags: (result, error, arg) =>
         error ? [] : [{ type: 'User' }],
     }),
+
+    getCurrentClass: build.query<CurrentClassTasksResponse, unknown>({
+      query: () => ({
+        url: '/class/get',
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              { type: 'Class' as const, id: result.id },
+              ...result.Class.Kids.map(({ id }) => ({
+                type: 'Kid' as const,
+                id,
+              })),
+              'Kids',
+              'Classes',
+            ]
+          : [],
+    }),
   }),
 });
 
@@ -138,4 +157,5 @@ export const {
   useUpdateKidMutation,
   useRemoveKidMutation,
   useChangeUserClassMutation,
+  useGetCurrentClassQuery,
 } = GSAPI;
