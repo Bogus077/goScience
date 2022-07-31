@@ -4,6 +4,7 @@ export type Task = {
   id: number;
   label: string;
   description: string;
+  points: number;
   status: boolean;
   createdAt: string;
   updatedAt: string;
@@ -11,7 +12,6 @@ export type Task = {
 
 export type TaskDay = Task & {
   TasksWeekId?: number;
-  points: number;
 };
 
 export type TaskWeek = Task & {
@@ -23,3 +23,10 @@ export type TaskMonth = Task & {
 };
 
 export type CurrentClassTasksResponse = UserSetting;
+
+export type ActiveTasks = {
+  days: number[];
+  weeks: number[];
+  months: number[];
+  quarter: number[];
+};

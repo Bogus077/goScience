@@ -1,0 +1,1 @@
+export { StudyTableColumnTask } from './StudyTableColumnTask';

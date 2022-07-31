@@ -1,0 +1,31 @@
+@import '../../../assets/helpers/index.scss';
+
+.do {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__content {
+    background-color: #fff;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    box-shadow: 2px 1px 8px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+
+  &__icon {
+    padding-left: 10px;
+    color: $disableColor;
+
+    &:hover {
+      color: $mainColor;
+    }
+  }
+}
+
+.triangle {
+  border: 8px solid transparent;
+  border-top: 6px solid #fff;
+  margin-bottom: -8px;
+}

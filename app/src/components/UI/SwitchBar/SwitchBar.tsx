@@ -1,5 +1,4 @@
 import React from 'react';
-import { Class } from '../../../models/Class/class';
 import classNames from 'classnames/bind';
 import styles from './SwitchBar.module.scss';
 const cx = classNames.bind(styles);
@@ -37,7 +36,7 @@ export const SwitchBar = ({
 
       {onAdd && (
         <div className={cx('bar__item')} onClick={onAdd}>
-          Добавить
+          +
         </div>
       )}
     </div>

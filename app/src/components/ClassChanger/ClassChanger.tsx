@@ -27,11 +27,11 @@ export const ClassChanger = ({ userClass, classes }: ClassChangerTypes) => {
     setModalOpen(false);
   };
 
-  const rootEl = useRef(document.createElement('div'));
+  const classRef = useRef(document.createElement('div'));
   useEffect(() => {
     //Обрабатываем клик вне компонента
     const onClick = (e: MouseEvent) =>
-      rootEl?.current?.contains(e.target as Node) || handleClose();
+      classRef?.current?.contains(e.target as Node) || handleClose();
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);
   }, []);
@@ -40,7 +40,7 @@ export const ClassChanger = ({ userClass, classes }: ClassChangerTypes) => {
     <div
       className={styles.class}
       onClick={isModalOpen ? handleClose : handleOpen}
-      ref={rootEl}
+      ref={classRef}
     >
       {isLoading ? (
         <Loader />

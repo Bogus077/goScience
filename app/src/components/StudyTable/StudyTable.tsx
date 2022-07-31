@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Kid } from '../../models/Kid/kid';
 import { Select } from '../UI/Form/Select';
 import styles from './StudyTable.module.scss';
@@ -9,6 +9,9 @@ type StudyTableTypes = {
 };
 
 export const StudyTable = ({ kids }: StudyTableTypes) => {
+  //TODO set to undefined
+  const [extended, setExtended] = useState<number | undefined>(1);
+
   return (
     <div className={styles.table}>
       <div className={styles.table__header}>
@@ -22,9 +25,10 @@ export const StudyTable = ({ kids }: StudyTableTypes) => {
       {kids.map((kid) => (
         <StudyTableRow
           key={kid.id}
+          kid={kid}
+          extended={extended}
+          setExtended={setExtended}
           activity={11}
-          name={kid.name}
-          lastName={kid.surname}
         />
       ))}
     </div>

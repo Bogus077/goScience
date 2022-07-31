@@ -1,0 +1,81 @@
+@import '../../../assets/helpers/index.scss';
+
+.task {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+  background-color: #fff;
+  padding: 0px 10px;
+  font-size: 12px;
+  cursor: pointer;
+
+  &_disabled {
+    opacity: 0.1;
+    transition: 0.3s;
+  }
+
+  &__points {
+    width: 20px;
+    height: 20px;
+    background-color: $positiveColor;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+
+    &_disabled {
+      background-color: $disableColor;
+    }
+
+    &_warning {
+      background-color: $warningColor;
+    }
+
+    &_negative {
+      background-color: $negativeColor;
+    }
+  }
+
+  @keyframes slidein {
+    0% {
+      bottom: 50%;
+      opacity: 0;
+    }
+
+    100% {
+      bottom: 100%;
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideout {
+    0% {
+      bottom: 100%;
+      opacity: 1;
+    }
+
+    100% {
+      bottom: 50%;
+      opacity: 0;
+    }
+  }
+
+  &__popup {
+    position: absolute;
+    bottom: 100%;
+    opacity: 0;
+    z-index: 0;
+    animation-duration: 0.2s;
+    animation-name: slideout;
+
+    &_active {
+      opacity: 1;
+      z-index: 2;
+      animation-name: slidein;
+    }
+  }
+}

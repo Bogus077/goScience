@@ -1,0 +1,31 @@
+@import '../../../assets/helpers/index.scss';
+
+.ind {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: 2px solid $positiveColor;
+  color: $positiveColor;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: default;
+
+  &_yellow {
+    color: $warningColor;
+    border-color: $warningColor;
+  }
+
+  &_red {
+    color: $negativeColor;
+    border-color: $negativeColor;
+  }
+
+  &_disable {
+    color: $disableColor;
+    border-color: $disableColor;
+  }
+}

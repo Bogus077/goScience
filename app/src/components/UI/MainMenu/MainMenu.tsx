@@ -32,7 +32,7 @@ export const MainMenu = ({ user }: MainMenuTypes) => {
               location.pathname
             )}
             expanded={expanded}
-            onClick={() => navigate(frontendRoutes.plan.index)}
+            onClick={() => navigate(frontendRoutes.plan.study)}
           />
         </div>
         <div className={styles.menu__item}>

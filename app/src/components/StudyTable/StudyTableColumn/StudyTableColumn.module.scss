@@ -1,0 +1,67 @@
+@import '../../../assets/helpers/index.scss';
+
+.col {
+  display: flex;
+  flex-direction: column;
+  width: 24%;
+
+  & > div:not(:last-child, :first-child) {
+    border-bottom: 1px solid $disableColor;
+  }
+
+  &__header {
+    padding: 0 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $positiveColor;
+    color: #fff;
+    font-weight: bold;
+    cursor: default;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  &__points {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 100%;
+    color: $positiveColor;
+    font-size: 12px;
+  }
+
+  &_disabled {
+    .col__header {
+      background-color: $disableColor;
+    }
+
+    .col__points {
+      color: $disableColor;
+    }
+  }
+
+  &_warning {
+    .col__header {
+      background-color: $warningColor;
+    }
+
+    .col__points {
+      color: $warningColor;
+    }
+  }
+
+  &_negative {
+    .col__header {
+      background-color: $negativeColor;
+    }
+
+    .col__points {
+      color: $negativeColor;
+    }
+  }
+}
