@@ -9,8 +9,7 @@ type StudyTableTypes = {
 };
 
 export const StudyTable = ({ kids }: StudyTableTypes) => {
-  //TODO set to undefined
-  const [extended, setExtended] = useState<number | undefined>(1);
+  const [extended, setExtended] = useState<number | undefined>(undefined);
 
   return (
     <div className={styles.table}>

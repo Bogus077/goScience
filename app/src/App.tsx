@@ -15,6 +15,7 @@ import {
   LoginPage,
   ClassSettingsPage,
   RegistrationPage,
+  CreateTaskPage,
 } from './pages';
 import { frontendRoutes } from './utils/router/routes';
 import { CreateKidPage } from './pages/Kid/CreateKid';
@@ -37,6 +38,10 @@ export function App() {
             <Route element={<ProtectedRoutes />}>
               <Route path={frontendRoutes.dashboard} element={<StudyPage />} />
               <Route path={frontendRoutes.plan.index} element={<StudyPage />} />
+              <Route
+                path={frontendRoutes.tasks.add}
+                element={<CreateTaskPage />}
+              />
               <Route
                 path={`${frontendRoutes.plan.index}/:pageSlug`}
                 element={<StudyPage />}

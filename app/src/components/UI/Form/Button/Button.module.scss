@@ -32,4 +32,9 @@
     border-color: $negativeColor;
     color: $negativeColor;
   }
+
+  &_submit {
+    background-color: $mainColor;
+    color: #fff;
+  }
 }

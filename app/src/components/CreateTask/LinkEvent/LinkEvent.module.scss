@@ -1,0 +1,30 @@
+@import '../../../assets/helpers/index.scss';
+
+.links {
+  display: flex;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 30px;
+  background-color: $backgroundColor;
+  padding: 0 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: $secondaryColor;
+  cursor: pointer;
+  border: 1px solid $backgroundColor;
+  margin: 0px 10px 10px 0px;
+
+  &:hover {
+    color: $mainTextColor;
+  }
+
+  &_active {
+    background-color: #fff;
+    border: 1px solid $mainColor;
+    color: $mainTextColor;
+  }
+}

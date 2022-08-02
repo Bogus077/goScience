@@ -12,7 +12,17 @@ import {
   UpdateKidsRequest,
   UpdateKidsResponse,
 } from '../models/Kid/kid';
-import { CurrentClassTasksResponse } from '../models/Tasks/tasks';
+import {
+  CreateDayTaskRequest,
+  CreateDayTaskResponse,
+  CreateMonthTaskRequest,
+  CreateMonthTaskResponse,
+  CreateQuarterTaskResponse,
+  CreateTaskRequest,
+  CreateWeekTaskRequest,
+  CreateWeekTaskResponse,
+  CurrentClassTasksResponse,
+} from '../models/Tasks/tasks';
 import {
   AuthorizationRequest,
   AuthorizationResponse,
@@ -143,6 +153,55 @@ export const GSAPI = createApi({
             ]
           : [],
     }),
+
+    createDayTask: build.mutation<CreateDayTaskResponse, CreateDayTaskRequest>({
+      query: (params) => ({
+        url: '/tasks/createDayTask',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Class' }, 'Classes'],
+    }),
+
+    createWeekTask: build.mutation<
+      CreateWeekTaskResponse,
+      CreateWeekTaskRequest
+    >({
+      query: (params) => ({
+        url: '/tasks/createWeekTask',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Class' }, 'Classes'],
+    }),
+
+    createMonthTask: build.mutation<
+      CreateMonthTaskResponse,
+      CreateMonthTaskRequest
+    >({
+      query: (params) => ({
+        url: '/tasks/createMonthTask',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Class' }, 'Classes'],
+    }),
+
+    createQuarterTask: build.mutation<
+      CreateQuarterTaskResponse,
+      CreateTaskRequest
+    >({
+      query: (params) => ({
+        url: '/tasks/createQuarterTask',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Class' }, 'Classes'],
+    }),
   }),
 });
 
@@ -158,4 +217,8 @@ export const {
   useRemoveKidMutation,
   useChangeUserClassMutation,
   useGetCurrentClassQuery,
+  useCreateDayTaskMutation,
+  useCreateWeekTaskMutation,
+  useCreateMonthTaskMutation,
+  useCreateQuarterTaskMutation,
 } = GSAPI;

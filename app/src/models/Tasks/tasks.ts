@@ -5,7 +5,9 @@ export type Task = {
   label: string;
   description: string;
   points: number;
+  date: string;
   status: boolean;
+  taskgroupId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -30,3 +32,32 @@ export type ActiveTasks = {
   months: number[];
   quarter: number[];
 };
+
+export type CreateTaskRequest = {
+  KidId: number;
+  label: string;
+  description: string;
+  status: boolean;
+  date: string;
+};
+
+export type CreateDayTaskRequest = CreateTaskRequest & {
+  TasksWeekId?: number;
+  points: number;
+};
+
+export type CreateDayTaskResponse = TaskDay;
+
+export type CreateWeekTaskRequest = CreateTaskRequest & {
+  TasksMonthId?: number;
+};
+
+export type CreateWeekTaskResponse = TaskWeek;
+
+export type CreateMonthTaskRequest = CreateTaskRequest & {
+  TasksQuarterId?: number;
+};
+
+export type CreateMonthTaskResponse = TaskWeek;
+
+export type CreateQuarterTaskResponse = Task;

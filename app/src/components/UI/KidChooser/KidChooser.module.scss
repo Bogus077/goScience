@@ -1,0 +1,30 @@
+@import '../../../assets/helpers/index.scss';
+
+.chooser {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    height: 30px;
+    background-color: $backgroundColor;
+    padding: 0 10px;
+    margin: 0px 10px 10px 0px;
+    border: 2px solid $backgroundColor;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    font-weight: bold;
+    color: $secondaryColor;
+    cursor: pointer;
+
+    &:hover {
+      color: $mainTextColor;
+    }
+
+    &_active {
+      background-color: #fff;
+      color: $mainTextColor;
+      border: 2px solid $mainColor;
+    }
+  }
+}

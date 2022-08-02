@@ -17,4 +17,7 @@ export const frontendRoutes = {
   kid: {
     add: '/kid/add',
   },
+  tasks: {
+    add: '/task/add',
+  },
 };

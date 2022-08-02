@@ -70,3 +70,15 @@ export const createKidInitialValues = {
 };
 
 export const createKidValidationSchema = editKidValidationSchema;
+
+/**
+ * Схема валидации формы добавления задачи
+ */
+export const createTaskValidationSchema = object({
+  label: string().required(VALIDATION_ERRORS.REQUIRED),
+});
+
+export const createTaskInitialValues = {
+  label: '',
+  description: '',
+};

@@ -108,7 +108,11 @@ export const CreateKid = ({ classes }: CreateKidTypes) => {
               {fetchError && (
                 <div className={styles.form__error}>{fetchError}</div>
               )}
-              <Button label="Добавить" onClick={formik.handleSubmit} />
+              <Button
+                type="submit"
+                label="Добавить"
+                onClick={formik.handleSubmit}
+              />
               <Button type="warning" label="Отменить" onClick={handleBack} />
             </div>
           </FormikContext.Provider>

@@ -3,6 +3,8 @@
 .user {
   display: flex;
   align-items: center;
+  min-width: 150px;
+  margin-right: 40px;
 
   &__activity {
     display: flex;

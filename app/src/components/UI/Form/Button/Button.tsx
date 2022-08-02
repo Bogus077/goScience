@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 
 type ButtonTypes = {
   label: string;
-  type?: 'inactive' | 'warning' | 'regular';
+  type?: 'inactive' | 'warning' | 'regular' | 'submit';
   isLoading?: boolean;
   onClick?: () => void;
 };
@@ -17,6 +17,7 @@ export const Button = ({ label, type, isLoading, onClick }: ButtonTypes) => {
       className={cx('button', {
         button_inactive: type === 'inactive',
         button_warning: type === 'warning',
+        button_submit: type === 'submit',
       })}
       onClick={onClick}
     >
