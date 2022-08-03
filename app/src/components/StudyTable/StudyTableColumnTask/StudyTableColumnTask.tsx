@@ -8,13 +8,16 @@ import {
   Task,
   TaskDay,
   TaskMonth,
+  TaskTypes,
   TaskWeek,
 } from '../../../models/Tasks/tasks';
 import { getActiveTasks, isActiveTasksEmpty } from '../../../utils/tasks/tasks';
 const cx = classNames.bind(styles);
 
 type StudyTableColumnTaskTypes = {
-  type: 'day' | 'week' | 'month' | 'quarter';
+  type: TaskTypes;
+  isLate?: boolean;
+  isFuture?: boolean;
   task: TaskDay | TaskWeek | TaskMonth | Task;
   tasksDays: TaskDay[];
   tasksWeeks: TaskWeek[];
@@ -26,6 +29,8 @@ type StudyTableColumnTaskTypes = {
 
 export const StudyTableColumnTask = ({
   type,
+  isLate,
+  isFuture,
   task,
   tasksDays,
   tasksMonths,
@@ -76,6 +81,7 @@ export const StudyTableColumnTask = ({
     <div
       className={cx('task', {
         task_disabled: getDisabledStatus(),
+        task_late: isLate,
       })}
       onClick={handleClick}
       ref={taskRef}
@@ -97,7 +103,7 @@ export const StudyTableColumnTask = ({
           task__popup_active: taskPopup,
         })}
       >
-        <TaskDo id={task.id} />
+        <TaskDo id={task.id} type={type} />
       </div>
     </div>
   );

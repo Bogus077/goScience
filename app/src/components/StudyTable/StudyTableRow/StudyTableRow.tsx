@@ -6,10 +6,11 @@ import { UserCol } from '../../UserCol';
 import { Indicator } from '../../UI/Indicator';
 import { StudyTableColumn } from '../StudyTableColumn';
 import { Kid } from '../../../models/Kid/kid';
-import { ActiveTasks, Task } from '../../../models/Tasks/tasks';
+import { ActiveTasks } from '../../../models/Tasks/tasks';
 import {
   countTasksPoints,
   isActiveTasksEmpty,
+  separateTasks,
 } from '../../../utils/tasks/tasks';
 const cx = classNames.bind(styles);
 
@@ -42,6 +43,11 @@ export const StudyTableRow = ({
     });
   }, []);
 
+  const dayTasks = separateTasks(kid.TasksDays ?? [], 'day');
+  const weekTasks = separateTasks(kid.TasksWeeks ?? [], 'week');
+  const monthTasks = separateTasks(kid.TasksMonths ?? [], 'month');
+  const quarterTasks = separateTasks(kid.TasksQuarters ?? [], 'quarter');
+
   return (
     <div className={styles.row__wrapper}>
       <div className={styles.row}>
@@ -70,19 +76,31 @@ export const StudyTableRow = ({
         <div className={styles.row__indicators}>
           <Indicator
             text="День"
-            points={countTasksPoints(kid.TasksDays ?? [])}
+            points={countTasksPoints([
+              ...dayTasks.currentTasks,
+              ...dayTasks.lateTasks,
+            ])}
           />
           <Indicator
             text="Неделя"
-            points={countTasksPoints(kid.TasksWeeks ?? [])}
+            points={countTasksPoints([
+              ...weekTasks.currentTasks,
+              ...weekTasks.lateTasks,
+            ])}
           />
           <Indicator
             text="Месяц"
-            points={countTasksPoints(kid.TasksMonths ?? [])}
+            points={countTasksPoints([
+              ...monthTasks.currentTasks,
+              ...monthTasks.lateTasks,
+            ])}
           />
           <Indicator
             text="Четверть"
-            points={countTasksPoints(kid.TasksQuarters ?? [])}
+            points={countTasksPoints([
+              ...quarterTasks.currentTasks,
+              ...quarterTasks.lateTasks,
+            ])}
           />
         </div>
       </div>
@@ -95,48 +113,60 @@ export const StudyTableRow = ({
         <StudyTableColumn
           type="day"
           header="День"
-          points={countTasksPoints(kid.TasksDays ?? [])}
+          points={countTasksPoints([
+            ...dayTasks.currentTasks,
+            ...dayTasks.lateTasks,
+          ])}
           tasksDays={kid.TasksDays ?? []}
           tasksWeeks={kid.TasksWeeks ?? []}
           tasksMonths={kid.TasksMonths ?? []}
           tasksQuarters={kid.TasksQuarters ?? []}
-          tasks={kid.TasksDays ?? []}
+          tasks={dayTasks}
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
         />
         <StudyTableColumn
           type="week"
           header="Неделя"
-          points={countTasksPoints(kid.TasksWeeks ?? [])}
+          points={countTasksPoints([
+            ...weekTasks.currentTasks,
+            ...weekTasks.lateTasks,
+          ])}
           tasksDays={kid.TasksDays ?? []}
           tasksWeeks={kid.TasksWeeks ?? []}
           tasksMonths={kid.TasksMonths ?? []}
           tasksQuarters={kid.TasksQuarters ?? []}
-          tasks={kid.TasksWeeks ?? []}
+          tasks={weekTasks}
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
         />
         <StudyTableColumn
           type="month"
           header="Месяц"
-          points={countTasksPoints(kid.TasksMonths ?? [])}
+          points={countTasksPoints([
+            ...monthTasks.currentTasks,
+            ...monthTasks.lateTasks,
+          ])}
           tasksDays={kid.TasksDays ?? []}
           tasksWeeks={kid.TasksWeeks ?? []}
           tasksMonths={kid.TasksMonths ?? []}
           tasksQuarters={kid.TasksQuarters ?? []}
-          tasks={kid.TasksMonths ?? []}
+          tasks={monthTasks}
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
         />
         <StudyTableColumn
           type="quarter"
           header="Четверть"
-          points={countTasksPoints(kid.TasksQuarters ?? [])}
+          points={countTasksPoints([
+            ...quarterTasks.currentTasks,
+            ...quarterTasks.lateTasks,
+          ])}
           tasksDays={kid.TasksDays ?? []}
           tasksWeeks={kid.TasksWeeks ?? []}
           tasksMonths={kid.TasksMonths ?? []}
           tasksQuarters={kid.TasksQuarters ?? []}
-          tasks={kid.TasksQuarters ?? []}
+          tasks={quarterTasks}
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
         />

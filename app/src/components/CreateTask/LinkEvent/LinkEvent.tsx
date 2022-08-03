@@ -30,11 +30,9 @@ export const LinkEvent = ({
   let tasks: Task[] | TaskDay[] | TaskWeek[] | TaskMonth[] = [];
   const handleClick = (id: number) => {
     if (activeLinks.includes(id)) {
-      const next = activeLinks.filter((taskId) => taskId !== id);
-      setActiveLinks(next);
+      setActiveLinks([]);
     } else {
-      const next = [...activeLinks, id];
-      setActiveLinks(next);
+      setActiveLinks([id]);
     }
   };
 
@@ -89,7 +87,9 @@ export const LinkEvent = ({
   return (
     <div className={styles.links}>
       {tasks.length === 0 ? (
-        <>Нет подходящих событий для связи</>
+        <div className={styles.links__empty}>
+          Нет подходящих событий для связи
+        </div>
       ) : (
         tasks.map((task) => (
           <div

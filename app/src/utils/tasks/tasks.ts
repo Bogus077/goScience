@@ -3,8 +3,10 @@ import {
   Task,
   TaskDay,
   TaskMonth,
+  TaskTypes,
   TaskWeek,
 } from '../../models/Tasks/tasks';
+import { isOneDate } from '../DateTime/DateTime';
 
 export const getActiveTasks = (
   task: TaskDay | TaskWeek | TaskMonth | Task,
@@ -134,4 +136,81 @@ export const countTasksPoints = (tasks: Task[]) => {
     0
   );
   return points;
+};
+
+export const separateTasks = (
+  tasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[],
+  type: TaskTypes
+) => {
+  const currentTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[] = [];
+  const futureTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[] = [];
+  const lateTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[] = [];
+  const today = new Date();
+  today.setHours(0);
+  today.setMinutes(0);
+  today.setSeconds(0);
+  const tommorow = new Date();
+  tommorow.setDate(tommorow.getDate() + 1);
+  tommorow.setHours(0);
+  tommorow.setMinutes(0);
+  tommorow.setSeconds(0);
+  tommorow.setSeconds(-1);
+
+  tasks.forEach((task) => {
+    const taskDate = new Date(task.date);
+
+    if (type === 'day') {
+      if (isOneDate(taskDate, today)) {
+        currentTasks.push(task);
+      } else if (taskDate < today) {
+        lateTasks.push(task);
+      } else {
+        futureTasks.push(task);
+      }
+    }
+
+    if (type === 'week') {
+      const taskFinishDate = new Date(taskDate);
+      taskFinishDate.setDate(taskFinishDate.getDate() + 7);
+      taskFinishDate.setSeconds(-1);
+
+      if (taskDate > tommorow) {
+        futureTasks.push(task);
+      } else if (taskFinishDate < today) {
+        lateTasks.push(task);
+      } else {
+        currentTasks.push(task);
+      }
+    }
+
+    if (type === 'month') {
+      const taskFinishDate = new Date(taskDate);
+      taskFinishDate.setDate(taskFinishDate.getDate() + 30);
+      taskFinishDate.setSeconds(-1);
+
+      if (taskDate > tommorow) {
+        futureTasks.push(task);
+      } else if (taskFinishDate < today) {
+        lateTasks.push(task);
+      } else {
+        currentTasks.push(task);
+      }
+    }
+
+    if (type === 'quarter') {
+      const taskFinishDate = new Date(taskDate);
+      taskFinishDate.setDate(taskFinishDate.getDate() + 90);
+      taskFinishDate.setSeconds(-1);
+
+      if (taskDate > tommorow) {
+        futureTasks.push(task);
+      } else if (taskFinishDate < today) {
+        lateTasks.push(task);
+      } else {
+        currentTasks.push(task);
+      }
+    }
+  });
+
+  return { currentTasks, lateTasks, futureTasks };
 };

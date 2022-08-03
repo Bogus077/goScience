@@ -1,5 +1,7 @@
 import { UserSetting } from '../User/user';
 
+export type TaskTypes = 'day' | 'week' | 'month' | 'quarter';
+
 export type Task = {
   id: number;
   label: string;
@@ -34,11 +36,16 @@ export type ActiveTasks = {
 };
 
 export type CreateTaskRequest = {
-  KidId: number;
+  KidId: number[];
   label: string;
   description: string;
   status: boolean;
   date: string;
+};
+
+export type CreateTaskResponse<T> = {
+  addedTasks: T[];
+  errors: string[];
 };
 
 export type CreateDayTaskRequest = CreateTaskRequest & {
@@ -46,18 +53,31 @@ export type CreateDayTaskRequest = CreateTaskRequest & {
   points: number;
 };
 
-export type CreateDayTaskResponse = TaskDay;
+export type CreateDayTaskResponse = CreateTaskResponse<TaskDay>;
 
 export type CreateWeekTaskRequest = CreateTaskRequest & {
   TasksMonthId?: number;
 };
 
-export type CreateWeekTaskResponse = TaskWeek;
+export type CreateWeekTaskResponse = CreateTaskResponse<TaskWeek>;
 
 export type CreateMonthTaskRequest = CreateTaskRequest & {
   TasksQuarterId?: number;
 };
 
-export type CreateMonthTaskResponse = TaskWeek;
+export type CreateMonthTaskResponse = CreateTaskResponse<TaskMonth>;
 
-export type CreateQuarterTaskResponse = Task;
+export type CreateQuarterTaskResponse = CreateTaskResponse<Task>;
+
+export type ChangeTaskStatusRequest = {
+  type: TaskTypes;
+  status: boolean;
+  id: number;
+};
+
+export type ChangeTaskStatusResponse = Task | TaskDay | TaskWeek | TaskMonth;
+
+export type RemoveTaskRequest = {
+  type: TaskTypes;
+  id: number;
+};

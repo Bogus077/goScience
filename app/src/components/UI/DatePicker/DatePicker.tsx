@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import {
   createFirstCalendarRow,
   fillCalendarMonth,
+  getDateDayMonth,
   isOneDate,
   MONTHS,
   WEEKDAYS,
@@ -19,6 +20,13 @@ type DatePickerTypes = {
 
 export const DatePicker = ({ date, dateFinish, setDate }: DatePickerTypes) => {
   const [visibleDate, setVisibleDate] = useState<Date>(date ?? new Date());
+
+  const dateInterval =
+    date && dateFinish
+      ? isOneDate(date, dateFinish)
+        ? getDateDayMonth(date)
+        : `${getDateDayMonth(date)} - ${getDateDayMonth(dateFinish)}`
+      : undefined;
 
   const getDays = (date: Date) => {
     const month: Date[] = [];
@@ -92,6 +100,13 @@ export const DatePicker = ({ date, dateFinish, setDate }: DatePickerTypes) => {
           </div>
         ))}
       </div>
+      {dateInterval ? (
+        <div className={styles.calendar__date}>{dateInterval}</div>
+      ) : (
+        <div className={styles.calendar__date_inactive}>
+          Выберите дату события
+        </div>
+      )}
     </div>
   );
 };

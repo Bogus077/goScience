@@ -1,21 +1,53 @@
 import React, { useState } from 'react';
+import { TaskTypes } from '../../../models/Tasks/tasks';
+import {
+  useChangeTaskStatusMutation,
+  useRemoveTaskMutation,
+} from '../../../redux/GSApi';
+import { ConfirmModal } from '../ConfirmModal';
 import { IconCheck } from '../Icons/Forms/IconCheck';
 import { IconCross } from '../Icons/Forms/IconCross';
-import { IconSettings } from '../Icons/MainMenu/IconSettings';
 import { IconEdit } from '../Icons/Tables/IconEdit';
+import { PageLoader } from '../PageLoader';
 import styles from './TaskDo.module.scss';
 
 type TaskDoTypes = {
   id: number;
+  type: TaskTypes;
 };
 
-export const TaskDo = ({ id }: TaskDoTypes) => {
+export const TaskDo = ({ id, type }: TaskDoTypes) => {
+  const [isRemoveModal, setRemoveModal] = useState(false);
+  const [removeTask, { isLoading: IsRemoveLoading }] = useRemoveTaskMutation();
+  const [changeStatus, { isLoading: isChangeLoading }] =
+    useChangeTaskStatusMutation();
+
   const [check, setCheck] = useState(false);
   const [remove, setRemove] = useState(false);
 
-  const handleCheckTask = () => {};
+  const handleCheckTask = async () => {
+    if (isChangeLoading) return;
+
+    const newStatus = {
+      type,
+      status: true,
+      id,
+    };
+    await changeStatus(newStatus);
+  };
+
   const handleEditTask = () => {};
-  const handleRemoveTask = () => {};
+  const handleRemoveTask = async () => {
+    if (IsRemoveLoading) return;
+
+    const newStatus = {
+      type,
+      id,
+    };
+
+    setRemoveModal(false);
+    await removeTask(newStatus);
+  };
 
   return (
     <div className={styles.do}>
@@ -35,12 +67,21 @@ export const TaskDo = ({ id }: TaskDoTypes) => {
           className={styles.do__icon}
           onMouseEnter={() => setRemove(true)}
           onMouseLeave={() => setRemove(false)}
-          onClick={handleRemoveTask}
+          onClick={() => setRemoveModal(true)}
         >
           <IconCross disabled={!remove} />
         </div>
       </div>
       <div className={styles.triangle} />
+      <ConfirmModal
+        isOpen={isRemoveModal}
+        titleText="Удаление задачи"
+        message="Вы действительно хотите удалить задачу? Это действие необратимо"
+        rejectText="Отмена"
+        acceptText="Удалить"
+        onReject={() => setRemoveModal(false)}
+        onAccept={handleRemoveTask}
+      />
     </div>
   );
 };

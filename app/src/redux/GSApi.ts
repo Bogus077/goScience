@@ -13,6 +13,8 @@ import {
   UpdateKidsResponse,
 } from '../models/Kid/kid';
 import {
+  ChangeTaskStatusRequest,
+  ChangeTaskStatusResponse,
   CreateDayTaskRequest,
   CreateDayTaskResponse,
   CreateMonthTaskRequest,
@@ -22,6 +24,7 @@ import {
   CreateWeekTaskRequest,
   CreateWeekTaskResponse,
   CurrentClassTasksResponse,
+  RemoveTaskRequest,
 } from '../models/Tasks/tasks';
 import {
   AuthorizationRequest,
@@ -202,6 +205,29 @@ export const GSAPI = createApi({
       invalidatesTags: (result, error, arg) =>
         error ? [] : [{ type: 'Class' }, 'Classes'],
     }),
+
+    changeTaskStatus: build.mutation<
+      ChangeTaskStatusResponse,
+      ChangeTaskStatusRequest
+    >({
+      query: (params) => ({
+        url: '/tasks/status',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Class' }, 'Classes'],
+    }),
+
+    removeTask: build.mutation<unknown, RemoveTaskRequest>({
+      query: (params) => ({
+        url: '/tasks/remove',
+        method: 'delete',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Class' }, 'Classes'],
+    }),
   }),
 });
 
@@ -221,4 +247,6 @@ export const {
   useCreateWeekTaskMutation,
   useCreateMonthTaskMutation,
   useCreateQuarterTaskMutation,
+  useChangeTaskStatusMutation,
+  useRemoveTaskMutation,
 } = GSAPI;

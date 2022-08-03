@@ -13,11 +13,13 @@ import {
   useCreateWeekTaskMutation,
 } from '../../redux/GSApi';
 import { frontendRoutes } from '../../utils/router/routes';
+import { ConfirmModal } from '../UI/ConfirmModal';
 import { DatePicker } from '../UI/DatePicker';
 import { Button } from '../UI/Form/Button';
 import { InputText } from '../UI/Form/InputText';
 import { KidChooser } from '../UI/KidChooser';
 import { Loader } from '../UI/Loader';
+import { PointsPicker } from '../UI/PointsPicker';
 import { SwitchBar } from '../UI/SwitchBar';
 import styles from './CreateTask.module.scss';
 import { LinkEvent } from './LinkEvent';
@@ -32,8 +34,9 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
   const [type, setType] = useState<number>(1);
   const [activeKids, setActiveKids] = useState<number[]>([]);
   const [activeLinks, setActiveLinks] = useState<number[]>([]);
+  const [points, setPoints] = useState<number>(1);
   const [date, setDate] = useState<Date | undefined>(undefined);
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const [createDayTask, { isLoading: isDayTaskCreating }] =
     useCreateDayTaskMutation();
@@ -52,15 +55,15 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
 
   const handleSubmit = useCallback(
     async (values: typeof createTaskInitialValues) => {
-      setError(undefined);
+      setErrors([]);
 
       if (!activeKids[0]) {
-        setError('Выберите ученика, которому необходимо добавить задачу');
+        setErrors(['Выберите ученика, которому необходимо добавить задачу']);
         return;
       }
 
       if (!date) {
-        setError('Выберите дату');
+        setErrors(['Выберите дату']);
         return;
       }
 
@@ -69,9 +72,7 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
       date.setSeconds(0);
 
       const newTask = {
-        KidId: activeKids[0],
-        //TODO: сделать выбор связанного события
-        // TasksWeekId: 1,
+        KidId: activeKids,
         label: values.label,
         description: values.description,
         date: date.toISOString(),
@@ -81,13 +82,17 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
       //Если день:
       if (type === 1) {
         const newDayTask = activeLinks[0]
-          ? { ...newTask, TasksWeekId: activeLinks[0], points: 1 }
-          : { ...newTask, points: 1 };
+          ? { ...newTask, TasksWeekId: activeLinks[0], points }
+          : { ...newTask, points };
 
         //TODO: add form-input for points
         const result = await createDayTask(newDayTask);
         if ('data' in result) {
-          navigate(frontendRoutes.plan.study);
+          if (result.data.errors && result.data.errors.length > 0) {
+            setErrors(result.data.errors);
+          } else {
+            navigate(frontendRoutes.plan.study);
+          }
         }
       }
 
@@ -99,7 +104,11 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
 
         const result = await createWeekTask(newWeekTask);
         if ('data' in result) {
-          navigate(frontendRoutes.plan.study);
+          if (result.data.errors && result.data.errors.length > 0) {
+            setErrors(result.data.errors);
+          } else {
+            navigate(frontendRoutes.plan.study);
+          }
         }
       }
 
@@ -111,7 +120,11 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
 
         const result = await createMonthTask(newMonthTask);
         if ('data' in result) {
-          navigate(frontendRoutes.plan.study);
+          if (result.data.errors && result.data.errors.length > 0) {
+            setErrors(result.data.errors);
+          } else {
+            navigate(frontendRoutes.plan.study);
+          }
         }
       }
 
@@ -119,7 +132,11 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
       if (type === 4) {
         const result = await createQuarterTask(newTask);
         if ('data' in result) {
-          navigate(frontendRoutes.plan.study);
+          if (result.data.errors && result.data.errors.length > 0) {
+            setErrors(result.data.errors);
+          } else {
+            navigate(frontendRoutes.plan.study);
+          }
         }
       }
     },
@@ -132,6 +149,7 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
       createWeekTask,
       date,
       navigate,
+      points,
       type,
     ]
   );
@@ -184,52 +202,84 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
             kids={kids}
             active={activeKids}
             setActive={setActiveKids}
+            type="multiple"
           />
-          <InputText
-            name="label"
-            placeholder="Выучить таблицу"
-            label="Название"
-          />
-          <InputText
-            name="description"
-            placeholder="Доучить последний ст"
-            label="Описание"
-          />
+          {activeKids.length > 0 && (
+            <>
+              <InputText
+                name="label"
+                placeholder="Выучить таблицу"
+                label="Название"
+              />
+              <InputText
+                name="description"
+                placeholder="Доучить последний ст"
+                label="Описание"
+              />
+            </>
+          )}
         </div>
 
-        <div className={styles.form__content}>
-          <DatePicker
-            date={date}
-            dateFinish={getDateFinish()}
-            setDate={setDate}
-          />
-        </div>
+        {activeKids.length > 0 && (
+          <div className={styles.form__content}>
+            <DatePicker
+              date={date}
+              dateFinish={getDateFinish()}
+              setDate={setDate}
+            />
+          </div>
+        )}
 
-        <div className={styles.form__content}>
-          <LinkEvent
-            date={date}
-            dateFinish={getDateFinish()}
-            type={type}
-            kid={kids.find((kid) => kid.id === activeKids[0])}
-            activeLinks={activeLinks}
-            setActiveLinks={setActiveLinks}
-          />
-        </div>
+        {activeKids.length > 0 && (
+          <div className={styles.form__links}>
+            <LinkEvent
+              date={date}
+              dateFinish={getDateFinish()}
+              type={type}
+              kid={kids.find((kid) => kid.id === activeKids[0])}
+              activeLinks={activeLinks}
+              setActiveLinks={setActiveLinks}
+            />
+          </div>
+        )}
+
+        {activeKids.length > 0 && type === 1 && (
+          <div className={styles.form__links}>
+            <PointsPicker points={points} setPoints={setPoints} />
+          </div>
+        )}
 
         {isLoading ? (
           <Loader />
         ) : (
           <div className={styles.form__navigate}>
-            {error && <div className={styles.form__error}>{error}</div>}
-            <Button
-              type="submit"
-              label="Сохранить"
-              onClick={formik.handleSubmit}
-            />
+            {errors.length > 0 &&
+              errors.map((error, key) => (
+                <div className={styles.form__error} key={key}>
+                  {error}
+                </div>
+              ))}
+            {activeKids.length > 0 && (
+              <Button
+                type="submit"
+                label="Сохранить"
+                onClick={formik.handleSubmit}
+              />
+            )}
             <Button type="warning" label="Отменить" onClick={handleBack} />
           </div>
         )}
       </div>
+      <ConfirmModal
+        isOpen={errors.length > 0}
+        titleText="Ошибки в процессе добавления"
+        message={errors.join('\n\n')}
+        acceptText="Понятно"
+        rejectText=""
+        onAccept={() => navigate(frontendRoutes.plan.study)}
+        onReject={() => navigate(frontendRoutes.plan.study)}
+        type="positive"
+      />
     </FormikContext.Provider>
   );
 };

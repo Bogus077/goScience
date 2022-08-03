@@ -2,6 +2,12 @@
 
 .links {
   display: flex;
+  flex-wrap: wrap;
+
+  &__empty {
+    color: $secondaryColor;
+    padding-bottom: 10px;
+  }
 }
 
 .task {

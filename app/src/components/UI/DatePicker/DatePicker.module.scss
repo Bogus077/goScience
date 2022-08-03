@@ -102,4 +102,17 @@
       border-radius: 0px;
     }
   }
+
+  &__date {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    &_inactive {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      color: $secondaryColor;
+    }
+  }
 }

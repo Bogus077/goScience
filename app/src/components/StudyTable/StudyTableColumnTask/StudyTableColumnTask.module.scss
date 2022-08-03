@@ -16,6 +16,11 @@
     transition: 0.3s;
   }
 
+  &_late {
+    color: $negativeColor;
+    border-color: $negativeColor !important;
+  }
+
   &__points {
     width: 20px;
     height: 20px;
@@ -65,14 +70,15 @@
   }
 
   &__popup {
+    bottom: 0%;
     position: absolute;
-    bottom: 100%;
     opacity: 0;
-    z-index: 0;
+    z-index: -1;
     animation-duration: 0.2s;
     animation-name: slideout;
 
     &_active {
+      bottom: 100%;
       opacity: 1;
       z-index: 2;
       animation-name: slidein;
