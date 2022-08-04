@@ -10,6 +10,7 @@ export type Task = {
   date: string;
   status: boolean;
   taskgroupId: string;
+  isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
 };

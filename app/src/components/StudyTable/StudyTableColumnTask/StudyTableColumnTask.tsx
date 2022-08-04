@@ -25,6 +25,7 @@ type StudyTableColumnTaskTypes = {
   tasksQuarters: Task[];
   activeTasks: ActiveTasks;
   setActiveTasks: React.Dispatch<React.SetStateAction<ActiveTasks>>;
+  handleResetActiveTasks: () => void;
 };
 
 export const StudyTableColumnTask = ({
@@ -38,6 +39,7 @@ export const StudyTableColumnTask = ({
   tasksQuarters,
   activeTasks,
   setActiveTasks,
+  handleResetActiveTasks,
 }: StudyTableColumnTaskTypes) => {
   const [taskPopup, setTaskPopup] = useState<boolean>(false);
   const taskRef = useRef(document.createElement('div'));
@@ -103,7 +105,11 @@ export const StudyTableColumnTask = ({
           task__popup_active: taskPopup,
         })}
       >
-        <TaskDo id={task.id} type={type} />
+        <TaskDo
+          id={task.id}
+          type={type}
+          handleResetActiveTasks={handleResetActiveTasks}
+        />
       </div>
     </div>
   );

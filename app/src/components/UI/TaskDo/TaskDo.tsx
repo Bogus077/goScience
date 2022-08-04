@@ -8,15 +8,15 @@ import { ConfirmModal } from '../ConfirmModal';
 import { IconCheck } from '../Icons/Forms/IconCheck';
 import { IconCross } from '../Icons/Forms/IconCross';
 import { IconEdit } from '../Icons/Tables/IconEdit';
-import { PageLoader } from '../PageLoader';
 import styles from './TaskDo.module.scss';
 
 type TaskDoTypes = {
   id: number;
   type: TaskTypes;
+  handleResetActiveTasks?: () => void;
 };
 
-export const TaskDo = ({ id, type }: TaskDoTypes) => {
+export const TaskDo = ({ id, type, handleResetActiveTasks }: TaskDoTypes) => {
   const [isRemoveModal, setRemoveModal] = useState(false);
   const [removeTask, { isLoading: IsRemoveLoading }] = useRemoveTaskMutation();
   const [changeStatus, { isLoading: isChangeLoading }] =
@@ -34,6 +34,7 @@ export const TaskDo = ({ id, type }: TaskDoTypes) => {
       id,
     };
     await changeStatus(newStatus);
+    if (handleResetActiveTasks) handleResetActiveTasks();
   };
 
   const handleEditTask = () => {};
@@ -47,6 +48,7 @@ export const TaskDo = ({ id, type }: TaskDoTypes) => {
 
     setRemoveModal(false);
     await removeTask(newStatus);
+    if (handleResetActiveTasks) handleResetActiveTasks();
   };
 
   return (

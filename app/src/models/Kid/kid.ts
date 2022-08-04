@@ -1,3 +1,4 @@
+import { StatsTask } from '../Stats/stats';
 import { Task, TaskDay, TaskMonth, TaskWeek } from '../Tasks/tasks';
 
 export type KidRow = {
@@ -16,6 +17,7 @@ export type Kid = {
   TasksWeeks?: TaskWeek[];
   TasksMonths?: TaskMonth[];
   TasksQuarters?: Task[];
+  StatsTasks?: StatsTask[];
 };
 
 /**

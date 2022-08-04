@@ -91,17 +91,19 @@ export const LinkEvent = ({
           Нет подходящих событий для связи
         </div>
       ) : (
-        tasks.map((task) => (
-          <div
-            className={cx('task', {
-              task_active: activeLinks.includes(task.id),
-            })}
-            key={task.id}
-            onClick={() => handleClick(task.id)}
-          >
-            {task.label}
-          </div>
-        ))
+        tasks
+          .filter((task) => !task.isDeleted)
+          .map((task) => (
+            <div
+              className={cx('task', {
+                task_active: activeLinks.includes(task.id),
+              })}
+              key={task.id}
+              onClick={() => handleClick(task.id)}
+            >
+              {task.label}
+            </div>
+          ))
       )}
     </div>
   );

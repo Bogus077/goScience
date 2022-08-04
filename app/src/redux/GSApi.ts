@@ -12,6 +12,7 @@ import {
   UpdateKidsRequest,
   UpdateKidsResponse,
 } from '../models/Kid/kid';
+import { GetUserStatsResponse } from '../models/Stats/stats';
 import {
   ChangeTaskStatusRequest,
   ChangeTaskStatusResponse,
@@ -39,7 +40,16 @@ import { rosatomBaseQueryWithReAuth } from '../utils/api';
 export const GSAPI = createApi({
   reducerPath: 'GS_REDUCER',
   baseQuery: rosatomBaseQueryWithReAuth,
-  tagTypes: ['Users', 'User', 'Classes', 'Class', 'Kids', 'Kid'],
+  tagTypes: [
+    'Users',
+    'User',
+    'Classes',
+    'Class',
+    'Kids',
+    'Kid',
+    'TaskStat',
+    'TaskStats',
+  ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
     login: build.mutation<AuthorizationResponse, AuthorizationRequest>({
@@ -216,7 +226,7 @@ export const GSAPI = createApi({
         body: params,
       }),
       invalidatesTags: (result, error, arg) =>
-        error ? [] : [{ type: 'Class' }, 'Classes'],
+        error ? [] : [{ type: 'Class' }, 'Classes', 'TaskStats'],
     }),
 
     removeTask: build.mutation<unknown, RemoveTaskRequest>({
@@ -227,6 +237,22 @@ export const GSAPI = createApi({
       }),
       invalidatesTags: (result, error, arg) =>
         error ? [] : [{ type: 'Class' }, 'Classes'],
+    }),
+
+    getUserStats: build.query<GetUserStatsResponse, unknown>({
+      query: () => ({
+        url: '/stats/get',
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'TaskStat' as const,
+                id,
+              })),
+              'TaskStats',
+            ]
+          : [],
     }),
   }),
 });
@@ -249,4 +275,5 @@ export const {
   useCreateQuarterTaskMutation,
   useChangeTaskStatusMutation,
   useRemoveTaskMutation,
+  useGetUserStatsQuery,
 } = GSAPI;

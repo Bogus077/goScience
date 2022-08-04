@@ -18,10 +18,6 @@ export const PlanPanel = () => {
     document.title = 'Планирование | GS';
   });
 
-  //TODO: Cut out to backend settings
-  const normative = 20;
-  const fact = 12;
-
   const handleAddTask = useCallback(() => {
     navigate(frontendRoutes.tasks.add);
   }, [navigate]);
@@ -49,7 +45,7 @@ export const PlanPanel = () => {
   ) : (
     <div className={styles.plan}>
       <div className={styles.plan__nav}>
-        <ActivityBar normative={normative} fact={fact} />
+        <ActivityBar />
         <PlanPanelMenu />
       </div>
       <div className={styles.plan__main}>{getMainComponent()}</div>

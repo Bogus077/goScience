@@ -27,7 +27,6 @@ export const StudyTable = ({ kids }: StudyTableTypes) => {
           kid={kid}
           extended={extended}
           setExtended={setExtended}
-          activity={11}
         />
       ))}
     </div>

@@ -145,6 +145,8 @@ export const separateTasks = (
   const currentTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[] = [];
   const futureTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[] = [];
   const lateTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[] = [];
+  const doneTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[] = [];
+  const deletedTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[] = [];
   const today = new Date();
   today.setHours(0);
   today.setMinutes(0);
@@ -159,7 +161,11 @@ export const separateTasks = (
   tasks.forEach((task) => {
     const taskDate = new Date(task.date);
 
-    if (type === 'day') {
+    if (task.isDeleted) {
+      deletedTasks.push(task);
+    } else if (task.status === true) {
+      doneTasks.push(task);
+    } else if (type === 'day') {
       if (isOneDate(taskDate, today)) {
         currentTasks.push(task);
       } else if (taskDate < today) {
@@ -167,9 +173,7 @@ export const separateTasks = (
       } else {
         futureTasks.push(task);
       }
-    }
-
-    if (type === 'week') {
+    } else if (type === 'week') {
       const taskFinishDate = new Date(taskDate);
       taskFinishDate.setDate(taskFinishDate.getDate() + 7);
       taskFinishDate.setSeconds(-1);
@@ -181,9 +185,7 @@ export const separateTasks = (
       } else {
         currentTasks.push(task);
       }
-    }
-
-    if (type === 'month') {
+    } else if (type === 'month') {
       const taskFinishDate = new Date(taskDate);
       taskFinishDate.setDate(taskFinishDate.getDate() + 30);
       taskFinishDate.setSeconds(-1);
@@ -195,9 +197,7 @@ export const separateTasks = (
       } else {
         currentTasks.push(task);
       }
-    }
-
-    if (type === 'quarter') {
+    } else if (type === 'quarter') {
       const taskFinishDate = new Date(taskDate);
       taskFinishDate.setDate(taskFinishDate.getDate() + 90);
       taskFinishDate.setSeconds(-1);
@@ -212,5 +212,5 @@ export const separateTasks = (
     }
   });
 
-  return { currentTasks, lateTasks, futureTasks };
+  return { currentTasks, lateTasks, futureTasks, doneTasks, deletedTasks };
 };

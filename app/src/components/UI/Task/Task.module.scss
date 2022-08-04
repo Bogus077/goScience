@@ -1,40 +1,40 @@
 @import '../../../assets/helpers/index.scss';
 
+.wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .task {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  min-height: 40px;
-  background-color: #fff;
-  padding: 0px 10px;
+  padding: 0 15px 0 10px;
+  height: 30px;
+  background-color: $backgroundColor;
+  margin-right: 10px;
+  border-radius: 5px;
   font-size: 12px;
+  font-weight: bold;
+  color: $secondaryColor;
+  white-space: nowrap;
   cursor: pointer;
-
-  &_disabled {
-    opacity: 0.1;
-    transition: 0.3s;
-  }
-
-  &_late {
-    color: $negativeColor;
-    border-color: $negativeColor !important;
-  }
 
   &__points {
     width: 20px;
     height: 20px;
-    background-color: $positiveColor;
-    border-radius: 100%;
     display: flex;
+    flex-shrink: 0;
     justify-content: center;
     align-items: center;
+    border-radius: 100%;
+    background-color: $positiveColor;
     color: #fff;
-    font-weight: bold;
-    flex-shrink: 0;
+    margin-right: 10px;
 
     &_disabled {
-      background-color: $disableColor;
+      background-color: $secondaryColor;
     }
 
     &_warning {
@@ -48,29 +48,30 @@
 
   @keyframes slidein {
     0% {
-      bottom: 50%;
+      bottom: 0%;
       opacity: 0;
     }
 
     100% {
-      bottom: 100%;
+      bottom: 5%;
       opacity: 1;
     }
   }
 
   @keyframes slideout {
     0% {
-      bottom: 100%;
+      bottom: 5%;
       opacity: 1;
     }
 
     100% {
-      bottom: 50%;
+      bottom: 0%;
       opacity: 0;
     }
   }
 
   &__popup {
+    left: 10px;
     bottom: 0%;
     position: absolute;
     opacity: 0;
@@ -79,7 +80,7 @@
     animation-name: slideout;
 
     &_active {
-      bottom: 100%;
+      bottom: 5%;
       opacity: 1;
       z-index: 2;
       animation-name: slidein;

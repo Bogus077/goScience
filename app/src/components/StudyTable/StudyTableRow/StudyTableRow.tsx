@@ -12,17 +12,17 @@ import {
   isActiveTasksEmpty,
   separateTasks,
 } from '../../../utils/tasks/tasks';
+import { countKidActivity } from '../../../utils/kid/kid';
+import { Task } from '../../UI/Task';
 const cx = classNames.bind(styles);
 
 type TableRowTypes = {
-  activity: number;
   kid: Kid;
   extended?: number;
   setExtended: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 
 export const StudyTableRow = ({
-  activity,
   kid,
   extended,
   setExtended,
@@ -61,9 +61,19 @@ export const StudyTableRow = ({
         >
           <IconArrow size={11} />
         </div>
-        <UserCol activity={activity} name={kid.name} lastName={kid.surname} />
+        <UserCol
+          activity={countKidActivity(kid)}
+          name={kid.name}
+          lastName={kid.surname}
+        />
         <div className={styles.row__tasks}>
-          <>123</>
+          {dayTasks.lateTasks.map((task) => (
+            <Task task={task} key={task.id} />
+          ))}
+          {dayTasks.currentTasks.map((task) => (
+            <Task task={task} key={task.id} />
+          ))}
+
           <div
             className={cx('row__resetActiveTasks', {
               row__resetActiveTasks_active: !isActiveTasksEmpty(activeTasks),
@@ -124,6 +134,7 @@ export const StudyTableRow = ({
           tasks={dayTasks}
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
+          handleResetActiveTasks={handleResetActiveTasks}
         />
         <StudyTableColumn
           type="week"
@@ -139,6 +150,7 @@ export const StudyTableRow = ({
           tasks={weekTasks}
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
+          handleResetActiveTasks={handleResetActiveTasks}
         />
         <StudyTableColumn
           type="month"
@@ -154,6 +166,7 @@ export const StudyTableRow = ({
           tasks={monthTasks}
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
+          handleResetActiveTasks={handleResetActiveTasks}
         />
         <StudyTableColumn
           type="quarter"
@@ -169,6 +182,7 @@ export const StudyTableRow = ({
           tasks={quarterTasks}
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
+          handleResetActiveTasks={handleResetActiveTasks}
         />
       </div>
     </div>

@@ -22,6 +22,8 @@ type StudyTableColumnTypes = {
     currentTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[];
     lateTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[];
     futureTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[];
+    doneTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[];
+    deletedTasks: TaskDay[] | TaskWeek[] | TaskMonth[] | Task[];
   };
   tasksDays: TaskDay[];
   tasksWeeks: TaskWeek[];
@@ -29,6 +31,7 @@ type StudyTableColumnTypes = {
   tasksQuarters: Task[];
   activeTasks: ActiveTasks;
   setActiveTasks: React.Dispatch<React.SetStateAction<ActiveTasks>>;
+  handleResetActiveTasks: () => void;
 };
 
 export const StudyTableColumn = ({
@@ -42,6 +45,7 @@ export const StudyTableColumn = ({
   tasksMonths,
   tasksWeeks,
   tasksQuarters,
+  handleResetActiveTasks,
 }: StudyTableColumnTypes) => {
   const isNoActiveTasks = isActiveTasksEmpty(activeTasks);
 
@@ -69,6 +73,7 @@ export const StudyTableColumn = ({
           tasksWeeks={tasksWeeks}
           tasksMonths={tasksMonths}
           tasksQuarters={tasksQuarters}
+          handleResetActiveTasks={handleResetActiveTasks}
         />
       ))}
 
@@ -93,6 +98,7 @@ export const StudyTableColumn = ({
           tasksWeeks={tasksWeeks}
           tasksMonths={tasksMonths}
           tasksQuarters={tasksQuarters}
+          handleResetActiveTasks={handleResetActiveTasks}
         />
       ))}
 
@@ -117,6 +123,7 @@ export const StudyTableColumn = ({
           tasksWeeks={tasksWeeks}
           tasksMonths={tasksMonths}
           tasksQuarters={tasksQuarters}
+          handleResetActiveTasks={handleResetActiveTasks}
         />
       ))}
     </div>
