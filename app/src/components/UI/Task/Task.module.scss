@@ -71,13 +71,14 @@
   }
 
   &__popup {
-    left: 10px;
+    margin-left: 10px;
     bottom: 0%;
     position: absolute;
     opacity: 0;
     z-index: -1;
     animation-duration: 0.2s;
     animation-name: slideout;
+    cursor: pointer;
 
     &_active {
       bottom: 5%;

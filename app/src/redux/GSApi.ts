@@ -27,6 +27,7 @@ import {
   CurrentClassTasksResponse,
   RemoveTaskRequest,
 } from '../models/Tasks/tasks';
+import { GetUserTeamsResponse } from '../models/Teams/teams';
 import {
   AuthorizationRequest,
   AuthorizationResponse,
@@ -49,6 +50,8 @@ export const GSAPI = createApi({
     'Kid',
     'TaskStat',
     'TaskStats',
+    'Team',
+    'Teams',
   ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
@@ -254,6 +257,22 @@ export const GSAPI = createApi({
             ]
           : [],
     }),
+
+    getUserTeams: build.query<GetUserTeamsResponse, unknown>({
+      query: () => ({
+        url: '/team/get',
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'Team' as const,
+                id,
+              })),
+              'Teams',
+            ]
+          : [],
+    }),
   }),
 });
 
@@ -276,4 +295,5 @@ export const {
   useChangeTaskStatusMutation,
   useRemoveTaskMutation,
   useGetUserStatsQuery,
+  useGetUserTeamsQuery,
 } = GSAPI;

@@ -1,0 +1,30 @@
+@import '../../assets/helpers/index.scss';
+
+.teams {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 365px;
+    min-height: 170px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    border: 2px dashed $disableColor;
+    font-size: 20px;
+    color: $secondaryColor;
+    cursor: pointer;
+    font-weight: bold;
+
+    &:hover {
+      color: $mainTextColor;
+    }
+
+    & span:first-child {
+      font-size: 48px;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.plan {
+  &__team {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+
+    & > *:first-child {
+      margin-bottom: 20px;
+    }
+  }
+}

@@ -16,6 +16,7 @@ import {
   ClassSettingsPage,
   RegistrationPage,
   CreateTaskPage,
+  TeamPage,
 } from './pages';
 import { frontendRoutes } from './utils/router/routes';
 import { CreateKidPage } from './pages/Kid/CreateKid';
@@ -56,6 +57,8 @@ export function App() {
                 path={frontendRoutes.kid.add}
                 element={<CreateKidPage />}
               />
+
+              <Route path={frontendRoutes.plan.team} element={<TeamPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

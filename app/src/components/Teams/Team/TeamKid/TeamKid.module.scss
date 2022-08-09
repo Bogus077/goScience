@@ -1,0 +1,12 @@
+@import '../../../../assets/helpers/index.scss';
+
+.kid {
+  padding: 5px 10px;
+  background-color: $backgroundColor;
+  font-weight: bold;
+  font-size: 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  cursor: default;
+}
