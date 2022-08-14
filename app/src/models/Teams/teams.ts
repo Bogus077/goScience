@@ -12,3 +12,29 @@ export type Team = {
 };
 
 export type GetUserTeamsResponse = Team[];
+
+export type CreateTeamRequest = {
+  label: string;
+  kids: number[];
+};
+
+export type CreateTeamResponse = {
+  id: number;
+  label: string;
+  UserId: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateTeamRequest = {
+  label: string;
+  kids: number[];
+};
+
+export type UpdateTeamResponse = {
+  id: number;
+  label: string;
+  UserId: number;
+  createdAt: string;
+  updatedAt: string;
+};

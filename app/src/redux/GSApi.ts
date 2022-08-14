@@ -27,7 +27,13 @@ import {
   CurrentClassTasksResponse,
   RemoveTaskRequest,
 } from '../models/Tasks/tasks';
-import { GetUserTeamsResponse } from '../models/Teams/teams';
+import {
+  CreateTeamRequest,
+  CreateTeamResponse,
+  GetUserTeamsResponse,
+  UpdateTeamRequest,
+  UpdateTeamResponse,
+} from '../models/Teams/teams';
 import {
   AuthorizationRequest,
   AuthorizationResponse,
@@ -273,6 +279,26 @@ export const GSAPI = createApi({
             ]
           : [],
     }),
+
+    createTeam: build.mutation<CreateTeamResponse, CreateTeamRequest>({
+      query: (params) => ({
+        url: '/team/create',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Team' }, 'Teams'],
+    }),
+
+    updateTeam: build.mutation<UpdateTeamResponse, UpdateTeamRequest>({
+      query: (params) => ({
+        url: '/team/update',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Team' }, 'Teams'],
+    }),
   }),
 });
 
@@ -296,4 +322,6 @@ export const {
   useRemoveTaskMutation,
   useGetUserStatsQuery,
   useGetUserTeamsQuery,
+  useCreateTeamMutation,
+  useUpdateTeamMutation,
 } = GSAPI;

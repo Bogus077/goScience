@@ -82,3 +82,14 @@ export const createTaskInitialValues = {
   label: '',
   description: '',
 };
+
+/**
+ * Схема валидации формы добавления команды
+ */
+export const createTeamValidationSchema = object({
+  label: string().required(VALIDATION_ERRORS.REQUIRED),
+});
+
+export const createTeamInitialValues = {
+  label: '',
+};

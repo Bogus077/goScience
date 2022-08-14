@@ -6,6 +6,8 @@ export const frontendRoutes = {
     motivation: '/plan/motivation',
     discipline: '/plan/discipline',
     team: '/plan/team',
+    createTeam: '/plan/team/create',
+    updateTeam: '/plan/team/update',
   },
   user: {
     login: '/login',

@@ -5,6 +5,8 @@ import { IconEditColored } from '../../UI/Icons/IconEditColored';
 import classNames from 'classnames/bind';
 import styles from './Team.module.scss';
 import { TeamKid } from './TeamKid';
+import { useNavigate } from 'react-router-dom';
+import { frontendRoutes } from '../../../utils/router/routes';
 const cx = classNames.bind(styles);
 
 type TeamTypes = {
@@ -12,6 +14,7 @@ type TeamTypes = {
 };
 
 export const Team = ({ team }: TeamTypes) => {
+  const navigate = useNavigate();
   const points = countTeamPoints(team);
   const currentProject = team.Projects.filter(
     (project) => !project.isDeleted && !project.archived
@@ -22,7 +25,10 @@ export const Team = ({ team }: TeamTypes) => {
     <div className={styles.team}>
       <div className={styles.team__points}>{points}</div>
       <div className={styles.team__createdAt}>Сформирована {createdDate}</div>
-      <div className={styles.team__label}>
+      <div
+        className={styles.team__label}
+        onClick={() => navigate(`${frontendRoutes.plan.updateTeam}/${team.id}`)}
+      >
         <div className={styles.team__label_icon}>
           <IconEditColored size={15} />
         </div>

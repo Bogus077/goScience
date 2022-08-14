@@ -17,9 +17,11 @@ import {
   RegistrationPage,
   CreateTaskPage,
   TeamPage,
+  CreateTeamPage,
 } from './pages';
 import { frontendRoutes } from './utils/router/routes';
 import { CreateKidPage } from './pages/Kid/CreateKid';
+import { UpdateTeamPage } from './pages/Plan/UpdateTeamPage/UpdateTeamPage';
 
 const store = createStore(); // Possible additional params to store init func
 const persistor = persistStore(store);
@@ -59,6 +61,14 @@ export function App() {
               />
 
               <Route path={frontendRoutes.plan.team} element={<TeamPage />} />
+              <Route
+                path={frontendRoutes.plan.createTeam}
+                element={<CreateTeamPage />}
+              />
+              <Route
+                path={`${frontendRoutes.plan.updateTeam}/:teamId`}
+                element={<UpdateTeamPage />}
+              />
             </Route>
           </Routes>
         </BrowserRouter>
