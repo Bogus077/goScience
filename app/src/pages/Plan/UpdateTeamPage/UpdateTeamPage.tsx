@@ -21,7 +21,7 @@ export const UpdateTeamPage = () => {
 
   const teamId = parseInt(params.teamId ?? '0');
   const team = teams?.find((team) => team.id === teamId);
-  if (!teamId || !team) {
+  if (!params.teamId || !team) {
     navigate(frontendRoutes.plan.team);
   }
 

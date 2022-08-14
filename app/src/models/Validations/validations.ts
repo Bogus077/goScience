@@ -93,3 +93,26 @@ export const createTeamValidationSchema = object({
 export const createTeamInitialValues = {
   label: '',
 };
+
+/**
+ * Схема валидации формы добавления проекта
+ */
+export const createProjectValidationSchema = object({
+  label: string().required(VALIDATION_ERRORS.REQUIRED),
+});
+
+export const createProjectInitialValues = {
+  label: '',
+};
+
+/**
+ * Схема валидации формы добавления задачи проекта
+ */
+export const createProjectTaskValidationSchema = object({
+  label: string().required(VALIDATION_ERRORS.REQUIRED),
+});
+
+export const createProjectTaskInitialValues = {
+  label: '',
+  description: '',
+};

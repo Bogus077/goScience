@@ -12,6 +12,19 @@ import {
   UpdateKidsRequest,
   UpdateKidsResponse,
 } from '../models/Kid/kid';
+import {
+  CreateProjectRequest,
+  CreateProjectResponse,
+  CreateProjectTaskRequest,
+  CreateProjectTaskResponse,
+  GetProjectTaskRequest,
+  GetProjectTaskResponse,
+  GetUserProjectsResponse,
+  UpdateProjectRequest,
+  UpdateProjectResponse,
+  UpdateProjectTaskRequest,
+  UpdateProjectTaskResponse,
+} from '../models/Project/Project';
 import { GetUserStatsResponse } from '../models/Stats/stats';
 import {
   ChangeTaskStatusRequest,
@@ -58,6 +71,10 @@ export const GSAPI = createApi({
     'TaskStats',
     'Team',
     'Teams',
+    'Project',
+    'Projects',
+    'ProjectTask',
+    'ProjectTasks',
   ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
@@ -299,6 +316,77 @@ export const GSAPI = createApi({
       invalidatesTags: (result, error, arg) =>
         error ? [] : [{ type: 'Team' }, 'Teams'],
     }),
+
+    getUserProjects: build.query<GetUserProjectsResponse, unknown>({
+      query: () => ({
+        url: '/project/get',
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'Project' as const,
+                id,
+              })),
+              'Projects',
+            ]
+          : [],
+    }),
+
+    createProject: build.mutation<CreateProjectResponse, CreateProjectRequest>({
+      query: (params) => ({
+        url: '/project/create',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Project' }, 'Projects'],
+    }),
+
+    updateProject: build.mutation<UpdateProjectResponse, UpdateProjectRequest>({
+      query: (params) => ({
+        url: '/project/update',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Project' }, 'Projects'],
+    }),
+
+    createProjectTask: build.mutation<
+      CreateProjectTaskResponse,
+      CreateProjectTaskRequest
+    >({
+      query: (params) => ({
+        url: '/project/createTask',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Project' }, 'Projects'],
+    }),
+
+    updateProjectTask: build.mutation<
+      UpdateProjectTaskResponse,
+      UpdateProjectTaskRequest
+    >({
+      query: (params) => ({
+        url: '/project/updateTask',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Project' }, 'Projects'],
+    }),
+
+    getProjectTask: build.query<GetProjectTaskResponse, GetProjectTaskRequest>({
+      query: (params) => ({
+        url: '/project/getProjectTask',
+        method: 'post',
+        body: params,
+      }),
+      providesTags: (result) => (result ? ['ProjectTask'] : []),
+    }),
   }),
 });
 
@@ -324,4 +412,10 @@ export const {
   useGetUserTeamsQuery,
   useCreateTeamMutation,
   useUpdateTeamMutation,
+  useGetUserProjectsQuery,
+  useCreateProjectMutation,
+  useUpdateProjectMutation,
+  useCreateProjectTaskMutation,
+  useUpdateProjectTaskMutation,
+  useGetProjectTaskQuery,
 } = GSAPI;

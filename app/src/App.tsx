@@ -18,10 +18,14 @@ import {
   CreateTaskPage,
   TeamPage,
   CreateTeamPage,
+  CreateProjectPage,
+  UpdateProjectPage,
+  CreateProjectTaskPage,
 } from './pages';
 import { frontendRoutes } from './utils/router/routes';
 import { CreateKidPage } from './pages/Kid/CreateKid';
 import { UpdateTeamPage } from './pages/Plan/UpdateTeamPage/UpdateTeamPage';
+import { UpdateProjectTaskPage } from './pages/Plan/UpdateProjectTaskPage/UpdateProjectTaskPage';
 
 const store = createStore(); // Possible additional params to store init func
 const persistor = persistStore(store);
@@ -68,6 +72,24 @@ export function App() {
               <Route
                 path={`${frontendRoutes.plan.updateTeam}/:teamId`}
                 element={<UpdateTeamPage />}
+              />
+
+              <Route
+                path={frontendRoutes.project.add}
+                element={<CreateProjectPage />}
+              />
+              <Route
+                path={`${frontendRoutes.project.edit}/:projectId`}
+                element={<UpdateProjectPage />}
+              />
+
+              <Route
+                path={frontendRoutes.project.addTask}
+                element={<CreateProjectTaskPage />}
+              />
+              <Route
+                path={`${frontendRoutes.project.editTask}/:taskId`}
+                element={<UpdateProjectTaskPage />}
               />
             </Route>
           </Routes>

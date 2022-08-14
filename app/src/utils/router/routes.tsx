@@ -22,4 +22,10 @@ export const frontendRoutes = {
   tasks: {
     add: '/task/add',
   },
+  project: {
+    add: '/project/add',
+    edit: '/project/edit',
+    addTask: '/project/createTask',
+    editTask: '/project/updateTask',
+  },
 };

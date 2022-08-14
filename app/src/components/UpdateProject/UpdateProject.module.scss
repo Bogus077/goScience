@@ -1,0 +1,42 @@
+@import '../../assets/helpers/index.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__navigate {
+    padding: 0px 20px 20px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+  }
+
+  &__error {
+    margin-top: 20px;
+    color: $negativeColor;
+  }
+
+  &__header {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    min-height: 50px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &__content {
+    padding: 20px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+
+    & > *:not(:last-child) {
+      margin-bottom: 40px;
+    }
+  }
+}

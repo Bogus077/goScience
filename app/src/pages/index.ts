@@ -1,3 +1,6 @@
+export { CreateProjectTaskPage } from './Plan/CreateProjectTaskPage/CreateProjectTaskPage';
+export { UpdateProjectPage } from './Plan/UpdateProjectPage/UpdateProjectPage';
+export { CreateProjectPage } from './Plan/CreateProjectPage/CreateProjectPage';
 export { CreateTeamPage } from './Plan/CreateTeamPage/CreateTeamPage';
 export { TeamPage } from './Plan/TeamPage/Team';
 export { CreateTaskPage } from './Plan/CreateTask';
