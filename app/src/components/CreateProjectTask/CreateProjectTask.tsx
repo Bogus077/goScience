@@ -1,8 +1,8 @@
 import { FormikContext, useFormik } from 'formik';
 import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Kid } from '../../models/Kid/kid';
 import { Project } from '../../models/Project/Project';
+import { Team } from '../../models/Teams/teams';
 import {
   createProjectTaskInitialValues,
   createProjectTaskValidationSchema,
@@ -19,16 +19,19 @@ import { ProjectChooser } from '../UI/ProjectChooser';
 import styles from './CreateProjectTask.module.scss';
 
 type CreateTeamTypes = {
-  kids: Kid[];
   projects: Project[];
+  teams: Team[];
 };
 
-export const CreateProjectTask = ({ kids, projects }: CreateTeamTypes) => {
+export const CreateProjectTask = ({ projects, teams }: CreateTeamTypes) => {
   const navigate = useNavigate();
   const [activeKids, setActiveKids] = useState<number[]>([]);
   const [activeProjects, setActiveProjects] = useState<number[]>([]);
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [points, setPoints] = useState<number>(1);
+  const currentProject = projects.find((pr) => pr.id === activeProjects[0]);
+  const currentTeam = teams.find((team) => team.id === currentProject?.TeamId);
+  const kids = currentTeam?.Kids ?? [];
 
   //TODO обработка ошибок
   const [errors, setErrors] = useState<string[]>([]);
