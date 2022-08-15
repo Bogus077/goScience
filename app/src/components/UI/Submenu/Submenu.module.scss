@@ -1,0 +1,65 @@
+@import '../../../assets/helpers/index.scss';
+
+.menu {
+  position: relative;
+
+  &__dots {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    height: 50px;
+
+    div {
+      width: 5px;
+      height: 5px;
+      background-color: $secondaryColor;
+      border-radius: 2px;
+    }
+
+    &:hover {
+      div {
+        background-color: $mainColor;
+      }
+    }
+  }
+}
+
+@keyframes slidein {
+  0% {
+    bottom: 160%;
+    opacity: 0;
+  }
+
+  100% {
+    bottom: 80%;
+    opacity: 1;
+  }
+}
+
+.linkbox {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  right: -35px;
+  bottom: 80%;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid $disableColor;
+  animation-duration: 0.3s;
+  animation-name: slidein;
+  z-index: 10;
+
+  &__link {
+    display: flex;
+    padding: 7px 10px;
+    white-space: nowrap;
+    color: $secondaryColor;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $disableColor;
+    }
+  }
+}

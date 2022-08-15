@@ -7,6 +7,7 @@ import styles from './Team.module.scss';
 import { TeamKid } from './TeamKid';
 import { useNavigate } from 'react-router-dom';
 import { frontendRoutes } from '../../../utils/router/routes';
+import { getNormalEnding } from '../../../utils/text/text';
 const cx = classNames.bind(styles);
 
 type TeamTypes = {
@@ -19,12 +20,23 @@ export const Team = ({ team }: TeamTypes) => {
   const currentProject = team.Projects.filter(
     (project) => !project.isDeleted && !project.archived
   )[0];
-  const createdDate = new Date(team.createdAt).toLocaleDateString();
+  const createdDaysAgo = Math.ceil(
+    (new Date().getTime() - new Date(team.createdAt).getTime()) /
+      1000 /
+      3600 /
+      24
+  );
+  const createdDatePrint = `Сформирована ${createdDaysAgo} ${getNormalEnding(
+    createdDaysAgo,
+    'день',
+    'дня',
+    'дней'
+  )} назад`;
 
   return (
     <div className={styles.team}>
       <div className={styles.team__points}>{points}</div>
-      <div className={styles.team__createdAt}>Сформирована {createdDate}</div>
+      <div className={styles.team__createdAt}>{createdDatePrint}</div>
       <div
         className={styles.team__label}
         onClick={() => navigate(`${frontendRoutes.plan.updateTeam}/${team.id}`)}
@@ -46,7 +58,13 @@ export const Team = ({ team }: TeamTypes) => {
             team__project_link_inactive: !currentProject,
           })}
         >
-          {currentProject?.label ?? 'Нет текущего проекта'}
+          {currentProject?.label ? (
+            <a href={`#${currentProject.id.toString()}`}>
+              {currentProject?.label}
+            </a>
+          ) : (
+            'Нет текущего проекта'
+          )}
         </div>
       </div>
     </div>

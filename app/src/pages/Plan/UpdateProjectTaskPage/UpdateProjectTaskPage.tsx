@@ -11,19 +11,20 @@ import {
 import { frontendRoutes } from '../../../utils/router/routes';
 
 export const UpdateProjectTaskPage = () => {
-  const { projectId } = useParams();
+  const { taskId } = useParams();
+
   const navigate = useNavigate();
   const { data, isLoading } = useGetCurrentClassQuery('');
   const { data: projects, isLoading: isProjectsLoading } =
     useGetUserProjectsQuery('');
   const { data: task, isLoading: isTaskLoading } = useGetProjectTaskQuery({
-    ProjectTaskId: projectId ?? '1',
+    ProjectTaskId: taskId ?? '1',
   });
 
   useEffect(() => {
     document.title = 'Изменить задачу проекта | GS';
 
-    if (!projectId || !task) {
+    if (!taskId) {
       navigate(frontendRoutes.plan.team);
     }
   });

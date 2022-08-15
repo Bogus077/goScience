@@ -11,6 +11,7 @@ export type ProjectTask = {
   isDeleted: boolean & null;
   createdAt: string;
   updatedAt: string;
+  Kids: Kid[];
 };
 
 export type Project = {
@@ -80,3 +81,21 @@ export type GetProjectTaskRequest = {
 };
 
 export type GetProjectTaskResponse = ProjectTask & { Kids: Kid[] };
+
+export type ArchiveProjectRequest = {
+  ProjectId: number;
+};
+
+export type ArchiveProjectResponse = Project;
+
+export type RemoveProjectTaskRequest = {
+  ProjectTaskId: number;
+};
+
+export type RemoveProjectTaskResponse = ProjectTask;
+
+export type DoneProjectTaskRequest = {
+  ProjectTaskId: number;
+};
+
+export type DoneProjectTaskResponse = ProjectTask;

@@ -75,6 +75,10 @@
       text-decoration: underline;
       cursor: pointer;
 
+      & a {
+        color: $mainTextColor;
+      }
+
       &_inactive {
         text-decoration: none;
         opacity: 0.5;

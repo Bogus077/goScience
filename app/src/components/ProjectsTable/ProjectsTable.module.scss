@@ -1,0 +1,21 @@
+@import '../../assets/helpers/index.scss';
+
+.projects {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  &__type {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__add {
+    margin: 20px 0px;
+  }
+
+  &__table {
+    display: flex;
+    flex-direction: column;
+  }
+}

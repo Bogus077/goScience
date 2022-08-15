@@ -13,13 +13,19 @@ import {
   UpdateKidsResponse,
 } from '../models/Kid/kid';
 import {
+  ArchiveProjectRequest,
+  ArchiveProjectResponse,
   CreateProjectRequest,
   CreateProjectResponse,
   CreateProjectTaskRequest,
   CreateProjectTaskResponse,
+  DoneProjectTaskRequest,
+  DoneProjectTaskResponse,
   GetProjectTaskRequest,
   GetProjectTaskResponse,
   GetUserProjectsResponse,
+  RemoveProjectTaskRequest,
+  RemoveProjectTaskResponse,
   UpdateProjectRequest,
   UpdateProjectResponse,
   UpdateProjectTaskRequest,
@@ -353,6 +359,32 @@ export const GSAPI = createApi({
         error ? [] : [{ type: 'Project' }, 'Projects'],
     }),
 
+    archiveProject: build.mutation<
+      ArchiveProjectResponse,
+      ArchiveProjectRequest
+    >({
+      query: (params) => ({
+        url: '/project/archive',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Project' }, 'Projects'],
+    }),
+
+    removeProject: build.mutation<
+      ArchiveProjectResponse,
+      ArchiveProjectRequest
+    >({
+      query: (params) => ({
+        url: '/project/remove',
+        method: 'delete',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Project' }, 'Projects'],
+    }),
+
     createProjectTask: build.mutation<
       CreateProjectTaskResponse,
       CreateProjectTaskRequest
@@ -376,7 +408,55 @@ export const GSAPI = createApi({
         body: params,
       }),
       invalidatesTags: (result, error, arg) =>
-        error ? [] : [{ type: 'Project' }, 'Projects'],
+        error
+          ? []
+          : [
+              { type: 'Project' },
+              { type: 'ProjectTask' },
+              'Projects',
+              'ProjectTasks',
+            ],
+    }),
+
+    removeProjectTask: build.mutation<
+      RemoveProjectTaskResponse,
+      RemoveProjectTaskRequest
+    >({
+      query: (params) => ({
+        url: '/project/removeTask',
+        method: 'delete',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error
+          ? []
+          : [
+              { type: 'Project' },
+              { type: 'ProjectTask' },
+              'Projects',
+              'ProjectTasks',
+            ],
+    }),
+
+    doneProjectTask: build.mutation<
+      DoneProjectTaskResponse,
+      DoneProjectTaskRequest
+    >({
+      query: (params) => ({
+        url: '/project/doneTask',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error
+          ? []
+          : [
+              { type: 'Project' },
+              { type: 'ProjectTask' },
+              'Projects',
+              'ProjectTasks',
+              'Teams',
+            ],
     }),
 
     getProjectTask: build.query<GetProjectTaskResponse, GetProjectTaskRequest>({
@@ -418,4 +498,8 @@ export const {
   useCreateProjectTaskMutation,
   useUpdateProjectTaskMutation,
   useGetProjectTaskQuery,
+  useArchiveProjectMutation,
+  useRemoveProjectMutation,
+  useRemoveProjectTaskMutation,
+  useDoneProjectTaskMutation,
 } = GSAPI;

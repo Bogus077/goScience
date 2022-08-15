@@ -1,0 +1,89 @@
+@import '../../../../assets/helpers/index.scss';
+
+.task {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 3px solid $backgroundColor;
+  border-radius: 5px;
+  width: 300px;
+
+  &_inactive {
+    background-color: $backgroundColor;
+  }
+
+  &_done {
+    border-color: $positiveColor;
+  }
+
+  &__submenu {
+    position: absolute;
+    right: 24px;
+    top: -5px;
+  }
+
+  &__header {
+    font-size: 14px;
+    font-weight: bold;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  &__subheader {
+    font-size: 12px;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $secondaryColor;
+  }
+
+  &__description {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  &__kids {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: -10px;
+  }
+
+  &__resp {
+    font-size: 12px;
+    color: $secondaryColor;
+  }
+}
+
+.mark {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: $positiveColor;
+  top: 30px;
+  right: 20px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: $backgroundColor;
+  cursor: pointer;
+
+  &_warning {
+    color: $warningColor;
+  }
+
+  &_negative {
+    color: $negativeColor;
+  }
+
+  &_disabled {
+    background-color: #fff;
+  }
+}

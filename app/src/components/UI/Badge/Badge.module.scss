@@ -1,0 +1,18 @@
+@import '../../../assets/helpers/index.scss';
+
+.badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $mainColor;
+  border-radius: 5px;
+  color: $mainColor;
+  font-size: 16px;
+  height: 30px;
+  padding: 0px 10px;
+
+  &_disable {
+    color: $secondaryColor;
+    border-color: $secondaryColor;
+  }
+}
