@@ -36,6 +36,17 @@ jobs:
             cd goScience/GSFrontend
             git pull
             
+      - name: Create env-file
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_SERVER_HOST }}
+          username: ${{ secrets.DEPLOY_SERVER_USERNAME }}
+          key: ${{ secrets.DEPLOY_SERVER_KEY }}
+          port: ${{ secrets.DEPLOY_SERVER_PORT }}
+          script: |
+            cd goScience/GSFrontend/app
+            cp .env.example .env
+            
       - name: Down old containers
         uses: appleboy/ssh-action@master
         with:
@@ -56,6 +67,6 @@ jobs:
           port: ${{ secrets.DEPLOY_SERVER_PORT }}
           script: |
             cd goScience/GSFrontend
-            docker-compose up
+            docker-compose up -d
         
       
