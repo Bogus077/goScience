@@ -12,11 +12,6 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
-env:
-  DEPLOY_PATH: /home/goScience/GSFrontend
-  BUILD_SCRIPT: docker-compose down && docker-compose up
-  BUILD_SCRIPT_OUTPUT: ./
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -30,7 +25,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: executing remote ssh commands using password
+      - name: Update serverfiles
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEPLOY_SERVER_HOST }}
@@ -40,6 +35,27 @@ jobs:
           script: |
             cd goScience/GSFrontend
             git pull
-            docker-compose down && docker-compose up
+            
+      - name: Down old containers
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_SERVER_HOST }}
+          username: ${{ secrets.DEPLOY_SERVER_USERNAME }}
+          key: ${{ secrets.DEPLOY_SERVER_KEY }}
+          port: ${{ secrets.DEPLOY_SERVER_PORT }}
+          script: |
+            cd goScience/GSFrontend
+            docker-compose down
+            
+      - name: Up new containers
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_SERVER_HOST }}
+          username: ${{ secrets.DEPLOY_SERVER_USERNAME }}
+          key: ${{ secrets.DEPLOY_SERVER_KEY }}
+          port: ${{ secrets.DEPLOY_SERVER_PORT }}
+          script: |
+            cd goScience/GSFrontend
+            docker-compose up
         
       
