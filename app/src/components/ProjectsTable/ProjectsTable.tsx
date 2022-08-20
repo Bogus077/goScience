@@ -13,7 +13,7 @@ type ProjectsTableTypes = {
 
 export const ProjectsTable = ({ projects }: ProjectsTableTypes) => {
   const navigate = useNavigate();
-  const [activeFilter, setActiveFilter] = useState(2);
+  const [activeFilter, setActiveFilter] = useState(1);
 
   const handleAddProject = useCallback(() => {
     navigate(frontendRoutes.project.add);

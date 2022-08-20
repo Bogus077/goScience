@@ -1,4 +1,5 @@
 export const frontendRoutes = {
+  kidWeekStats: '/stats',
   dashboard: '/',
   plan: {
     index: '/plan',

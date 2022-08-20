@@ -1,0 +1,28 @@
+@import '../../../../assets/helpers/index.scss';
+
+.stars {
+  display: flex;
+  align-items: center;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+.star {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  cursor: pointer;
+
+  &:first-child {
+    padding: 0 10px 0 0;
+  }
+}
+
+.descr {
+  position: absolute;
+  top: 33px;
+  text-align: center;
+  width: 100%;
+  color: $secondaryColor;
+}

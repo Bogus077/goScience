@@ -21,6 +21,7 @@ import {
   CreateProjectPage,
   UpdateProjectPage,
   CreateProjectTaskPage,
+  KidWeekSummaryPage,
 } from './pages';
 import { frontendRoutes } from './utils/router/routes';
 import { CreateKidPage } from './pages/Kid/CreateKid';
@@ -40,6 +41,10 @@ export function App() {
             <Route
               path={frontendRoutes.user.registration}
               element={<RegistrationPage />}
+            />
+            <Route
+              path={frontendRoutes.kidWeekStats}
+              element={<KidWeekSummaryPage />}
             />
 
             <Route element={<ProtectedRoutes />}>

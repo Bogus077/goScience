@@ -1,3 +1,4 @@
+export { KidWeekSummaryPage } from './KidWeekSummary/KidWeekSummaryPage';
 export { CreateProjectTaskPage } from './Plan/CreateProjectTaskPage/CreateProjectTaskPage';
 export { UpdateProjectPage } from './Plan/UpdateProjectPage/UpdateProjectPage';
 export { CreateProjectPage } from './Plan/CreateProjectPage/CreateProjectPage';

@@ -1,0 +1,1 @@
+export { KidWeekSummary } from './KidWeekSummary';
