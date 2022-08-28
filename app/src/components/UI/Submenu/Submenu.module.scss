@@ -2,13 +2,15 @@
 
 .menu {
   position: relative;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
 
   &__dots {
     display: flex;
     align-items: center;
     gap: 3px;
-    cursor: pointer;
-    height: 50px;
 
     div {
       width: 5px;
@@ -16,11 +18,11 @@
       background-color: $secondaryColor;
       border-radius: 2px;
     }
+  }
 
-    &:hover {
-      div {
-        background-color: $mainColor;
-      }
+  &:hover .menu__dots {
+    div {
+      background-color: $mainColor;
     }
   }
 }
@@ -33,6 +35,18 @@
 
   100% {
     bottom: 80%;
+    opacity: 1;
+  }
+}
+
+@keyframes slideinDown {
+  0% {
+    top: 50px;
+    opacity: 0;
+  }
+
+  100% {
+    top: 20px;
     opacity: 1;
   }
 }
@@ -50,6 +64,12 @@
   animation-duration: 0.3s;
   animation-name: slidein;
   z-index: 10;
+
+  &_down {
+    bottom: auto;
+    top: 20px;
+    animation-name: slideinDown;
+  }
 
   &__link {
     display: flex;

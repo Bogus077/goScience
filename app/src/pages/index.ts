@@ -1,3 +1,5 @@
+export { MembersPage } from './Members/MembersPage';
+export { MotivationPage } from './Plan/MotivationPage/MotivationPage';
 export { KidWeekSummaryPage } from './KidWeekSummary/KidWeekSummaryPage';
 export { CreateProjectTaskPage } from './Plan/CreateProjectTaskPage/CreateProjectTaskPage';
 export { UpdateProjectPage } from './Plan/UpdateProjectPage/UpdateProjectPage';

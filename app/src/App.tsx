@@ -22,6 +22,8 @@ import {
   UpdateProjectPage,
   CreateProjectTaskPage,
   KidWeekSummaryPage,
+  MotivationPage,
+  MembersPage,
 } from './pages';
 import { frontendRoutes } from './utils/router/routes';
 import { CreateKidPage } from './pages/Kid/CreateKid';
@@ -48,6 +50,7 @@ export function App() {
             />
 
             <Route element={<ProtectedRoutes />}>
+              {/* Study */}
               <Route path={frontendRoutes.dashboard} element={<StudyPage />} />
               <Route path={frontendRoutes.plan.index} element={<StudyPage />} />
               <Route
@@ -69,6 +72,13 @@ export function App() {
                 element={<CreateKidPage />}
               />
 
+              {/* Motivation */}
+              <Route
+                path={frontendRoutes.plan.motivation}
+                element={<MotivationPage />}
+              />
+
+              {/* Team */}
               <Route path={frontendRoutes.plan.team} element={<TeamPage />} />
               <Route
                 path={frontendRoutes.plan.createTeam}
@@ -96,6 +106,9 @@ export function App() {
                 path={`${frontendRoutes.project.editTask}/:taskId`}
                 element={<UpdateProjectTaskPage />}
               />
+
+              {/* Members */}
+              <Route path={frontendRoutes.members} element={<MembersPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

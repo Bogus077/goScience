@@ -32,6 +32,7 @@ import {
   UpdateProjectTaskResponse,
 } from '../models/Project/Project';
 import { GetUserStatsResponse } from '../models/Stats/stats';
+import { GetSummaryResponse } from '../models/summary/summary';
 import {
   ChangeTaskStatusRequest,
   ChangeTaskStatusResponse,
@@ -81,6 +82,10 @@ export const GSAPI = createApi({
     'Projects',
     'ProjectTask',
     'ProjectTasks',
+    'KidSummary',
+    'KidsSummary',
+    'Member',
+    'Members',
   ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
@@ -467,6 +472,24 @@ export const GSAPI = createApi({
       }),
       providesTags: (result) => (result ? ['ProjectTask'] : []),
     }),
+
+    //Summary
+    getSummary: build.query<GetSummaryResponse, unknown>({
+      query: () => ({
+        url: '/summary/get',
+      }),
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'KidSummary' as const,
+                id,
+              })),
+              'KidsSummary',
+            ]
+          : ['KidsSummary'];
+      },
+    }),
   }),
 });
 
@@ -502,4 +525,5 @@ export const {
   useRemoveProjectMutation,
   useRemoveProjectTaskMutation,
   useDoneProjectTaskMutation,
+  useGetSummaryQuery,
 } = GSAPI;

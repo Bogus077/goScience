@@ -1,6 +1,7 @@
 export const frontendRoutes = {
   kidWeekStats: '/stats',
   dashboard: '/',
+  members: '/members',
   plan: {
     index: '/plan',
     study: '/plan/study',

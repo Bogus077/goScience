@@ -1,0 +1,111 @@
+import classNames from 'classnames/bind';
+import React, { useCallback, useRef, useState } from 'react';
+import {
+  ChangeMemberStatusRequest,
+  Member,
+} from '../../models/members/members';
+import { getPlat } from '../../utils/members/members';
+import styles from './Members.module.scss';
+import { MembersPlat } from './MembersPlat';
+import { MembersStatus } from './MembersStatus';
+const cx = classNames.bind(styles);
+
+type MembersTypes = {
+  kids: Member[];
+  isLoading: boolean;
+  changeMemberStatus: (data: ChangeMemberStatusRequest) => void;
+  connectionStatus: boolean;
+};
+
+export const Members = ({
+  kids,
+  isLoading,
+  changeMemberStatus,
+  connectionStatus,
+}: MembersTypes) => {
+  const [genderSeparate, setGenderSeparate] = useState(false);
+
+  const handleChangeStatus = useCallback(
+    async (id: number, status: boolean) => {
+      changeMemberStatus({ id, status });
+    },
+    [changeMemberStatus]
+  );
+
+  const plats = [
+    getPlat(kids, 1),
+    getPlat(kids, 2),
+    getPlat(kids, 3),
+    getPlat(kids, 4),
+    getPlat(kids, 5),
+  ];
+
+  const tableRef = useRef<HTMLDivElement>(null);
+
+  const scrollRight = (plat: number) => {
+    tableRef.current?.scroll({
+      left: window ? (window.innerWidth + 20) * (plat - 1) : 0,
+      behavior: 'smooth',
+    });
+  };
+
+  const kidsIll = kids.reduce((sum, kid) => (kid.status ? sum : sum + 1), 0);
+
+  return (
+    <div className={styles.members}>
+      <div className={styles.members__status}>
+        <MembersStatus status={connectionStatus} isLoading={isLoading} />
+      </div>
+      <div className={styles.members__sum}>
+        <div className={styles.members__sumItem}>
+          <div className={styles.members__sumHeader}>Всего: </div>
+          <div className={styles.members__sumNumber}>{kids.length}</div>
+        </div>
+        <div className={cx('members__sumItem', 'members__sumItem_positive')}>
+          <div className={styles.members__sumHeader}>В строю: </div>
+          <div className={styles.members__sumNumber}>
+            {kids.length - kidsIll}
+          </div>
+        </div>
+        <div className={cx('members__sumItem', 'members__sumItem_negative')}>
+          <div className={styles.members__sumHeader}>Болеют: </div>
+          <div className={styles.members__sumNumber}>{kidsIll}</div>
+        </div>
+      </div>
+
+      <div className={styles.members__table} ref={tableRef}>
+        {plats.map((plat, key) => (
+          <MembersPlat
+            kids={plat}
+            key={key}
+            plat={key + 1}
+            handleChangeStatus={handleChangeStatus}
+            genderSeparate={genderSeparate}
+            setGenderSeparate={setGenderSeparate}
+          />
+        ))}
+      </div>
+      <div className={styles.switcher}>
+        <div className={styles.switcher__item} onClick={() => scrollRight(1)}>
+          1
+        </div>
+        <div className={styles.switcher__item} onClick={() => scrollRight(2)}>
+          2
+        </div>
+        <div className={styles.switcher__item} onClick={() => scrollRight(3)}>
+          3
+        </div>
+        <div className={styles.switcher__item} onClick={() => scrollRight(4)}>
+          4
+        </div>
+        <div className={styles.switcher__item} onClick={() => scrollRight(5)}>
+          5
+        </div>
+      </div>
+      <div className={styles.author}>
+        <strong>Дизайн и разработка приложения:</strong> <br /> Владислав
+        Андреевич Ш. <br /> 2022 год
+      </div>
+    </div>
+  );
+};

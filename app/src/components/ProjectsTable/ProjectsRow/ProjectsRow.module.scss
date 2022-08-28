@@ -5,6 +5,10 @@
   flex-direction: column;
   margin-bottom: 20px;
 
+  &__submenu {
+    height: 100%;
+  }
+
   &__header {
     display: flex;
     align-items: center;

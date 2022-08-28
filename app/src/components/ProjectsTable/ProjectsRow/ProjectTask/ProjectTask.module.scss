@@ -20,7 +20,10 @@
   &__submenu {
     position: absolute;
     right: 24px;
-    top: -5px;
+    top: 0px;
+    height: 30px;
+    display: flex;
+    align-items: center;
   }
 
   &__header {

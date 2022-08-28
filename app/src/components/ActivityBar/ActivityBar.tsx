@@ -10,7 +10,7 @@ export const ActivityBar = () => {
   const { data, isLoading } = useGetUserStatsQuery('');
 
   const fact = countUserStats(data);
-  const normative = 20;
+  const normative = 10;
 
   return (
     <div className={styles.bar}>

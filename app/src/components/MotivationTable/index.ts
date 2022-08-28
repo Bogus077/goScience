@@ -1,0 +1,1 @@
+export { MotivationTable } from './MotivationTable';

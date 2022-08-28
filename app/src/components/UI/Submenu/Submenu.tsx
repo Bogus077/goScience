@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames/bind';
 import styles from './Submenu.module.scss';
+const cx = classNames.bind(styles);
 
 type SubmenuTypes = {
+  direction?: 'down';
   links: {
     title: string;
     onClick: () => void;
   }[];
 };
 
-export const Submenu = ({ links }: SubmenuTypes) => {
+export const Submenu = ({ links, direction }: SubmenuTypes) => {
   const [visible, setVisible] = useState(false);
 
   const linksRef = useRef(document.createElement('div'));
@@ -34,7 +37,11 @@ export const Submenu = ({ links }: SubmenuTypes) => {
         <div /> <div /> <div />
       </div>
       {visible && (
-        <div className={styles.linkbox}>
+        <div
+          className={cx('linkbox', {
+            linkbox_down: direction === 'down',
+          })}
+        >
           {links.map((link) => (
             <div
               className={styles.linkbox__link}

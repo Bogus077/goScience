@@ -68,7 +68,6 @@ export const rosatomBaseQueryWithReAuth: BaseQueryFn<
         const refreshResult = (await GSBaseQuery(
           {
             url: '/auth/refresh',
-            method: 'post',
           },
           refreshApi,
           extraOptions
