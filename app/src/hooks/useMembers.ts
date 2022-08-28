@@ -7,7 +7,7 @@ import { getRefreshToken, getToken } from '../redux/authSlice';
 
 // адрес сервера
 // требуется перенаправление запросов - смотрите ниже
-const SERVER_URL = process.env.REACT_APP_API_WS ?? '';
+const SERVER_URL = process.env.REACT_APP_API_URL ?? '';
 
 // хук принимает название комнаты
 export const useMembers = (roomId: string) => {
