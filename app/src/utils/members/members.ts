@@ -10,6 +10,12 @@ export const sortBySurname = (a: Member, b: Member) => {
   } else if (b.surname > a.surname) {
     return -1;
   } else {
-    return 0;
+    if (a.name > b.name) {
+      return 1;
+    } else if (b.name > a.name) {
+      return -1;
+    } else {
+      return 0;
+    }
   }
 };

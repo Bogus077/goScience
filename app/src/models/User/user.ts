@@ -1,5 +1,12 @@
 import { Class } from '../Class/class';
 
+export type Role = {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type User = {
   id: number;
   phone: string;
@@ -10,6 +17,7 @@ export type User = {
     id: number;
     label: string;
   }[];
+  Roles: Role[];
 };
 
 export type UserSetting = {

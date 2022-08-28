@@ -30,10 +30,10 @@ export const MembersPlat = ({
         <Submenu
           direction="down"
           links={[
-            {
-              title: 'Все отсутствуют',
-              onClick: () => {},
-            },
+            // {
+            //   title: 'Все отсутствуют',
+            //   onClick: () => {},
+            // },
             {
               title: genderSeparate ? 'Убрать выделение' : 'Выделить девочек',
               onClick: () => setGenderSeparate(!genderSeparate),
@@ -70,7 +70,7 @@ export const MembersPlat = ({
           key={kid.id}
           onClick={() => handleChangeStatus(kid.id, !kid.status)}
         >
-          <span>{`${kid.name.slice(0, 1)}. ${kid.surname}`}</span>
+          <span>{`${kid.surname} ${kid.name}`}</span>
           <div className={styles.plat__status} />
         </div>
       ))}

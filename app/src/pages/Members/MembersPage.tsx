@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Members } from '../../components/Members';
 import styles from './MembersPage.module.scss';
 import { useMembers } from '../../hooks/useMembers';
 import { useGetUserQuery } from '../../redux/GSApi';
+import { ConfirmModal } from '../../components/UI/ConfirmModal';
 
 export const MembersPage = () => {
-  const { members, status, changeMemberStatus } = useMembers('members');
+  const { members, status, changeMemberStatus, error } = useMembers('members');
+  const [isModalOpen, setModalOpen] = useState<string | undefined>(error);
   const { isLoading } = useGetUserQuery('');
+
+  useEffect(() => setModalOpen(error), [error]);
 
   useEffect(() => {
     document.title = 'Расход | GS';
@@ -19,6 +23,14 @@ export const MembersPage = () => {
         isLoading={isLoading}
         changeMemberStatus={changeMemberStatus}
         connectionStatus={status}
+      />
+      <ConfirmModal
+        isOpen={Boolean(isModalOpen)}
+        titleText="Ошибка соединения"
+        message={error ?? ''}
+        type="negative"
+        onAccept={() => {}}
+        onReject={() => setModalOpen(undefined)}
       />
     </div>
   );

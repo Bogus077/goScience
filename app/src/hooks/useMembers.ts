@@ -14,9 +14,11 @@ export const useMembers = (roomId: string) => {
   // локальное состояние для пользователей
   const [members, setMembers] = useState<Member[]>([]);
   const [status, setStatus] = useState(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   // useRef() используется не только для получения доступа к DOM-элементам,
   // но и для хранения любых мутирующих значений в течение всего жизненного цикла компонента
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const socketRef = useRef<any>(null);
   const token = useTypedSelector(getToken);
   const refreshToken = useTypedSelector(getRefreshToken);
@@ -32,10 +34,28 @@ export const useMembers = (roomId: string) => {
 
     socketRef.current.on('connect', () => {
       setStatus(true);
+      setError(undefined);
     });
 
     socketRef.current.on('disconnect', () => {
       setStatus(false);
+    });
+
+    socketRef.current.on('connect_error', (err: { message: string }) => {
+      switch (err.message) {
+        case 'Officer permissions required':
+          setError(
+            'Доступ запрещен. Требуется учетная запись офицера-воспитателя. Обратитесь к администратору.'
+          );
+          break;
+        default:
+          setError(`Скорее всего, это проблема с Интернетом, и через пару секунд всё будет отлично. Без паники. 
+          
+          Если данное сообщение не исчезает целых 10 секунд, необходимо обновить страницу.
+          
+          Если и это не помогло, можно паниковать.          
+          Код ошибки: ${err.message}`);
+      }
     });
 
     // отправляем запрос на получение списка кадет
@@ -57,5 +77,5 @@ export const useMembers = (roomId: string) => {
     socketRef.current.emit('members:status', data);
   };
 
-  return { members, status, changeMemberStatus };
+  return { members, status, changeMemberStatus, error };
 };
