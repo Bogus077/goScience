@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ChangeMemberStatusRequest,
   Member,
@@ -24,6 +24,7 @@ export const Members = ({
   connectionStatus,
 }: MembersTypes) => {
   const [genderSeparate, setGenderSeparate] = useState(false);
+  const [isPageToPrint, setPageToPrint] = useState(false);
 
   const handleChangeStatus = useCallback(
     async (id: number, status: boolean) => {
@@ -51,8 +52,25 @@ export const Members = ({
 
   const kidsIll = kids.reduce((sum, kid) => (kid.status ? sum : sum + 1), 0);
 
+  const printPage = useCallback(() => {
+    if (window) {
+      setPageToPrint(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isPageToPrint && window) {
+      window.print();
+    }
+    setPageToPrint(false);
+  }, [isPageToPrint]);
+
   return (
-    <div className={styles.members}>
+    <div
+      className={cx('members', {
+        members_print: isPageToPrint,
+      })}
+    >
       <div className={styles.members__status}>
         <MembersStatus status={connectionStatus} isLoading={isLoading} />
       </div>
@@ -82,6 +100,8 @@ export const Members = ({
             handleChangeStatus={handleChangeStatus}
             genderSeparate={genderSeparate}
             setGenderSeparate={setGenderSeparate}
+            printPage={printPage}
+            isPageToPrint={isPageToPrint}
           />
         ))}
       </div>
@@ -102,10 +122,17 @@ export const Members = ({
           5
         </div>
       </div>
-      <div className={styles.author}>
-        <strong>Дизайн и разработка приложения:</strong> <br /> Владислав
-        Андреевич Ш. <br /> 2022 год
-      </div>
+      {isPageToPrint ? (
+        <div className={styles.author}>
+          Распечатано: {` `}
+          {`${new Date().toLocaleDateString()} || ${new Date().getHours()}:${new Date().getMinutes()}`}
+        </div>
+      ) : (
+        <div className={styles.author}>
+          <strong>Дизайн и разработка приложения:</strong> <br /> Владислав
+          Андреевич Ш. <br /> 2022 год
+        </div>
+      )}
     </div>
   );
 };

@@ -12,6 +12,8 @@ type MembersPlatTypes = {
   handleChangeStatus: (id: number, status: boolean) => Promise<void>;
   genderSeparate: boolean;
   setGenderSeparate: React.Dispatch<React.SetStateAction<boolean>>;
+  printPage: () => void;
+  isPageToPrint: boolean;
 };
 
 export const MembersPlat = ({
@@ -20,26 +22,38 @@ export const MembersPlat = ({
   handleChangeStatus,
   genderSeparate,
   setGenderSeparate,
+  printPage,
+  isPageToPrint,
 }: MembersPlatTypes) => {
   const kidsIll = kids.reduce((sum, kid) => (kid.status ? sum : sum + 1), 0);
 
   return (
-    <div className={styles.plat}>
+    <div
+      className={cx('plat', {
+        plat_print: isPageToPrint,
+      })}
+    >
       <div className={styles.plat__header}>
         <span>{`${plat} Взвод`}</span>
-        <Submenu
-          direction="down"
-          links={[
-            // {
-            //   title: 'Все отсутствуют',
-            //   onClick: () => {},
-            // },
-            {
-              title: genderSeparate ? 'Убрать выделение' : 'Выделить девочек',
-              onClick: () => setGenderSeparate(!genderSeparate),
-            },
-          ]}
-        />
+        <div className={styles.plat__submenu}>
+          <Submenu
+            direction="down"
+            links={[
+              // {
+              //   title: 'Все отсутствуют',
+              //   onClick: () => {},
+              // },
+              {
+                title: genderSeparate ? 'Убрать выделение' : 'Выделить девочек',
+                onClick: () => setGenderSeparate(!genderSeparate),
+              },
+              {
+                title: 'Печать',
+                onClick: () => printPage(),
+              },
+            ]}
+          />
+        </div>
       </div>
 
       <div className={styles.plat__counts}>
@@ -71,7 +85,11 @@ export const MembersPlat = ({
           onClick={() => handleChangeStatus(kid.id, !kid.status)}
         >
           <span>{`${kid.surname} ${kid.name}`}</span>
-          <div className={styles.plat__status} />
+          {isPageToPrint ? (
+            <div className={styles.plat__status}>б</div>
+          ) : (
+            <div className={styles.plat__status} />
+          )}
         </div>
       ))}
     </div>

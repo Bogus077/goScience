@@ -115,3 +115,39 @@
   font-size: 12px;
   text-align: end;
 }
+
+.members_print {
+  padding: 0px;
+
+  & * {
+    color: $mainTextColor !important;
+  }
+
+  .author {
+    margin: 0 0 0 auto;
+  }
+
+  .members__status {
+    display: none;
+  }
+
+  .members__sum {
+    width: 1020px;
+    padding: 0px 20px;
+    border: none;
+    background-color: $backgroundColor;
+  }
+
+  .members__sumItem {
+    border: none;
+  }
+
+  .members__table {
+    gap: 5px;
+    padding: 3px;
+  }
+
+  .switcher {
+    display: none;
+  }
+}

@@ -187,3 +187,40 @@ $colWidth: 200px;
     }
   }
 }
+
+.plat_print {
+  .plat__submenu {
+    display: none;
+  }
+
+  .plat__kid {
+    padding: 0px 10px;
+
+    span {
+      border: none;
+      background-color: #fff;
+    }
+  }
+
+  .plat__status {
+    opacity: 0.5;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .plat__number {
+    opacity: 0.5;
+    border: none;
+    background-color: #fff;
+  }
+
+  .plat__counts {
+    padding: 0 15px 5px;
+  }
+
+  .plat__header {
+    margin-bottom: 3px;
+  }
+}
