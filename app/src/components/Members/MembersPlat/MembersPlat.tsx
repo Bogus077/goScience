@@ -86,7 +86,7 @@ export const MembersPlat = ({
         >
           <span>{`${kid.surname} ${kid.name}`}</span>
           {isPageToPrint ? (
-            <div className={styles.plat__status}>б</div>
+            <div className={styles.plat__status}>{kid.status ? '' : 'б'}</div>
           ) : (
             <div className={styles.plat__status} />
           )}
