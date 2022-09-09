@@ -4,6 +4,8 @@ import { sortBySurname } from '../../../utils/members/members';
 import classNames from 'classnames/bind';
 import styles from './MembersPlat.module.scss';
 import { Submenu } from '../../UI/Submenu';
+import { useNavigate } from 'react-router-dom';
+import { frontendRoutes } from '../../../utils/router/routes';
 const cx = classNames.bind(styles);
 
 type MembersPlatTypes = {
@@ -25,6 +27,12 @@ export const MembersPlat = ({
   printPage,
   isPageToPrint,
 }: MembersPlatTypes) => {
+  const navigate = useNavigate();
+
+  const print = () => {
+    navigate(frontendRoutes.membersPrint);
+  };
+
   const kidsIll = kids.reduce((sum, kid) => (kid.status ? sum : sum + 1), 0);
 
   return (
@@ -49,7 +57,7 @@ export const MembersPlat = ({
               },
               {
                 title: 'Печать',
-                onClick: () => printPage(),
+                onClick: () => print(),
               },
             ]}
           />

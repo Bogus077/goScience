@@ -1,0 +1,59 @@
+.members {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__header {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  &__table {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+  }
+}
+
+.author {
+  margin-left: auto;
+}
+
+.sum {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000;
+  margin-right: auto;
+  margin-top: 30px;
+  font-size: 10px;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 20px;
+    position: relative;
+    border-bottom: 1px solid #000;
+
+    &:last-child {
+      border: none;
+    }
+  }
+
+  &__type {
+    width: 70%;
+    height: 100%;
+    border-right: 1px solid #000;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  &__count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 100%;
+  }
+}

@@ -108,6 +108,10 @@ export function App() {
               />
 
               {/* Members */}
+              <Route
+                path={`${frontendRoutes.members}/:version`}
+                element={<MembersPage />}
+              />
               <Route path={frontendRoutes.members} element={<MembersPage />} />
             </Route>
           </Routes>

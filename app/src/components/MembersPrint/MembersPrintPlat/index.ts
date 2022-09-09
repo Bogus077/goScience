@@ -1,0 +1,1 @@
+export { MembersPrintPlat } from './MembersPrintPlat';

@@ -59,10 +59,10 @@ export const Members = ({
   }, []);
 
   useEffect(() => {
-    if (isPageToPrint && window) {
-      window.print();
-    }
-    setPageToPrint(false);
+    // if (isPageToPrint && window) {
+    //   window.print();
+    // }
+    // setPageToPrint(false);
   }, [isPageToPrint]);
 
   return (
