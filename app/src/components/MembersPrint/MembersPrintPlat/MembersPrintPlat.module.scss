@@ -1,3 +1,4 @@
+@import '../../../assets/helpers/index.scss';
 $rowHeight: 20px;
 
 .plat {
@@ -25,6 +26,7 @@ $rowHeight: 20px;
   // border: 1px solid #000;
   margin-right: auto;
   width: 100%;
+  border: 1px solid #000;
 
   &__row {
     display: flex;
@@ -87,6 +89,12 @@ $rowHeight: 20px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    &_ill {
+      background-color: $disableColor;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
   }
 

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Member } from '../../../models/members/members';
 import { sortBySurname } from '../../../utils/members/members';
+import classNames from 'classnames/bind';
 import styles from './MembersPrintPlat.module.scss';
+const cx = classNames.bind(styles);
 
 type MembersPrintPlatTypes = {
   kids: Member[];
@@ -32,7 +34,11 @@ export const MembersPrintPlat = ({ kids, plat }: MembersPrintPlatTypes) => {
       {kids.sort(sortBySurname).map((kid, num) => (
         <div className={styles.kid} key={kid.id}>
           <div className={styles.kid__number}>{num + 1}</div>
-          <div className={styles.kid__name}>
+          <div
+            className={cx('kid__name', {
+              kid__name_ill: !kid.status,
+            })}
+          >
             <span>{`${kid.surname} ${kid.name}`}</span>
           </div>
           <div className={styles.kid__status}>{kid.status ? '' : 'б'}</div>
