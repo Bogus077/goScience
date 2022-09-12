@@ -1,5 +1,6 @@
 import React from 'react';
 import { Member } from '../../../models/members/members';
+import { sortBySurname } from '../../../utils/members/members';
 import styles from './MembersPrintPlat.module.scss';
 
 type MembersPrintPlatTypes = {
@@ -28,7 +29,7 @@ export const MembersPrintPlat = ({ kids, plat }: MembersPrintPlatTypes) => {
         </div>
       </div>
 
-      {kids.map((kid, num) => (
+      {kids.sort(sortBySurname).map((kid, num) => (
         <div className={styles.kid} key={kid.id}>
           <div className={styles.kid__number}>{num + 1}</div>
           <div className={styles.kid__name}>

@@ -12,6 +12,13 @@ $colWidth: 200px;
   border: 1px solid $disableColor;
   padding: 10px 0;
 
+  &__submenu {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &__header {
     display: flex;
     align-items: center;
