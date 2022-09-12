@@ -40,6 +40,9 @@ export const MembersPrint = ({ kids }: MembersPrintTypes) => {
   return (
     <div className={cx('members')}>
       <div className={styles.members__header}>Расход личного состава</div>
+      <div className={styles.members__date}>
+        Актуально на «____» ____________________
+      </div>
 
       <div className={styles.members__table}>
         {plats.map((plat, key) => (
