@@ -1,7 +1,7 @@
 export const frontendRoutes = {
   kidWeekStats: '/stats',
-  dashboard: '/',
-  members: '/members',
+  dashboard: '/dashboard',
+  members: '/',
   membersPrint: '/members/print',
   plan: {
     index: '/plan',
