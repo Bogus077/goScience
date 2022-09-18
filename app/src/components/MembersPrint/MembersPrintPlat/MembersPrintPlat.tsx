@@ -32,13 +32,14 @@ export const MembersPrintPlat = ({ kids, plat }: MembersPrintPlatTypes) => {
       </div>
 
       {kids.sort(sortBySurname).map((kid, num) => (
-        <div className={styles.kid} key={kid.id}>
+        <div
+          className={cx('kid', {
+            kid_ill: !kid.status,
+          })}
+          key={kid.id}
+        >
           <div className={styles.kid__number}>{num + 1}</div>
-          <div
-            className={cx('kid__name', {
-              kid__name_ill: !kid.status,
-            })}
-          >
+          <div className={styles.kid__name}>
             <span>{`${kid.surname} ${kid.name}`}</span>
           </div>
           <div className={styles.kid__status}>{kid.status ? '' : 'б'}</div>

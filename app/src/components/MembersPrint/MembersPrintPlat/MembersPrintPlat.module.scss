@@ -66,6 +66,12 @@ $rowHeight: 20px;
   position: relative;
   border-top: 1px solid #000;
 
+  &_ill {
+    background-color: $secondaryColor;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   &__number {
     height: 100%;
     width: 15%;
@@ -89,12 +95,6 @@ $rowHeight: 20px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-    }
-
-    &_ill {
-      background-color: $disableColor;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
     }
   }
 

@@ -41,7 +41,7 @@ export const MembersPrint = ({ kids }: MembersPrintTypes) => {
     <div className={cx('members')}>
       <div className={styles.members__header}>Расход личного состава</div>
       <div className={styles.members__date}>
-        Актуально на «____» ____________________
+        на «______» __________________________________________________
       </div>
 
       <div className={styles.members__table}>
