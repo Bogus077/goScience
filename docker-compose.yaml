@@ -2,8 +2,6 @@ version: '2.0'
 services:
   frontend:
     image: node:latest
-    # env_file:
-    # - .env
     volumes:
       - /etc/letsencrypt/:/etc/letsencrypt/
       - ./app:/app
@@ -18,18 +16,13 @@ services:
   nginx:
     image: nginx:alpine
     tty: true
-    # env_file:
-    # - .env
     depends_on:
       - frontend
     volumes:
       - /etc/letsencrypt/:/etc/letsencrypt/
       - ./templates:/etc/nginx/templates
       - ./docker/config/conf.d:/etc/nginx/conf.d/
-      # - ./docker/config/log:/var/log/nginx/
-      # - ./docker/config/cert:/etc/nginx/cert/
     ports:
-      - 443:443
-      - 80:80
+      - 3010:3010
     links:
       - frontend
