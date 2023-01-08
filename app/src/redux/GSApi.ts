@@ -12,12 +12,12 @@ import {
   UpdateKidsRequest,
   UpdateKidsResponse,
 } from '../models/Kid/kid';
+import { GetLogsResponse, LogsFilters } from '../models/Logs/logs';
 import {
   AddMemberRequest,
   AddMemberResponse,
   EditMemberRequest,
   EditMemberResponse,
-  GetMemberResponse,
   GetMembersResponse,
   RemoveMemberRequest,
 } from '../models/members/members';
@@ -95,6 +95,8 @@ export const GSAPI = createApi({
     'KidsSummary',
     'Member',
     'Members',
+    'Log',
+    'Logs',
   ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
@@ -547,6 +549,25 @@ export const GSAPI = createApi({
       invalidatesTags: (result, error, arg) =>
         error ? [] : [{ type: 'Member' }, 'Members'],
     }),
+
+    //Logs
+    getLogs: build.query<GetLogsResponse, LogsFilters>({
+      query: (params) => ({
+        url: '/members/logs',
+        params,
+      }),
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'Log' as const,
+                id,
+              })),
+              'Logs',
+            ]
+          : ['Logs'];
+      },
+    }),
   }),
 });
 
@@ -587,4 +608,5 @@ export const {
   useAddMemberMutation,
   useRemoveMemberMutation,
   useEditMemberMutation,
+  useGetLogsQuery,
 } = GSAPI;

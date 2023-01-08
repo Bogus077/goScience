@@ -35,8 +35,8 @@ import { Member } from '../../../models/members/members';
 import { ConfirmModal } from '../ConfirmModal';
 
 export const AdminEditMember = () => {
-  const { data, isLoading: isGetMembersLoading } = useGetMembersQuery('');
-  const [editMember, { isLoading }] = useEditMemberMutation();
+  const { data } = useGetMembersQuery('');
+  const [editMember] = useEditMemberMutation();
   const navigate = useNavigate();
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();

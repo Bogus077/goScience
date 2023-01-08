@@ -4,6 +4,7 @@ export const frontendRoutes = {
     members: '/admin/members',
     addMember: '/admin/addMember',
     editMember: '/admin/editMember',
+    logs: '/admin/logs',
   },
   kidWeekStats: '/stats',
   dashboard: '/dashboard',

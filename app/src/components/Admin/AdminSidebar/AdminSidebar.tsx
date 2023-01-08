@@ -79,7 +79,12 @@ export const AdminSidebar = () => {
 
       <AdminSidebarContainer title="Технический раздел">
         <List component="nav">
-          <ListItemButton selected={false}>
+          <ListItemButton
+            selected={new RegExp(frontendRoutes.admin.logs).test(
+              location.pathname
+            )}
+            onClick={() => navigate(frontendRoutes.admin.logs)}
+          >
             <ListItemIcon>
               <IconHistory />
             </ListItemIcon>

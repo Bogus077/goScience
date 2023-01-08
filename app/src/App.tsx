@@ -27,6 +27,7 @@ import {
   AdminMainPage,
   AdminAddMemberPage,
   AdminEditMemberPage,
+  AdminLogsPage,
 } from './pages';
 import { frontendRoutes } from './utils/router/routes';
 import { CreateKidPage } from './pages/Kid/CreateKid';
@@ -137,6 +138,10 @@ export function App() {
               <Route
                 path={`${frontendRoutes.admin.editMember}/:id`}
                 element={<AdminEditMemberPage />}
+              />
+              <Route
+                path={frontendRoutes.admin.logs}
+                element={<AdminLogsPage />}
               />
             </Route>
           </Routes>

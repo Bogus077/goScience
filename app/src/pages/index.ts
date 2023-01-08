@@ -1,3 +1,4 @@
+export { AdminLogsPage } from './Admin/AdminLogsPage/AdminLogsPage';
 export { AdminEditMemberPage } from './Admin/AdminEditMemberPage/AdminEditMemberPage';
 export { AdminAddMemberPage } from './Admin/AdminAddMemberPage/AdminAddMemberPage';
 export { AdminMembersPage } from './Admin/AdminMembersPage';

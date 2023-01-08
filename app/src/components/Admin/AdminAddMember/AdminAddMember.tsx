@@ -28,7 +28,7 @@ import { frontendRoutes } from '../../../utils/router/routes';
 import { useSnackbar } from 'notistack';
 
 export const AdminAddMember = () => {
-  const [addMember, { isLoading }] = useAddMemberMutation();
+  const [addMember] = useAddMemberMutation();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
