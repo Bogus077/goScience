@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.3",
     "@reduxjs/toolkit": "1.7.2",
     "async-mutex": "^0.3.2",
     "axios": "0.26.0",

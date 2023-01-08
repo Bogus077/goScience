@@ -24,11 +24,13 @@ import {
   KidWeekSummaryPage,
   MotivationPage,
   MembersPage,
+  AdminMainPage,
 } from './pages';
 import { frontendRoutes } from './utils/router/routes';
 import { CreateKidPage } from './pages/Kid/CreateKid';
 import { UpdateTeamPage } from './pages/Plan/UpdateTeamPage/UpdateTeamPage';
 import { UpdateProjectTaskPage } from './pages/Plan/UpdateProjectTaskPage/UpdateProjectTaskPage';
+import { AdminProtectedRoutes } from './utils/router/AdminProtectedRoutes';
 
 const store = createStore(); // Possible additional params to store init func
 const persistor = persistStore(store);
@@ -113,6 +115,14 @@ export function App() {
                 element={<MembersPage />}
               />
               <Route path={frontendRoutes.members} element={<MembersPage />} />
+            </Route>
+
+            {/* AdminPanel */}
+            <Route element={<AdminProtectedRoutes />}>
+              <Route
+                path={frontendRoutes.admin.mainPage}
+                element={<AdminMainPage />}
+              />
             </Route>
           </Routes>
         </BrowserRouter>

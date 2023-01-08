@@ -1,4 +1,7 @@
 export const frontendRoutes = {
+  admin: {
+    mainPage: '/admin',
+  },
   kidWeekStats: '/stats',
   dashboard: '/dashboard',
   members: '/',
