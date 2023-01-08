@@ -1,4 +1,7 @@
-export { AdminMainPage } from './Admin/AdminMainPage/AdminMainPage';
+export { AdminEditMemberPage } from './Admin/AdminEditMemberPage/AdminEditMemberPage';
+export { AdminAddMemberPage } from './Admin/AdminAddMemberPage/AdminAddMemberPage';
+export { AdminMembersPage } from './Admin/AdminMembersPage';
+export { AdminMainPage } from './Admin/AdminMainPage';
 export { MembersPage } from './Members/MembersPage';
 export { MotivationPage } from './Plan/MotivationPage/MotivationPage';
 export { KidWeekSummaryPage } from './KidWeekSummary/KidWeekSummaryPage';

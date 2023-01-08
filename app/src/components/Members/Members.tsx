@@ -119,7 +119,7 @@ export const Members = ({
           4
         </div>
         <div className={styles.switcher__item} onClick={() => scrollRight(5)}>
-          5
+          Спорт
         </div>
       </div>
       {isPageToPrint ? (

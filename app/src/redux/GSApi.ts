@@ -13,6 +13,15 @@ import {
   UpdateKidsResponse,
 } from '../models/Kid/kid';
 import {
+  AddMemberRequest,
+  AddMemberResponse,
+  EditMemberRequest,
+  EditMemberResponse,
+  GetMemberResponse,
+  GetMembersResponse,
+  RemoveMemberRequest,
+} from '../models/members/members';
+import {
   ArchiveProjectRequest,
   ArchiveProjectResponse,
   CreateProjectRequest,
@@ -490,6 +499,54 @@ export const GSAPI = createApi({
           : ['KidsSummary'];
       },
     }),
+
+    //Members
+    getMembers: build.query<GetMembersResponse, unknown>({
+      query: () => ({
+        url: '/members/get',
+      }),
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'Member' as const,
+                id,
+              })),
+              'Members',
+            ]
+          : ['Members'];
+      },
+    }),
+
+    addMember: build.mutation<AddMemberResponse, AddMemberRequest>({
+      query: (params) => ({
+        url: '/members/add',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Member' }, 'Members'],
+    }),
+
+    removeMember: build.mutation<unknown, RemoveMemberRequest>({
+      query: (params) => ({
+        url: '/members/remove',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Member' }, 'Members'],
+    }),
+
+    editMember: build.mutation<EditMemberResponse, EditMemberRequest>({
+      query: (params) => ({
+        url: '/members/edit',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Member' }, 'Members'],
+    }),
   }),
 });
 
@@ -526,4 +583,8 @@ export const {
   useRemoveProjectTaskMutation,
   useDoneProjectTaskMutation,
   useGetSummaryQuery,
+  useGetMembersQuery,
+  useAddMemberMutation,
+  useRemoveMemberMutation,
+  useEditMemberMutation,
 } = GSAPI;

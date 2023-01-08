@@ -1,4 +1,4 @@
-import { object, ref, string } from 'yup';
+import { number, object, ref, string } from 'yup';
 import { VALIDATION_ERRORS } from './errors';
 import { VALIDATION_REGEXP } from './regexps';
 
@@ -115,4 +115,35 @@ export const createProjectTaskValidationSchema = object({
 export const createProjectTaskInitialValues = {
   label: '',
   description: '',
+};
+
+/**
+ * Схема валидации формы добавления кадета
+ */
+export const addMemberValidationSchema = object({
+  name: string().required(VALIDATION_ERRORS.REQUIRED),
+  surname: string().required(VALIDATION_ERRORS.REQUIRED),
+  sex: string().required(VALIDATION_ERRORS.REQUIRED),
+  plat: string().required(VALIDATION_ERRORS.REQUIRED),
+});
+
+export const editMemberValidationSchema = object({
+  name: string().required(VALIDATION_ERRORS.REQUIRED),
+  surname: string().required(VALIDATION_ERRORS.REQUIRED),
+  sex: string().required(VALIDATION_ERRORS.REQUIRED),
+  plat: number().required(VALIDATION_ERRORS.REQUIRED),
+});
+
+export const addMemberInitialValues = {
+  name: '',
+  surname: '',
+  sex: 'male',
+  plat: '1',
+};
+
+export const editMemberInitialValues = {
+  name: '',
+  surname: '',
+  sex: 'male',
+  plat: 1,
 };

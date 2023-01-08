@@ -1,0 +1,19 @@
+@import '../../../../assets/helpers/index.scss';
+
+.container{
+  max-width: $sidebarWidth;
+  display: flex;
+  flex-direction: column;
+}
+
+.header{
+  font-weight: bold;
+  padding-left: 20px;
+  margin: 10px 0px;
+}
+
+.list{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}

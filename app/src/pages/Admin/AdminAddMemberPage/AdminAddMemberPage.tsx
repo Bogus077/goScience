@@ -1,10 +1,11 @@
 import React from 'react';
+import { AdminAddMember } from '../../../components/Admin/AdminAddMember';
 import { AdminLayout } from '../../../components/Admin/AdminLayout';
 
-export const AdminMainPage = () => {
+export const AdminAddMemberPage = () => {
   return (
     <AdminLayout>
-      <>main page</>
+      <AdminAddMember />
     </AdminLayout>
   );
 };

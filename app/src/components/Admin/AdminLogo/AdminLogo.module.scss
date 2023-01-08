@@ -1,0 +1,13 @@
+@import '../../../assets/helpers/index.scss';
+
+.logo{
+  display: flex;
+  font-size: 20px;
+  font-weight: bold;
+  color: $mainColor;
+  cursor: pointer;
+}
+
+.black{
+  color: $mainTextColor;
+}

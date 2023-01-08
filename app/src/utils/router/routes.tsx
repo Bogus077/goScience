@@ -1,6 +1,9 @@
 export const frontendRoutes = {
   admin: {
     mainPage: '/admin',
+    members: '/admin/members',
+    addMember: '/admin/addMember',
+    editMember: '/admin/editMember',
   },
   kidWeekStats: '/stats',
   dashboard: '/dashboard',

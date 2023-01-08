@@ -1,0 +1,1 @@
+export { AdminEditMemberPage } from './AdminEditMemberPage';
