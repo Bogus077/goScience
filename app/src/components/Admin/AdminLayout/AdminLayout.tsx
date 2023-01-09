@@ -6,6 +6,7 @@ import { AdminLogo } from '../AdminLogo';
 import { IconMenu2 } from '@tabler/icons';
 import { createTheme, IconButton, ThemeProvider } from '@mui/material';
 import { SnackbarProvider } from 'notistack';
+import { AdminUserbar } from './AdminUserbar';
 const cx = classNames.bind(styles);
 
 type AdminLayoutTypes = {
@@ -37,7 +38,7 @@ export const AdminLayout = ({ children }: AdminLayoutTypes) => {
                 </IconButton>
               </div>
             </div>
-            User
+            <AdminUserbar />
           </div>
 
           <div className={styles.main}>
