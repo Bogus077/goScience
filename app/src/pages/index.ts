@@ -1,3 +1,5 @@
+export { AdminAddNotificationPage } from './Admin/AdminAddNotificationPage/AdminAddNotificationPage';
+export { NotificationsPage } from './Admin/NotificationsPage/NotificationsPage';
 export { AdminLogsPage } from './Admin/AdminLogsPage/AdminLogsPage';
 export { AdminEditMemberPage } from './Admin/AdminEditMemberPage/AdminEditMemberPage';
 export { AdminAddMemberPage } from './Admin/AdminAddMemberPage/AdminAddMemberPage';

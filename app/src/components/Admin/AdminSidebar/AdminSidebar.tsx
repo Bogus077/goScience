@@ -10,6 +10,7 @@ import {
   IconLockSquareRounded,
   IconHistory,
   IconUserCircle,
+  IconBell,
 } from '@tabler/icons';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -17,10 +18,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { frontendRoutes } from '../../../utils/router/routes';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useGetUserQuery } from '../../../redux/GSApi';
+import { isUserAdmin } from '../../../utils/user/user';
 
 export const AdminSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { data: user } = useGetUserQuery('');
+  const isAdmin = user && isUserAdmin(user);
 
   return (
     <div className={styles.sidebar}>
@@ -77,30 +82,45 @@ export const AdminSidebar = () => {
         </List>
       </AdminSidebarContainer>
 
-      <AdminSidebarContainer title="Технический раздел">
-        <List component="nav">
-          <ListItemButton
-            selected={new RegExp(frontendRoutes.admin.logs).test(
-              location.pathname
-            )}
-            onClick={() => navigate(frontendRoutes.admin.logs)}
-          >
-            <ListItemIcon>
-              <IconHistory />
-            </ListItemIcon>
-            <ListItemText primary="Логи" />
-            <IconLockSquareRounded />
-          </ListItemButton>
+      {isAdmin && (
+        <AdminSidebarContainer title="Технический раздел">
+          <List component="nav">
+            <ListItemButton
+              selected={new RegExp(frontendRoutes.admin.logs).test(
+                location.pathname
+              )}
+              onClick={() => navigate(frontendRoutes.admin.logs)}
+            >
+              <ListItemIcon>
+                <IconHistory />
+              </ListItemIcon>
+              <ListItemText primary="Логи" />
+              <IconLockSquareRounded />
+            </ListItemButton>
 
-          <ListItemButton selected={false}>
-            <ListItemIcon>
-              <IconUserCircle />
-            </ListItemIcon>
-            <ListItemText primary="Пользователи" />
-            <IconLockSquareRounded />
-          </ListItemButton>
-        </List>
-      </AdminSidebarContainer>
+            <ListItemButton selected={false}>
+              <ListItemIcon>
+                <IconUserCircle />
+              </ListItemIcon>
+              <ListItemText primary="Пользователи" />
+              <IconLockSquareRounded />
+            </ListItemButton>
+
+            <ListItemButton
+              selected={new RegExp(frontendRoutes.admin.notifications).test(
+                location.pathname
+              )}
+              onClick={() => navigate(frontendRoutes.admin.notifications)}
+            >
+              <ListItemIcon>
+                <IconBell />
+              </ListItemIcon>
+              <ListItemText primary="Уведомления" />
+              <IconLockSquareRounded />
+            </ListItemButton>
+          </List>
+        </AdminSidebarContainer>
+      )}
     </div>
   );
 };

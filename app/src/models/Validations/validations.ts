@@ -147,3 +147,18 @@ export const editMemberInitialValues = {
   sex: 'male',
   plat: 1,
 };
+
+/**
+ * Схема валидации формы добавления уведомления
+ */
+export const addNotificationValidationSchema = object({
+  title: string().required(VALIDATION_ERRORS.REQUIRED),
+  text: string().required(VALIDATION_ERRORS.REQUIRED),
+  type: string().required(VALIDATION_ERRORS.REQUIRED),
+});
+
+export const addNotificationInitialValues = {
+  title: '',
+  text: '',
+  type: 'default',
+};

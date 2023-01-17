@@ -22,6 +22,12 @@ import {
   RemoveMemberRequest,
 } from '../models/members/members';
 import {
+  AddNotificationsRequest,
+  AddNotificationsResponse,
+  GetNotificationsResponse,
+  RemoveNotificationsRequest,
+} from '../models/Notifications/Notifications';
+import {
   ArchiveProjectRequest,
   ArchiveProjectResponse,
   CreateProjectRequest,
@@ -97,6 +103,8 @@ export const GSAPI = createApi({
     'Members',
     'Log',
     'Logs',
+    'Notification',
+    'Notifications',
   ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
@@ -568,6 +576,47 @@ export const GSAPI = createApi({
           : ['Logs'];
       },
     }),
+
+    //Notifications
+    getNotifications: build.query<GetNotificationsResponse, unknown>({
+      query: () => ({
+        url: '/notifications/get',
+      }),
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'Notification' as const,
+                id,
+              })),
+              'Notifications',
+            ]
+          : ['Notifications'];
+      },
+    }),
+
+    addNotification: build.mutation<
+      AddNotificationsResponse,
+      AddNotificationsRequest
+    >({
+      query: (params) => ({
+        url: '/notifications/add',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Notification' }, 'Notifications'],
+    }),
+
+    removeNotification: build.mutation<unknown, RemoveNotificationsRequest>({
+      query: (params) => ({
+        url: '/notifications/remove',
+        method: 'delete',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Notification' }, 'Notifications'],
+    }),
   }),
 });
 
@@ -609,4 +658,7 @@ export const {
   useRemoveMemberMutation,
   useEditMemberMutation,
   useGetLogsQuery,
+  useGetNotificationsQuery,
+  useAddNotificationMutation,
+  useRemoveNotificationMutation,
 } = GSAPI;

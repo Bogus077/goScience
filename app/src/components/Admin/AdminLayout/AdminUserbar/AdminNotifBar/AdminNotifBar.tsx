@@ -1,15 +1,24 @@
 import {
   Chip,
+  Divider,
   Grid,
   List,
   ListItem,
   ListItemButton,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useGetNotificationsQuery } from '../../../../../redux/GSApi';
 import { AdminNotif } from './AdminNotif';
 
 export const AdminNotifBar = () => {
+  const { data: notifications } = useGetNotificationsQuery('');
+
+  const sotredNotifications = useMemo(
+    () => [...(notifications ?? [])].sort((a, b) => b.id - a.id),
+    [notifications]
+  );
+
   return (
     <Grid container direction="column">
       <Grid item container sx={{ p: 2 }} spacing={2} alignItems="center">
@@ -24,16 +33,22 @@ export const AdminNotifBar = () => {
       </Grid>
       <Grid item>
         <List>
-          <ListItem disablePadding>
-            <ListItemButton color="primary">
-              <Grid container>
-                <AdminNotif
-                  header="Плановое обновление"
-                  text="10 января 2022 года в 00:00 сервер будет перезапущен в связи с плановыми работами"
-                />
-              </Grid>
-            </ListItemButton>
-          </ListItem>
+          {sotredNotifications.map((n) => (
+            <>
+              <Divider />
+              <ListItem disablePadding key={n.id}>
+                <ListItemButton color="primary">
+                  <Grid container>
+                    <AdminNotif
+                      header={n.title}
+                      text={n.text}
+                      date={n.createdAt}
+                    />
+                  </Grid>
+                </ListItemButton>
+              </ListItem>
+            </>
+          ))}
         </List>
       </Grid>
     </Grid>

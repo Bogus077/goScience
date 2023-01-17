@@ -7,12 +7,14 @@ import React from 'react';
 type AdminNotifTypes = {
   header: string;
   text: string;
+  date: string;
   type?: 'standart';
 };
 
 export const AdminNotif = ({
   text,
   header,
+  date,
   type = 'standart',
 }: AdminNotifTypes) => {
   return (
@@ -29,7 +31,7 @@ export const AdminNotif = ({
         </Grid>
         <Grid item xs={4}>
           <Typography variant="caption">
-            {formatDistance(new Date('01/09/2023'), new Date(), {
+            {formatDistance(new Date(date), new Date(), {
               addSuffix: true,
               locale: ru,
             })}

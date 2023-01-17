@@ -33,7 +33,7 @@ export const AdminUserbar = () => {
       <Grid item>
         <IconButton aria-label="notif" onClick={handleNotifOpen}>
           <Badge badgeContent={notifications} color="primary">
-            <IconBell color="#1976d2" />
+            <IconBell />
           </Badge>
         </IconButton>
       </Grid>
