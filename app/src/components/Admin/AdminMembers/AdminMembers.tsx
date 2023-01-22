@@ -8,6 +8,8 @@ import {
   Switch,
   TableContainer,
   TextField,
+  Tooltip,
+  Typography,
 } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import {
@@ -33,6 +35,8 @@ import { frontendRoutes } from '../../../utils/router/routes';
 import { useSnackbar } from 'notistack';
 import { Member } from '../../../models/members/members';
 import { ConfirmModal } from '../ConfirmModal';
+import ru from 'date-fns/locale/ru';
+import formatWithOptions from 'date-fns/fp/formatWithOptions';
 
 export const AdminMembers = () => {
   const [deleteMember, setDeleteMember] = useState<Member | null>(null);
@@ -99,42 +103,75 @@ export const AdminMembers = () => {
   const columns: GridColDef[] = [
     {
       field: 'surname',
-      headerName: 'Фамилия',
+      headerName: 'Фамилия Имя',
       flex: 1,
-      headerAlign: 'center',
-      align: 'center',
-    },
-    {
-      field: 'name',
-      headerName: 'Имя',
-      flex: 1,
-      headerAlign: 'center',
-      align: 'center',
+      renderCell: (params) => `${params.row.surname} ${params.row.name}`,
     },
     {
       field: 'plat',
       headerName: 'Взвод',
       flex: 0.5,
-      headerAlign: 'center',
-      align: 'center',
       renderCell: (params) =>
         params.row.plat === 5 ? 'Спортвзвод' : `${params.row.plat} взвод`,
+    },
+    {
+      field: 'dob',
+      headerName: 'Дата рождения',
+      flex: 0.5,
+      renderCell: (params) => {
+        const date = new Date(params.row.dob);
+        return params.row.dob
+          ? formatWithOptions({ locale: ru }, 'd MMMM yyyy')(date)
+          : '';
+      },
     },
     {
       field: 'sex',
       headerName: ' ',
       renderCell: getMemberSex,
-      flex: 0.3,
-      headerAlign: 'center',
       align: 'center',
+      flex: 0.3,
     },
     {
       field: 'status',
       headerName: ' ',
       renderCell: getMemberStatus,
-      flex: 1.5,
-      headerAlign: 'center',
       align: 'center',
+      flex: 1.5,
+    },
+    {
+      field: 'contact',
+      headerName: 'Контакты',
+      flex: 1,
+      renderCell: (params) => {
+        const contact =
+          params.row.MemberContacts[0]?.name ||
+          params.row.MemberContacts[0]?.phone
+            ? `${params.row.MemberContacts[0]?.phone} ${params.row.MemberContacts[0]?.name}`
+            : '';
+
+        return (
+          <Tooltip title={<Typography variant="body2">{contact}</Typography>}>
+            <Typography variant="body2">{contact}</Typography>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      field: 'address',
+      headerName: 'Адрес',
+      flex: 1,
+      renderCell: (params) => {
+        const address = params.row.MemberContacts[0]?.address
+          ? params.row.MemberContacts[0]?.address
+          : '';
+
+        return (
+          <Tooltip title={<Typography variant="body2">{address}</Typography>}>
+            <Typography variant="body2">{address}</Typography>
+          </Tooltip>
+        );
+      },
     },
     {
       field: 'edit',
@@ -148,9 +185,8 @@ export const AdminMembers = () => {
           <IconEdit size={20} />
         </IconButton>
       ),
-      flex: 0.3,
-      headerAlign: 'center',
       align: 'center',
+      flex: 0.3,
       sortable: false,
     },
     {
@@ -166,7 +202,6 @@ export const AdminMembers = () => {
         </IconButton>
       ),
       flex: 0.3,
-      headerAlign: 'center',
       align: 'center',
       sortable: false,
     },

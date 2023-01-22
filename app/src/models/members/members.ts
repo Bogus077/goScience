@@ -1,13 +1,22 @@
+type MemberContacts = {
+  id: number;
+  name?: string;
+  phone?: string;
+  address?: string;
+};
+
 export type Member = {
   id: number;
   name: string;
   surname: string;
+  dob?: Date;
   sex: 'male' | 'female';
   plat: number;
   status: boolean;
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
+  MemberContacts: MemberContacts[];
 };
 
 export type GetMembersResponse = Member[];
@@ -16,7 +25,7 @@ export type GetMemberResponse = Member;
 export type AddMemberRequest = {
   name: string;
   surname: string;
-  plat: string;
+  plat: number;
   sex: string;
 };
 
