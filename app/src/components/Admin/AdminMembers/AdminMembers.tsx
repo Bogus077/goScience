@@ -224,12 +224,14 @@ export const AdminMembers = () => {
         .sort((a, b) => a.id - b.id) ?? [];
 
     if (search) {
-      const searchRegExp = new RegExp(search);
+      const searchRegExp = new RegExp(search, 'mig');
       result = result.filter(
         (member) =>
           searchRegExp.test(member.name) ||
           searchRegExp.test(member.surname) ||
-          searchRegExp.test(member.plat.toString())
+          searchRegExp.test(member.plat.toString()) ||
+          searchRegExp.test(member.MemberContacts[0]?.address ?? '') ||
+          searchRegExp.test(member.MemberContacts[0]?.phone ?? '')
       );
     }
     return result;
