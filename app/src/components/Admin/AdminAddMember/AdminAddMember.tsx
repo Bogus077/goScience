@@ -132,18 +132,20 @@ export const AdminAddMember = () => {
                         fullWidth
                         error={Boolean(formik.errors.dob)}
                         helperText={
-                          <Typography>
-                            {formatDuration(
-                              intervalToDuration({
-                                start: new Date(formik.values.dob),
-                                end: new Date(),
-                              }),
-                              {
-                                format: ['years'],
-                                locale: ru,
-                              }
-                            )}
-                          </Typography>
+                          !isNaN(Date.parse(formik.values.dob?.toString())) && (
+                            <Typography>
+                              {formatDuration(
+                                intervalToDuration({
+                                  start: new Date(formik.values.dob),
+                                  end: new Date(),
+                                }),
+                                {
+                                  format: ['years'],
+                                  locale: ru,
+                                }
+                              )}
+                            </Typography>
+                          )
                         }
                       />
                     )}
