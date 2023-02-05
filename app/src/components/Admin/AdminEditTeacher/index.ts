@@ -1,0 +1,1 @@
+export { AdminEditTeacher } from './AdminEditTeacher';

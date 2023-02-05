@@ -8,11 +8,14 @@ import {
   ListItemText,
   MenuItem,
   Select,
+  // eslint-disable-next-line import/named
+  SxProps,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { FormikContext, useFormik } from 'formik';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   editMemberInitialValues,
   editMemberValidationSchema,
@@ -26,6 +29,7 @@ import {
 } from '@tabler/icons';
 import {
   useEditMemberMutation,
+  useGetAttendanceQuery,
   useGetMembersQuery,
   useRemoveMemberMutation,
 } from '../../../redux/GSApi';
@@ -39,14 +43,36 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ru from 'date-fns/locale/ru';
 import intervalToDuration from 'date-fns/intervalToDuration';
 import formatDuration from 'date-fns/formatDuration';
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+import {
+  PickersDay,
+  // eslint-disable-next-line import/named
+  PickersDayProps,
+} from '@mui/x-date-pickers/PickersDay/PickersDay';
+import { isSameDay } from 'date-fns';
+import { Loader } from '../../UI/Loader';
+import { Cell, Pie, PieChart, Tooltip as ChartTooltip } from 'recharts';
 
 const rightBlock = 2;
+
+const styles: { [key: string]: SxProps } = {
+  dayIn: {
+    borderRadius: 1,
+    border: '1px solid #24b26d',
+  },
+  dayOut: {
+    borderRadius: 1,
+    border: '1px solid #e33f3d',
+  },
+};
 
 export const AdminEditMember = () => {
   const { data } = useGetMembersQuery('');
   const [editMember] = useEditMemberMutation();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { data: attendance, isLoading: isAttendanceLoading } =
+    useGetAttendanceQuery({ kid: id });
   const { enqueueSnackbar } = useSnackbar();
   const member = data?.find(
     (member) => member.id.toString() === id?.toString()
@@ -109,6 +135,49 @@ export const AdminEditMember = () => {
     onSubmit: handleSubmit,
     enableReinitialize: true,
   });
+
+  const renderDay = useCallback(
+    (date: Date, selected: Date[], props: PickersDayProps<Date>) => {
+      const kidAtt = attendance?.find((att) =>
+        isSameDay(new Date(att.createdAt), date)
+      );
+      const isIn = kidAtt?.type === 'in';
+      const isOut = kidAtt?.type === 'out';
+      return (
+        <Tooltip
+          title={
+            isIn
+              ? 'Присутствовал(а)'
+              : isOut
+              ? 'Болел(а)'
+              : 'Данные отсутствуют'
+          }
+          key={date.toDateString()}
+        >
+          <PickersDay
+            {...props}
+            sx={isIn ? styles.dayIn : isOut ? styles.dayOut : {}}
+          />
+        </Tooltip>
+      );
+    },
+    [attendance]
+  );
+
+  const attendanceCount = useMemo(() => {
+    return [
+      {
+        name: 'Присутствовал(а)',
+        count: attendance?.filter((att) => att.type === 'in').length,
+        color: '#24b26d',
+      },
+      {
+        name: 'Отстутсвовал(а)',
+        count: attendance?.filter((att) => att.type === 'out').length,
+        color: '#e33f3d',
+      },
+    ];
+  }, [attendance]);
 
   return (
     <FormikContext.Provider value={formik}>
@@ -300,6 +369,61 @@ export const AdminEditMember = () => {
                     label="Адрес проживания"
                   />
                 </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+
+          {/* Блок посещаемость */}
+          <Grid item container xs={12} spacing={2}>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+            <Grid item xs={rightBlock}>
+              <Typography variant="h5" sx={{ mb: 2 }}>
+                Посещаемость
+              </Typography>
+
+              <Typography variant="subtitle2">
+                История посещаемости кадета. Отметка о присутствии выставляется
+                ежедневно в 20:00
+              </Typography>
+            </Grid>
+            <Grid item container xs={12 - rightBlock} spacing={10}>
+              <Grid item>
+                {isAttendanceLoading ? (
+                  <Loader />
+                ) : (
+                  <StaticDatePicker
+                    displayStaticWrapperAs="desktop"
+                    label="Week picker"
+                    value={new Date()}
+                    onChange={() => {}}
+                    renderDay={renderDay}
+                    renderInput={(params) => <TextField {...params} />}
+                    inputFormat="'Week of' MMM d"
+                  />
+                )}
+              </Grid>
+              <Grid item>
+                <PieChart width={730} height={250}>
+                  <Pie
+                    data={attendanceCount}
+                    dataKey="count"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    fill="#8884d8"
+                    legendType="circle"
+                    innerRadius={50}
+                  >
+                    {attendanceCount.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <ChartTooltip
+                    formatter={(value, name) => [value, `${name} дней`]}
+                  />
+                </PieChart>
               </Grid>
             </Grid>
           </Grid>

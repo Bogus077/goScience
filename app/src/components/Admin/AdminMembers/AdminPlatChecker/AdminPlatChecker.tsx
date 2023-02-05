@@ -1,8 +1,6 @@
-import { Typography } from '@mui/material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import React from 'react';
-import styles from './AdminPlatChecker.module.scss';
 
 type AdminPlatCheckerTypes = {
   onChange: (

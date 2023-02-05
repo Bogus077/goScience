@@ -1,0 +1,1 @@
+export { AdminAddTeacherPage } from './AdminAddTeacherPage';

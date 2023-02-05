@@ -1,5 +1,16 @@
+import {
+  AddTeacherRequest,
+  AddTeachersResponse,
+  EditTeacherRequest,
+  EditTeacherResponse,
+  GetTeachersResponse,
+  RemoveTeacherRequest,
+} from './../models/Teacher/teacher';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { GetAttendanceResponse } from '../models/Attendance/attendance';
+import {
+  GetAttendanceRequest,
+  GetAttendanceResponse,
+} from '../models/Attendance/attendance';
 import {
   CreateClassRequest,
   CreateClassResponse,
@@ -108,6 +119,8 @@ export const GSAPI = createApi({
     'Notifications',
     'Attendance',
     'AttendanceList',
+    'Teacher',
+    'Teachers',
   ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
@@ -622,9 +635,10 @@ export const GSAPI = createApi({
     }),
 
     //Attendance
-    getAttendance: build.query<GetAttendanceResponse, unknown>({
-      query: () => ({
+    getAttendance: build.query<GetAttendanceResponse, GetAttendanceRequest>({
+      query: (params) => ({
         url: '/members/attendance',
+        params,
       }),
       providesTags: (result) => {
         return result
@@ -637,6 +651,54 @@ export const GSAPI = createApi({
             ]
           : ['AttendanceList'];
       },
+    }),
+
+    //Teachers
+    getTeachers: build.query<GetTeachersResponse, unknown>({
+      query: () => ({
+        url: '/teacher/get',
+      }),
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'Teacher' as const,
+                id,
+              })),
+              'Teachers',
+            ]
+          : ['Teachers'];
+      },
+    }),
+
+    removeTeacher: build.mutation<unknown, RemoveTeacherRequest>({
+      query: (params) => ({
+        url: '/teacher/delete',
+        method: 'delete',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Teacher' }, 'Teachers'],
+    }),
+
+    addTeacher: build.mutation<AddTeachersResponse, AddTeacherRequest>({
+      query: (params) => ({
+        url: '/teacher/add',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Teacher' }, 'Teachers'],
+    }),
+
+    editTeacher: build.mutation<EditTeacherResponse, EditTeacherRequest>({
+      query: (params) => ({
+        url: '/teacher/edit',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Teacher' }, 'Teachers'],
     }),
   }),
 });
@@ -683,4 +745,8 @@ export const {
   useAddNotificationMutation,
   useRemoveNotificationMutation,
   useGetAttendanceQuery,
+  useGetTeachersQuery,
+  useRemoveTeacherMutation,
+  useAddTeacherMutation,
+  useEditTeacherMutation,
 } = GSAPI;

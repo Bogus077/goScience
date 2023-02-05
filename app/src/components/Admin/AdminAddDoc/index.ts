@@ -1,0 +1,1 @@
+export { AdminAddDoc } from './AdminAddDoc';

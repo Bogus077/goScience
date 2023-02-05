@@ -79,7 +79,7 @@ export const Members = ({
     >
       <Stack spacing={2}>
         {notifications.map((notif) => (
-          <Alert severity="info" key={notif.id}>
+          <Alert severity="info" variant="outlined" key={notif.id}>
             <AlertTitle>{notif.title}</AlertTitle>
             {notif.text}
           </Alert>

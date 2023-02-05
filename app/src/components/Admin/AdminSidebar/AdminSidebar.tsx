@@ -11,6 +11,7 @@ import {
   IconHistory,
   IconUserCircle,
   IconBell,
+  IconSchool,
 } from '@tabler/icons';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -54,6 +55,26 @@ export const AdminSidebar = () => {
               <IconUsers />
             </ListItemIcon>
             <ListItemText primary="Кадеты" />
+          </ListItemButton>
+
+          <ListItemButton
+            selected={
+              new RegExp(frontendRoutes.admin.teachers).test(
+                location.pathname
+              ) ||
+              new RegExp(frontendRoutes.admin.addTeacher).test(
+                location.pathname
+              ) ||
+              new RegExp(frontendRoutes.admin.editTeacher).test(
+                location.pathname
+              )
+            }
+            onClick={() => navigate(frontendRoutes.admin.teachers)}
+          >
+            <ListItemIcon>
+              <IconSchool />
+            </ListItemIcon>
+            <ListItemText primary="Преподаватели" />
           </ListItemButton>
 
           <ListItemButton selected={false}>

@@ -157,3 +157,23 @@ export const addNotificationInitialValues = {
   text: '',
   type: 'default',
 };
+
+/**
+ * Схема валидации формы добавления преподавателя
+ */
+export const addTeacherValidationSchema = object({
+  name: string().required(VALIDATION_ERRORS.REQUIRED),
+  surname: string().required(VALIDATION_ERRORS.REQUIRED),
+  middlename: string().required(VALIDATION_ERRORS.REQUIRED),
+  phone: string().required(VALIDATION_ERRORS.REQUIRED),
+});
+
+export const addTeacherInitialValues = {
+  name: '',
+  surname: '',
+  middlename: '',
+  phone: '',
+};
+
+export const editTeacherInitialValues = addTeacherInitialValues;
+export const editTeacherValidationSchema = addTeacherValidationSchema;

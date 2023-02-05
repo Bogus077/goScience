@@ -4,6 +4,7 @@ import {
   Grid,
   IconButton,
   InputAdornment,
+  Link,
   Paper,
   Switch,
   TableContainer,
@@ -105,7 +106,12 @@ export const AdminMembers = () => {
       field: 'surname',
       headerName: 'Фамилия Имя',
       flex: 1,
-      renderCell: (params) => `${params.row.surname} ${params.row.name}`,
+      renderCell: (params) => (
+        <Link
+          onClick={() => handleMemberEdit(params)}
+          align="left"
+        >{`${params.row.surname} ${params.row.name}`}</Link>
+      ),
     },
     {
       field: 'plat',
@@ -212,8 +218,16 @@ export const AdminMembers = () => {
     event: React.MouseEvent<HTMLElement>,
     newFormats: number[]
   ) => {
+    const clickedValue = parseInt(
+      (event as React.MouseEvent<HTMLElement> & { target: { value: string } })
+        .target.value
+    );
     const newFormatsSet = new Set(newFormats);
-    setPlats(Array.from(newFormatsSet));
+    if (!newFormatsSet.has(clickedValue) && newFormats.length === 4) {
+      setPlats([clickedValue]);
+    } else {
+      setPlats(Array.from(newFormatsSet));
+    }
   };
 
   const rows = useMemo(() => {

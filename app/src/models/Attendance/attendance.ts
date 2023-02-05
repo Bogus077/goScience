@@ -6,3 +6,6 @@ export type Attendance = {
 };
 
 export type GetAttendanceResponse = Attendance[];
+export type GetAttendanceRequest = {
+  kid?: number | string;
+};
