@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { GetAttendanceResponse } from '../models/Attendance/attendance';
 import {
   CreateClassRequest,
   CreateClassResponse,
@@ -105,6 +106,8 @@ export const GSAPI = createApi({
     'Logs',
     'Notification',
     'Notifications',
+    'Attendance',
+    'AttendanceList',
   ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
@@ -617,6 +620,24 @@ export const GSAPI = createApi({
       invalidatesTags: (result, error, arg) =>
         error ? [] : [{ type: 'Notification' }, 'Notifications'],
     }),
+
+    //Attendance
+    getAttendance: build.query<GetAttendanceResponse, unknown>({
+      query: () => ({
+        url: '/members/attendance',
+      }),
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'Attendance' as const,
+                id,
+              })),
+              'AttendanceList',
+            ]
+          : ['AttendanceList'];
+      },
+    }),
   }),
 });
 
@@ -661,4 +682,5 @@ export const {
   useGetNotificationsQuery,
   useAddNotificationMutation,
   useRemoveNotificationMutation,
+  useGetAttendanceQuery,
 } = GSAPI;

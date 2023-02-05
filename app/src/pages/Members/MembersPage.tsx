@@ -8,7 +8,8 @@ import { useParams } from 'react-router-dom';
 import { MembersPrint } from '../../components/MembersPrint';
 
 export const MembersPage = () => {
-  const { members, status, changeMemberStatus, error } = useMembers('members');
+  const { members, notifications, status, changeMemberStatus, error } =
+    useMembers('members');
   const [isModalOpen, setModalOpen] = useState<string | undefined>(error);
   const { isLoading } = useGetUserQuery('');
   const { version } = useParams();
@@ -26,6 +27,7 @@ export const MembersPage = () => {
       ) : (
         <Members
           kids={members ?? []}
+          notifications={notifications ?? []}
           isLoading={isLoading}
           changeMemberStatus={changeMemberStatus}
           connectionStatus={status}

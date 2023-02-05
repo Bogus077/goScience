@@ -1,9 +1,13 @@
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import { Stack } from '@mui/system';
 import classNames from 'classnames/bind';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ChangeMemberStatusRequest,
   Member,
 } from '../../models/members/members';
+import { Notification } from '../../models/Notifications/Notifications';
 import { getPlat } from '../../utils/members/members';
 import styles from './Members.module.scss';
 import { MembersPlat } from './MembersPlat';
@@ -12,6 +16,7 @@ const cx = classNames.bind(styles);
 
 type MembersTypes = {
   kids: Member[];
+  notifications: Notification[];
   isLoading: boolean;
   changeMemberStatus: (data: ChangeMemberStatusRequest) => void;
   connectionStatus: boolean;
@@ -19,6 +24,7 @@ type MembersTypes = {
 
 export const Members = ({
   kids,
+  notifications,
   isLoading,
   changeMemberStatus,
   connectionStatus,
@@ -71,6 +77,15 @@ export const Members = ({
         members_print: isPageToPrint,
       })}
     >
+      <Stack spacing={2}>
+        {notifications.map((notif) => (
+          <Alert severity="info" key={notif.id}>
+            <AlertTitle>{notif.title}</AlertTitle>
+            {notif.text}
+          </Alert>
+        ))}
+      </Stack>
+
       <div className={styles.members__status}>
         <MembersStatus status={connectionStatus} isLoading={isLoading} />
       </div>
