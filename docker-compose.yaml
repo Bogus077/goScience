@@ -12,7 +12,7 @@ services:
       [
         sh,
         -c,
-        'cd /app && yarn install && yarn build && npm i serve -g && serve -s build',
+        'cd /app && npm i serve -g && serve -s build',
       ]
   nginx:
     container_name: GS-front-nginx
