@@ -1,0 +1,1 @@
+export { AdminAttendanceWidget } from './AdminAttendanceWidget';

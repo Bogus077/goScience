@@ -18,3 +18,7 @@ export { RegistrationPage } from './Registration';
 export { LoginPage } from './Login';
 export { StudyPage } from './Plan/StudyPage/Study';
 export { ClassSettingsPage } from './ClassSettings';
+export { AdminAddDocsPage } from './Admin/AdminAddDocsPage';
+export { AdminTeachersPage } from './Admin/AdminTeachersPage';
+export { AdminAddTeacherPage } from './Admin/AdminAddTeacherPage';
+export { AdminEditTeacherPage } from './Admin/AdminEditTeacherPage';

@@ -1,0 +1,1 @@
+export { AdminBirthdayWidget } from './AdminBirthdayWidget';

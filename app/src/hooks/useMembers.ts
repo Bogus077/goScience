@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import { ChangeMemberStatusRequest, Member } from '../models/members/members';
 import { getRefreshToken, getToken } from '../redux/authSlice';
+import { Notification } from '../models/Notifications/Notifications';
 
 // адрес сервера
 // требуется перенаправление запросов - смотрите ниже
@@ -13,6 +14,7 @@ const SERVER_URL = process.env.REACT_APP_API_URL ?? '';
 export const useMembers = (roomId: string) => {
   // локальное состояние для пользователей
   const [members, setMembers] = useState<Member[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [status, setStatus] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
 
@@ -48,6 +50,12 @@ export const useMembers = (roomId: string) => {
             'Доступ запрещен. Требуется учетная запись офицера-воспитателя. Обратитесь к администратору.'
           );
           break;
+        case 'jwt expired':
+          setError(
+            'Истёк срок действия токена авторизации. Обновите страницу.'
+          );
+          window.location.reload();
+          break;
         default:
           setError(`Скорее всего, это проблема с Интернетом, и через пару секунд всё будет отлично. Без паники. 
           
@@ -67,6 +75,15 @@ export const useMembers = (roomId: string) => {
       setMembers(members);
     });
 
+    // отправляем запрос на получение уведомлений
+    socketRef.current.emit('members:notifications');
+
+    // обрабатываем получение списка кадет
+    socketRef.current.on('notifications', (notifications: Notification[]) => {
+      // обновляем массив кадет
+      setNotifications(notifications);
+    });
+
     return () => {
       // при размонтировании компонента выполняем отключение сокета
       socketRef.current.disconnect();
@@ -77,5 +94,5 @@ export const useMembers = (roomId: string) => {
     socketRef.current.emit('members:status', data);
   };
 
-  return { members, status, changeMemberStatus, error };
+  return { members, notifications, status, changeMemberStatus, error };
 };
