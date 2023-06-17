@@ -34,6 +34,7 @@ import {
   AdminTeachersPage,
   AdminAddTeacherPage,
   AdminEditTeacherPage,
+  AdminAddEventPage,
 } from './pages';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { frontendRoutes } from './utils/router/routes';
@@ -185,6 +186,10 @@ export function App() {
                 <Route
                   path={`${frontendRoutes.admin.editTeacher}/:id`}
                   element={<AdminEditTeacherPage />}
+                />
+                <Route
+                  path={frontendRoutes.admin.addEvent}
+                  element={<AdminAddEventPage />}
                 />
               </Route>
             </Routes>

@@ -10,6 +10,7 @@ export const frontendRoutes = {
     teachers: '/admin/teachers',
     addTeacher: '/admin/teachers/add',
     editTeacher: '/admin/teachers/edit',
+    addEvent: '/admin/events/add',
     addDoc: '/admin/addDoc',
   },
   kidWeekStats: '/stats',

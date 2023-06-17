@@ -1,4 +1,4 @@
-import { date, number, object, ref, string } from 'yup';
+import { array, date, number, object, ref, string } from 'yup';
 import { VALIDATION_ERRORS } from './errors';
 import { VALIDATION_REGEXP } from './regexps';
 
@@ -177,3 +177,25 @@ export const addTeacherInitialValues = {
 
 export const editTeacherInitialValues = addTeacherInitialValues;
 export const editTeacherValidationSchema = addTeacherValidationSchema;
+
+/**
+ * Схема валидации формы добавления мероприятия
+ */
+export const addEventValidationSchema = object({
+  title: string().required(VALIDATION_ERRORS.REQUIRED),
+  eventDate: date().required(VALIDATION_ERRORS.REQUIRED),
+  orderDate: date().required(VALIDATION_ERRORS.REQUIRED),
+  address: string().required(VALIDATION_ERRORS.REQUIRED),
+  kids: array().min(1, VALIDATION_ERRORS.EVENTS.MINKIDS),
+  teachers: array().min(1, VALIDATION_ERRORS.EVENTS.MINTEACHERS),
+});
+
+export const addEventInitialValues = {
+  title: '',
+  orderNumber: '',
+  eventDate: new Date(),
+  orderDate: new Date(),
+  address: '',
+  kids: [],
+  teachers: [],
+};

@@ -69,12 +69,13 @@ export const AdminSidebar = () => {
                 location.pathname
               )
             }
-            onClick={() => navigate(frontendRoutes.admin.teachers)}
+            // onClick={() => navigate(frontendRoutes.admin.teachers)}
           >
             <ListItemIcon>
               <IconSchool />
             </ListItemIcon>
-            <ListItemText primary="Преподаватели" />
+            <ListItemText primary="Преподаватели" secondary="в разработке" />
+            <IconLockSquareRounded />
           </ListItemButton>
 
           <ListItemButton selected={false}>

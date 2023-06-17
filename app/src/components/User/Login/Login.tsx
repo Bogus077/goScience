@@ -30,7 +30,7 @@ export const Login = () => {
     }
     const result = await logIn(values);
     if ('data' in result && result.data) {
-      navigate(frontendRoutes.dashboard);
+      navigate(frontendRoutes.members);
     }
   };
 
@@ -65,7 +65,7 @@ export const Login = () => {
             isLoading: isCheckPhoneLoading,
           },
           prevButton: {
-            handleClick: () => navigate(frontendRoutes.dashboard),
+            handleClick: () => navigate(frontendRoutes.members),
             title: 'Отмена',
           },
         },

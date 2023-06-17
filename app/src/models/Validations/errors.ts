@@ -17,4 +17,9 @@ export const VALIDATION_ERRORS = {
     IS_NOT_EXISTS: 'Номер телефона не зарегистрирован',
     IS_ALREADY_EXISTS: 'Номер телефона уже зарегистрирован',
   },
+
+  EVENTS: {
+    MINKIDS: 'Выберите участников',
+    MINTEACHERS: 'Выберите хотя бы одного сопровождающего',
+  },
 };

@@ -43,7 +43,7 @@ export const AdminAttendanceWidget = () => {
       createdAt: dateAttendance?.[0].createdAt ?? 0,
       readableDate: formatWithOptions(
         { locale: ru },
-        'd MMMM yyyy, EEEEEE'
+        'd MMMM, EEEEEE'
       )(new Date(dateAttendance?.[0].createdAt ?? '')),
     };
   });

@@ -10,7 +10,7 @@ export const RegistrationPage = () => {
   const isAuth = useSelector(isAuthorized);
   useEffect(() => {
     if (isAuth) {
-      navigate(frontendRoutes.dashboard);
+      navigate(frontendRoutes.members);
     }
   }, [isAuth, navigate]);
 

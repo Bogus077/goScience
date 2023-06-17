@@ -66,7 +66,7 @@ export const Registration = () => {
         );
 
         if ('data' in createKidsResponse && createKidsResponse.data) {
-          navigate(frontendRoutes.dashboard);
+          navigate(frontendRoutes.members);
         }
       }
     }
@@ -104,7 +104,7 @@ export const Registration = () => {
             isLoading: isCheckPhoneLoading,
           },
           prevButton: {
-            handleClick: () => navigate(frontendRoutes.dashboard),
+            handleClick: () => navigate(frontendRoutes.members),
             title: 'Отмена',
           },
         },
