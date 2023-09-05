@@ -370,6 +370,32 @@ export const AdminEditMember = () => {
                   />
                 </Grid>
               </Grid>
+              <Grid item width={300}>
+                <TextField
+                  id="email"
+                  name="email"
+                  label="Эл. почта"
+                  variant="outlined"
+                  fullWidth
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  error={Boolean(formik.errors.email)}
+                  helperText={formik.errors.email}
+                />
+              </Grid>
+              <Grid item width={300}>
+                <TextField
+                  id="password"
+                  name="password"
+                  label="Пароль"
+                  variant="outlined"
+                  fullWidth
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={Boolean(formik.errors.password)}
+                  helperText={formik.errors.password}
+                />
+              </Grid>
             </Grid>
           </Grid>
 

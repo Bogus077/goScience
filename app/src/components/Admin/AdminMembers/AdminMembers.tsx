@@ -138,13 +138,13 @@ export const AdminMembers = () => {
       align: 'center',
       flex: 0.3,
     },
-    {
-      field: 'status',
-      headerName: ' ',
-      renderCell: getMemberStatus,
-      align: 'center',
-      flex: 1.5,
-    },
+    // {
+    //   field: 'status',
+    //   headerName: ' ',
+    //   renderCell: getMemberStatus,
+    //   align: 'center',
+    //   flex: 1.5,
+    // },
     {
       field: 'contact',
       headerName: 'Контакты',
@@ -164,21 +164,33 @@ export const AdminMembers = () => {
       },
     },
     {
-      field: 'address',
-      headerName: 'Адрес',
+      field: 'email',
+      headerName: 'Почта',
       flex: 1,
-      renderCell: (params) => {
-        const address = params.row.MemberContacts[0]?.address
-          ? params.row.MemberContacts[0]?.address
-          : '';
-
-        return (
-          <Tooltip title={<Typography variant="body2">{address}</Typography>}>
-            <Typography variant="body2">{address}</Typography>
-          </Tooltip>
-        );
-      },
+      renderCell: (params) => params.row.email,
     },
+    // {
+    //   field: 'password',
+    //   headerName: 'Пароль',
+    //   flex: 0.5,
+    //   renderCell: (params) => params.row.password,
+    // },
+    // {
+    //   field: 'address',
+    //   headerName: 'Адрес',
+    //   flex: 1,
+    //   renderCell: (params) => {
+    //     const address = params.row.MemberContacts[0]?.address
+    //       ? params.row.MemberContacts[0]?.address
+    //       : '';
+
+    //     return (
+    //       <Tooltip title={<Typography variant="body2">{address}</Typography>}>
+    //         <Typography variant="body2">{address}</Typography>
+    //       </Tooltip>
+    //     );
+    //   },
+    // },
     {
       field: 'edit',
       headerName: ' ',

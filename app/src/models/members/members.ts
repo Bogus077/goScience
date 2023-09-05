@@ -13,6 +13,8 @@ export type Member = {
   sex: 'male' | 'female';
   plat: number;
   status: boolean;
+  email: string;
+  password: string;
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
