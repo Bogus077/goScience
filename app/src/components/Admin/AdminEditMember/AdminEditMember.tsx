@@ -377,6 +377,7 @@ export const AdminEditMember = () => {
                   label="Эл. почта"
                   variant="outlined"
                   fullWidth
+                  disabled
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   error={Boolean(formik.errors.email)}

@@ -24,6 +24,7 @@ import {
   IconTrashX,
   IconSquarePlus,
   IconSearch,
+  IconCopy,
   IconSquareX,
 } from '@tabler/icons';
 import styles from './AdminMembers.module.scss';
@@ -167,7 +168,19 @@ export const AdminMembers = () => {
       field: 'email',
       headerName: 'Почта',
       flex: 1,
-      renderCell: (params) => params.row.email,
+      renderCell: (params) => (
+        <>
+          {params.row.email}
+          <IconButton
+            aria-label="Копировать"
+            size="small"
+            sx={{ opacity: 0.5 }}
+            onClick={() => navigator.clipboard.writeText(params.row.email)}
+          >
+            <IconCopy />
+          </IconButton>
+        </>
+      ),
     },
     // {
     //   field: 'password',
