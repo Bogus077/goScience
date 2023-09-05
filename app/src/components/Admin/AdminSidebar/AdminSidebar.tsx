@@ -94,12 +94,15 @@ export const AdminSidebar = () => {
             <IconLockSquareRounded />
           </ListItemButton>
 
-          <ListItemButton selected={false}>
+          <ListItemButton
+            selected={false}
+            href="https://biz.mail.ru/"
+            target="_blank"
+          >
             <ListItemIcon>
               <IconMailbox />
             </ListItemIcon>
-            <ListItemText primary="Почта" secondary="в разработке" />
-            <IconLockSquareRounded />
+            <ListItemText primary="Почта" />
           </ListItemButton>
         </List>
       </AdminSidebarContainer>
@@ -117,7 +120,6 @@ export const AdminSidebar = () => {
                 <IconHistory />
               </ListItemIcon>
               <ListItemText primary="Логи" />
-              <IconLockSquareRounded />
             </ListItemButton>
 
             <ListItemButton selected={false}>
@@ -138,7 +140,6 @@ export const AdminSidebar = () => {
                 <IconBell />
               </ListItemIcon>
               <ListItemText primary="Уведомления" />
-              <IconLockSquareRounded />
             </ListItemButton>
           </List>
         </AdminSidebarContainer>

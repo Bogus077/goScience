@@ -12,6 +12,8 @@ import { getPlat } from '../../utils/members/members';
 import styles from './Members.module.scss';
 import { MembersPlat } from './MembersPlat';
 import { MembersStatus } from './MembersStatus';
+import { formatDuration, intervalToDuration, subYears } from 'date-fns';
+import ru from 'date-fns/locale/ru';
 const cx = classNames.bind(styles);
 
 type MembersTypes = {
@@ -64,12 +66,26 @@ export const Members = ({
     }
   }, []);
 
-  useEffect(() => {
-    // if (isPageToPrint && window) {
-    //   window.print();
-    // }
-    // setPageToPrint(false);
-  }, [isPageToPrint]);
+  const dobToday: string[] = [];
+  kids.forEach((kid) => {
+    if (kid.dob) {
+      const dob = new Date(kid.dob).getDate();
+      const today = new Date().getDate();
+      const isToday = dob === today;
+
+      const years = formatDuration(
+        intervalToDuration({
+          start: subYears(new Date(kid.dob), 1),
+          end: new Date(),
+        }),
+        {
+          format: ['years'],
+          locale: ru,
+        }
+      );
+      if (isToday) dobToday.push(`${kid.surname} ${kid.name} - ${years}`);
+    }
+  });
 
   return (
     <div
@@ -137,6 +153,14 @@ export const Members = ({
           Спорт
         </div>
       </div>
+
+      {dobToday.length > 0 && (
+        <Alert severity="info" variant="outlined">
+          <AlertTitle>День рождения сегодня:</AlertTitle>
+          {dobToday.join(', ')}
+        </Alert>
+      )}
+
       {isPageToPrint ? (
         <div className={styles.author}>
           Распечатано: {` `}
