@@ -2,7 +2,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { Stack } from '@mui/system';
 import classNames from 'classnames/bind';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
   ChangeMemberStatusRequest,
   Member,
@@ -69,9 +69,11 @@ export const Members = ({
   const dobToday: string[] = [];
   kids.forEach((kid) => {
     if (kid.dob) {
-      const dob = new Date(kid.dob).getDate();
-      const today = new Date().getDate();
-      const isToday = dob === today;
+      const dob = new Date(kid.dob);
+      const today = new Date();
+      const isToday =
+        `${dob.getDate()} ${dob.getMonth()}` ===
+        `${today.getDate()} ${today.getMonth()}`;
 
       const years = formatDuration(
         intervalToDuration({

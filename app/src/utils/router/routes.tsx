@@ -45,4 +45,5 @@ export const frontendRoutes = {
     addTask: '/project/createTask',
     editTask: '/project/updateTask',
   },
+  versions: '/changelog',
 };

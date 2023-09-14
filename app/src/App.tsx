@@ -35,6 +35,7 @@ import {
   AdminAddTeacherPage,
   AdminEditTeacherPage,
   AdminAddEventPage,
+  VersionsPage,
 } from './pages';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { frontendRoutes } from './utils/router/routes';
@@ -64,6 +65,10 @@ export function App() {
               <Route
                 path={frontendRoutes.kidWeekStats}
                 element={<KidWeekSummaryPage />}
+              />
+              <Route
+                path={frontendRoutes.versions}
+                element={<VersionsPage />}
               />
 
               <Route element={<ProtectedRoutes />}>

@@ -1,0 +1,12 @@
+@import '../../assets/helpers/index.scss';
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  background-color: $backgroundColor;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 40px;
+}

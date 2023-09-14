@@ -96,7 +96,7 @@ export const AdminSidebar = () => {
 
           <ListItemButton
             selected={false}
-            href="https://biz.mail.ru/"
+            href="https://biz.mail.ru/login/kk-a.ru"
             target="_blank"
           >
             <ListItemIcon>

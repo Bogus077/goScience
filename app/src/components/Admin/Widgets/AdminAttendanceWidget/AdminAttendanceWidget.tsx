@@ -36,17 +36,23 @@ export const AdminAttendanceWidget = () => {
     };
   });
 
-  const datesSorted = Array.from(datesSet).map((date) => {
-    const dateAttendance = dates?.filter((aDate) => aDate.keyDate === date);
-    return {
-      count: dateAttendance?.length ?? 0,
-      createdAt: dateAttendance?.[0].createdAt ?? 0,
-      readableDate: formatWithOptions(
-        { locale: ru },
-        'd MMMM, EEEEEE'
-      )(new Date(dateAttendance?.[0].createdAt ?? '')),
-    };
-  });
+  const datesSorted = Array.from(datesSet)
+    .map((date) => {
+      const dateAttendance = dates?.filter((aDate) => aDate.keyDate === date);
+      return {
+        count: dateAttendance?.length ?? 0,
+        createdAt: dateAttendance?.[0].createdAt ?? 0,
+        readableDate: formatWithOptions(
+          { locale: ru },
+          'd MMM, EEEEEE'
+        )(new Date(dateAttendance?.[0].createdAt ?? '')),
+      };
+    })
+    .sort(
+      (dateA, dateB) =>
+        new Date(dateA.createdAt as string).getDate() -
+        new Date(dateB.createdAt as string).getDate()
+    );
 
   const handleKidsAttendanceLink = useCallback(
     () => navigate(frontendRoutes.admin.members),
