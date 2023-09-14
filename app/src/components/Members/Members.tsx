@@ -77,7 +77,7 @@ export const Members = ({
 
       const years = formatDuration(
         intervalToDuration({
-          start: subYears(new Date(kid.dob), 1),
+          start: subYears(new Date(kid.dob).setHours(23, 59, 59), 1),
           end: new Date(),
         }),
         {

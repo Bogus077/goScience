@@ -76,7 +76,10 @@ export const AdminBirthdayWidget = () => {
       renderCell: (params) =>
         formatDuration(
           intervalToDuration({
-            start: subYears(new Date(params.row.dob ?? ''), 1),
+            start: subYears(
+              new Date(params.row.dob ?? '').setHours(23, 59, 59),
+              1
+            ),
             end: new Date(),
           }),
           {
