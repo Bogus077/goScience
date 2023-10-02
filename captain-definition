@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 2,
+  "dockerfileLines": [
+    "FROM node:latest",
+    "COPY ./ /var/www/server",
+    "WORKDIR /var/www/server/app/",
+    "RUN git fetch",
+    "RUN git checkout master",
+    "RUN git pull"
+    "RUN npm i serve -g"
+    "RUN serve -s build"
+  ]
+}
