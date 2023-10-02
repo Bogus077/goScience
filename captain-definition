@@ -5,6 +5,6 @@
     "COPY ./ /var/www/server",
     "WORKDIR /var/www/server/app/",
     "CMD [\"npm\", \"i\", \"serve\", \"-g\"]",
-    "RUN [\"serve\", \"-s\", \"build\"]"
+    "CMD [\"serve\", \"-s\", \"build\"]"
   ]
 }
