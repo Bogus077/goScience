@@ -4,7 +4,7 @@
     "FROM node:latest",
     "COPY ./ /var/www/server",
     "WORKDIR /var/www/server/app/",
-    "RUN npm i serve -g"
+    "RUN npm i serve -g",
     "RUN serve -s build"
   ]
 }
