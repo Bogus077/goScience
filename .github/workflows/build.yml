@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  DEPLOY_PATH: /kka-sandbox/frontend/123
+  DEPLOY_PATH: /kka-sandbox/123
 
 jobs:
   deploy:
