@@ -41,9 +41,10 @@ jobs:
         with:
           host: ${{ secrets.HOME_DEPLOY_SERVER_HOST }}
           username: ${{ secrets.HOME_DEPLOY_SERVER_USERNAME }}
-          key: ${{ secrets.HOME_DEPLOY_SERVER_KEY }}
+          password: ${{ secrets.HOME_DEPLOY_SEVER_PASSWORD }}
+          # key: ${{ secrets.HOME_DEPLOY_SERVER_KEY }}
           source: app/public
-          target: ./kka-sandbox/frontend/123
+          target: ${{ env.DEPLOY_PATH }}
           strip_components: 1
       - name: Print Info
         run: echo "Deploy finish!"
