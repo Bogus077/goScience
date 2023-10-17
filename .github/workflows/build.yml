@@ -40,7 +40,6 @@ jobs:
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOME_DEPLOY_SERVER_HOST }}
-          port: 80
           username: ${{ secrets.HOME_DEPLOY_SERVER_USERNAME }}
           key: ${{ secrets.HOME_DEPLOY_SERVER_KEY }}
           source: app/public
