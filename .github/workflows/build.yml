@@ -29,6 +29,9 @@ jobs:
       # Устанавливаем зависимости для сборки
       - name: Install Dependencies
         run: cd app && npm i
+      # Копируем env
+      - name: create env file
+        run: cd app && cp .env.example .env
       # Собираем приложение
       - name: Build Appliction
         run: cd app && npm run build
