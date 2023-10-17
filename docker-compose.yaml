@@ -4,12 +4,12 @@ services:
     container_name: GS-front-react-sandbox
     image: node:latest
     volumes:
-      - ./app:/app
+      - ./build:/build
     ports:
       - 3000:3000
     entrypoint:
       [
         sh,
         -c,
-        'cd /app && npm i serve -g && serve -s build',
+        'npm i serve -g && serve -s build',
       ]
