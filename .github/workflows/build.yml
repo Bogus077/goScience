@@ -38,8 +38,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          mkdir ../publicc
-          cp -TR ./app/public ../publicc
+          mkdir ./publicc
+          cp -TR ./app/public ./publicc
+          ls -a
       # Доставляем собранное приложение на сервер
       - name: Deploy to Server
         uses: appleboy/scp-action@master
