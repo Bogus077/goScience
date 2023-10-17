@@ -27,19 +27,19 @@ jobs:
         with:
           node-version: '16'
       # Устанавливаем зависимости для сборки
-      # - name: Install Dependencies
-      #   run: cd app && npm i
-      # # Копируем env
-      # - name: Create env file
-      #   run: cd app && cp .env.example .env
-      # # Собираем приложение
-      # - name: Build Appliction
-      #   run: cd app && npm run build
+      - name: Install Dependencies
+        run: cd app && npm i
+      # Копируем env
+      - name: Create env file
+        run: cd app && cp .env.example .env
+      # Собираем приложение
+      - name: Build Appliction
+        run: cd app && npm run build
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          mkdir ./publicc
-          cp -TR ./app/public ./publicc
+          mkdir ./build
+          cp -TR ./app/build ./build
           ls -a
       # Доставляем собранное приложение на сервер
       - name: Deploy to Server
@@ -50,8 +50,8 @@ jobs:
           username: ${{ secrets.HOME_DEPLOY_SERVER_USERNAME }}
           password: ${{ secrets.HOME_DEPLOY_SEVER_PASSWORD }}
           # key: ${{ secrets.HOME_DEPLOY_SERVER_KEY }}
-          source: publicc
+          source: build
           target: ${{ env.DEPLOY_PATH }}
-          # strip_components: 1
+          strip_components: 1
       - name: Print Info
         run: echo "Deploy finish!"
