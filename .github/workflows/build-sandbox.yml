@@ -1,0 +1,57 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Sandbox
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "sandbox" ]
+  pull_request:
+    branches: [ "sandbox" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  DEPLOY_PATH: ~/kka-sandbox/frontend/build
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Делаем checkout текущей ветки
+      - uses: actions/checkout@v2
+      # Устанавливаем Node.JS для сборки приложения
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16'
+      # Устанавливаем зависимости для сборки
+      - name: Install Dependencies
+        run: cd app && npm i
+      # Копируем env
+      - name: Create env file
+        run: cd app && cp .env.example .env
+      # Собираем приложение
+      - name: Build Appliction
+        run: cd app && npm run build
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          mkdir ./build
+          cp -TR ./app/build ./build
+          ls -a
+      # Доставляем собранное приложение на сервер
+      - name: Deploy to Server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOME_DEPLOY_SERVER_HOST }}
+          port: 222
+          username: ${{ secrets.HOME_DEPLOY_SERVER_USERNAME }}
+          password: ${{ secrets.HOME_DEPLOY_SEVER_PASSWORD }}
+          # key: ${{ secrets.HOME_DEPLOY_SERVER_KEY }}
+          source: build
+          target: ${{ env.DEPLOY_PATH }}
+          strip_components: 1
+      - name: Print Info
+        run: echo "Deploy finish!"

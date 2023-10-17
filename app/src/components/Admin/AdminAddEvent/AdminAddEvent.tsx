@@ -24,7 +24,7 @@ const rightBlock = 2;
 
 export const AdminAddEvent = () => {
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
+  // const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = useCallback(
     // eslint-disable-next-line no-console

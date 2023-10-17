@@ -68,21 +68,21 @@ export const AdminMembers = () => {
     );
   }
 
-  function getMemberStatus(field: GridRenderCellParams<boolean>) {
-    return field.value ? (
-      <FormControlLabel
-        disabled
-        control={<Switch color="success" checked={true} size="small" />}
-        label="В корпусе"
-      />
-    ) : (
-      <FormControlLabel
-        disabled
-        control={<Switch color="error" size="small" />}
-        label="Отсутствует"
-      />
-    );
-  }
+  // function getMemberStatus(field: GridRenderCellParams<boolean>) {
+  //   return field.value ? (
+  //     <FormControlLabel
+  //       disabled
+  //       control={<Switch color="success" checked={true} size="small" />}
+  //       label="В корпусе"
+  //     />
+  //   ) : (
+  //     <FormControlLabel
+  //       disabled
+  //       control={<Switch color="error" size="small" />}
+  //       label="Отсутствует"
+  //     />
+  //   );
+  // }
 
   const handleMemberEdit = (field: GridRenderCellParams<string>) => {
     navigate(`${frontendRoutes.admin.editMember}/${field.row.id}`);

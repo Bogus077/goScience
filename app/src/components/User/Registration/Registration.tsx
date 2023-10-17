@@ -19,7 +19,6 @@ import loginBookImg from '../../../assets/img/loginbook.jpg';
 import styles from './Registration.module.scss';
 import { UserStep } from '../../../models/User/steps';
 import { VALIDATION_ERRORS } from '../../../models/Validations/errors';
-import { FetchError } from '../../../models/Api/errors';
 import { UserSteps } from '../UserSteps';
 import { InputPhone } from '../../UI/Form/InputPhone';
 import { InputText } from '../../UI/Form/InputText';
@@ -28,19 +27,11 @@ import { KidRow } from '../../../models/Kid/kid';
 
 export const Registration = () => {
   const navigate = useNavigate();
-  const [signUp, { isLoading, isError, error }] = useSignUpMutation();
-  const [
-    createClass,
-    {
-      isLoading: isCreateClassLoading,
-      isError: isCreateClassError,
-      error: createClassError,
-    },
-  ] = useCreateClassMutation();
+  const [signUp, { isLoading }] = useSignUpMutation();
+  const [createClass] = useCreateClassMutation();
   const [checkPhone, { isLoading: isCheckPhoneLoading }] =
     useCheckPhoneMutation();
-  const [createKids, { isLoading: isCreateKidLoading }] =
-    useCreateKidMutation();
+  const [createKids] = useCreateKidMutation();
   const [kids, setKids] = useState<KidRow[]>([addKidInitialValues]);
 
   const handleSubmit = async (
