@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  DEPLOY_PATH: ~/app/gobarber-backend
+  DEPLOY_PATH: ~/kka-sandbox/frontend/123
 
 jobs:
   deploy:
@@ -46,6 +46,7 @@ jobs:
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOME_DEPLOY_SERVER_HOST }}
+          port: 222
           username: ${{ secrets.HOME_DEPLOY_SERVER_USERNAME }}
           password: ${{ secrets.HOME_DEPLOY_SEVER_PASSWORD }}
           # key: ${{ secrets.HOME_DEPLOY_SERVER_KEY }}
