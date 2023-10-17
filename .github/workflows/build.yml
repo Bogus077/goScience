@@ -35,13 +35,12 @@ jobs:
       # # Собираем приложение
       # - name: Build Appliction
       #   run: cd app && npm run build
-      # Доставляем собранное приложение на сервер
       # Runs a set of commands using the runners shell
-      # - name: Run a multi-line script
-      #   run: |
-      #     mkdir ../build
-      #     cp -TR . ../build
-      #     tar -cvf deploy.tar ../build/
+      - name: Run a multi-line script
+        run: |
+          mkdir ../publicc
+          cp -TR ./app/public ../publicc
+      # Доставляем собранное приложение на сервер
       - name: Deploy to Server
         uses: appleboy/scp-action@master
         with:
@@ -50,7 +49,7 @@ jobs:
           username: ${{ secrets.HOME_DEPLOY_SERVER_USERNAME }}
           password: ${{ secrets.HOME_DEPLOY_SEVER_PASSWORD }}
           # key: ${{ secrets.HOME_DEPLOY_SERVER_KEY }}
-          source: app/public
+          source: publicc
           target: ${{ env.DEPLOY_PATH }}
           # strip_components: 1
       - name: Print Info
