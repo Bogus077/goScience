@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  DEPLOY_PATH: ./kka-sandbox/123
+  DEPLOY_PATH: ~/app/gobarber-backend
 
 jobs:
   deploy:
