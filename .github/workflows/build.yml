@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.HOME_DEPLOY_SERVER_USERNAME }}
           key: ${{ secrets.HOME_DEPLOY_SERVER_KEY }}
           source: app/public
-          target: ${{ env.DEPLOY_PATH }}
+          target: ./kka-sandbox/frontend/123
           strip_components: 1
       - name: Print Info
         run: echo "Deploy finish!"
