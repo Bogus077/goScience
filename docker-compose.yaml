@@ -4,27 +4,12 @@ services:
     container_name: GS-front-react
     image: node:latest
     volumes:
-      - /etc/letsencrypt/:/etc/letsencrypt/
       - ./app:/app
-    expose:
-      - '3000'
+    ports:
+      - 3000:3000
     entrypoint:
       [
         sh,
         -c,
         'cd /app && npm i serve -g && serve -s build',
       ]
-  nginx:
-    container_name: GS-front-nginx
-    image: nginx:alpine
-    tty: true
-    depends_on:
-      - frontend
-    volumes:
-      - /etc/letsencrypt/:/etc/letsencrypt/
-      - ./templates:/etc/nginx/templates
-      - ./docker/config/conf.d:/etc/nginx/conf.d/
-    ports:
-      - 3010:3010
-    links:
-      - frontend
