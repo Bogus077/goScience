@@ -28,13 +28,10 @@ import { KidRow } from '../../../models/Kid/kid';
 export const Registration = () => {
   const navigate = useNavigate();
   const [signUp, { isLoading }] = useSignUpMutation();
-  const [
-    createClass,
-  ] = useCreateClassMutation();
+  const [ createClass ] = useCreateClassMutation();
   const [checkPhone, { isLoading: isCheckPhoneLoading }] =
     useCheckPhoneMutation();
-  const [createKids] =
-    useCreateKidMutation();
+  const [createKids] = useCreateKidMutation();
   const [kids, setKids] = useState<KidRow[]>([addKidInitialValues]);
 
   const handleSubmit = async (
