@@ -22,7 +22,7 @@ export const CreateTeam = ({ kids }: CreateTeamTypes) => {
   const navigate = useNavigate();
   const [activeKids, setActiveKids] = useState<number[]>([]);
   //TODO обработка ошибок
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors] = useState<string[]>([]);
 
   const [createTeam, { isLoading }] = useCreateTeamMutation();
 

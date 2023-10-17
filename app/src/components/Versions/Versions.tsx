@@ -9,7 +9,7 @@ import { VersionItem } from './VersionItem';
 export const Versions = () => {
   return (
     <div className={styles.main}>
-      <VersionItem version="1.0.1" />
+      <VersionItem  />
     </div>
   );
 };

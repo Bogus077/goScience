@@ -30,7 +30,7 @@ jobs:
       - name: Install Dependencies
         run: cd app && npm i
       # Копируем env
-      - name: create env file
+      - name: Create env file
         run: cd app && cp .env.example .env
       # Собираем приложение
       - name: Build Appliction

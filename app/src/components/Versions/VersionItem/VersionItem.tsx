@@ -5,6 +5,6 @@ type VersionItemTypes = {
   version: string;
 };
 
-export const VersionItem = ({ version }: VersionItemTypes) => {
+export const VersionItem = () => {
   return <>version</>;
 };
