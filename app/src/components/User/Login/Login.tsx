@@ -7,6 +7,7 @@ import { FormikContext, useFormik } from 'formik';
 import { getFormikBaseProps } from '../../../utils/formik/baseProps';
 import { InputPhone } from '../../UI/Form/InputPhone';
 import loginBookImg from '../../../assets/img/loginbook.jpg';
+import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 import {
   authInitialValues,
   loginValidationSchema,
@@ -153,6 +154,16 @@ export const Login = () => {
   return (
     <div className={styles.login}>
       <FormikContext.Provider value={formik}>
+        <div className={styles.androidDownload}>
+          <InstallMobileIcon />
+          <a
+            className={styles.androidDownload__link}
+            href="/download/kkAvangard.apk"
+            target="_blank"
+          >
+            Скачать android-приложение
+          </a>
+        </div>
         <UserSteps steps={steps}>
           <div>
             <InputPhone
