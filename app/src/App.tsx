@@ -36,6 +36,7 @@ import {
   AdminEditTeacherPage,
   AdminAddEventPage,
   VersionsPage,
+  PolicyPage,
 } from './pages';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { frontendRoutes } from './utils/router/routes';
@@ -70,6 +71,7 @@ export function App() {
                 path={frontendRoutes.versions}
                 element={<VersionsPage />}
               />
+              <Route path={frontendRoutes.policy} element={<PolicyPage />} />
 
               <Route element={<ProtectedRoutes />}>
                 {/* Study */}

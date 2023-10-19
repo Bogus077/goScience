@@ -15,6 +15,7 @@ on:
 
 env:
   DEPLOY_PATH: ~/kka-sandbox/frontend/build
+  REACT_APP_API_URL: https://api.sandbox.kk-a.ru/
 
 jobs:
   deploy:

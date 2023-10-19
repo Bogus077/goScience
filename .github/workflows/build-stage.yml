@@ -15,6 +15,7 @@ on:
 
 env:
   DEPLOY_PATH: ~/kka-stage/frontend/build
+  REACT_APP_API_URL: https://api.stage.kk-a.ru/
 
 jobs:
   deploy:

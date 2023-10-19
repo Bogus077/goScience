@@ -46,4 +46,5 @@ export const frontendRoutes = {
     editTask: '/project/updateTask',
   },
   versions: '/changelog',
+  policy: '/policy',
 };
