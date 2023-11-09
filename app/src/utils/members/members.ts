@@ -19,3 +19,25 @@ export const sortBySurname = (a: Member, b: Member) => {
     }
   }
 };
+
+export const sortByPosition = (a: Member, b: Member) => {
+  if (a.position && b.position) {
+    return a.position > b.position ? 1 : -1;
+  } else if (a.position || b.position) {
+    return a.position ? 1 : -1;
+  } else {
+    if (a.surname > b.surname) {
+      return 1;
+    } else if (b.surname > a.surname) {
+      return -1;
+    } else {
+      if (a.name > b.name) {
+        return 1;
+      } else if (b.name > a.name) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }
+  }
+};

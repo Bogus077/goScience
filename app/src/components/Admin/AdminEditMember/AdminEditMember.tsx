@@ -172,7 +172,7 @@ export const AdminEditMember = () => {
         color: '#24b26d',
       },
       {
-        name: 'Отстутсвовал(а)',
+        name: 'Отсутствовал(а)',
         count: attendance?.filter((att) => att.type === 'out').length,
         color: '#e33f3d',
       },
@@ -201,7 +201,7 @@ export const AdminEditMember = () => {
               </Typography>
 
               <Typography variant="subtitle2">
-                Все поля обязательны для заполнения
+                Общая информация об учащемся
               </Typography>
             </Grid>
             <Grid item container xs={12 - rightBlock} spacing={2}>
@@ -296,7 +296,6 @@ export const AdminEditMember = () => {
                   </Select>
                 </Grid>
               </Grid>
-
               <Grid item container spacing={2}>
                 <Grid item minWidth={300}>
                   <Select
@@ -316,6 +315,20 @@ export const AdminEditMember = () => {
                     <MenuItem value="5">Спортвзвод</MenuItem>
                   </Select>
                 </Grid>
+              </Grid>
+
+              <Grid item width={300}>
+                <TextField
+                  id="position"
+                  name="position"
+                  label="Должность"
+                  variant="outlined"
+                  fullWidth
+                  value={formik.values.position}
+                  onChange={formik.handleChange}
+                  error={Boolean(formik.errors.position)}
+                  helperText={formik.errors.position}
+                />
               </Grid>
             </Grid>
           </Grid>

@@ -141,6 +141,7 @@ export const addMemberInitialValues = {
   contactAddress: '',
   email: '',
   password: '',
+  position: '',
 };
 
 export const editMemberInitialValues = addMemberInitialValues;

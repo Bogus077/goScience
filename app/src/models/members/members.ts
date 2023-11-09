@@ -15,6 +15,7 @@ export type Member = {
   status: boolean;
   email: string;
   password: string;
+  position: string;
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
