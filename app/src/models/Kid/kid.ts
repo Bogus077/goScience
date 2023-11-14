@@ -45,6 +45,22 @@ export type UpdateKidsRequest = {
   phone?: string;
 };
 
+export type AddRoleToUserRequest = {
+  UserId: number;
+  RoleId: number;
+};
+
+export type RemoveRoleFromUserRequest = {
+  UserId: number;
+  RoleId: number;
+};
+
+export type UserRoleResponse = {
+  id: number;
+  UserId: number;
+  RoleId: number;
+};
+
 export type UpdateKidsResponse = {
   id: number;
   name: string;

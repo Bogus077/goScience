@@ -17,12 +17,15 @@ import {
   GetUserClassesResponse,
 } from '../models/Class/class';
 import {
+  AddRoleToUserRequest,
   CreateKidsRequest,
   CreateKidsResponse,
   RemoveKidsRequest,
   RemoveKidsResponse,
+  RemoveRoleFromUserRequest,
   UpdateKidsRequest,
   UpdateKidsResponse,
+  UserRoleResponse,
 } from '../models/Kid/kid';
 import { GetLogsResponse, LogsFilters } from '../models/Logs/logs';
 import {
@@ -172,6 +175,36 @@ export const GSAPI = createApi({
       }),
       providesTags: (result) =>
         result ? [{ type: 'User' as const, id: result.id }] : [],
+    }),
+
+    getUsers: build.query<GetUserResponse[], unknown>({
+      query: () => ({
+        url: '/user/getUsers',
+      }),
+      providesTags: (result) => (result ? [{ type: 'User' }, 'Users'] : []),
+    }),
+
+    addRoleToUser: build.mutation<UserRoleResponse, AddRoleToUserRequest>({
+      query: (params) => ({
+        url: '/user/addRoleToUser',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'User' }, 'Users'],
+    }),
+
+    removeRoleFromUser: build.mutation<
+      UserRoleResponse,
+      RemoveRoleFromUserRequest
+    >({
+      query: (params) => ({
+        url: '/user/removeRoleFromUser',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'User' }, 'Users'],
     }),
 
     getUsersClasses: build.query<GetUserClassesResponse, unknown>({
@@ -710,6 +743,7 @@ export const {
   useCreateClassMutation,
   useCreateKidMutation,
   useGetUserQuery,
+  useGetUsersQuery,
   useGetUsersClassesQuery,
   useUpdateKidMutation,
   useRemoveKidMutation,
@@ -749,4 +783,6 @@ export const {
   useRemoveTeacherMutation,
   useAddTeacherMutation,
   useEditTeacherMutation,
+  useAddRoleToUserMutation,
+  useRemoveRoleFromUserMutation,
 } = GSAPI;

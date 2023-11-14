@@ -177,6 +177,11 @@ $colWidth: 200px;
 
     &__kid {
       font-size: 10px;
+
+      &_position {
+        right: 30px;
+        top: -2px;
+      }
     }
 
     &__row {
@@ -195,6 +200,11 @@ $colWidth: 200px;
     &__kid {
       font-size: 14px;
       padding: 3px 20px;
+
+      &_position {
+        right: 55px;
+        top: -2px;
+      }
     }
 
     &__row {

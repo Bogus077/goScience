@@ -58,24 +58,15 @@ export const AdminSidebar = () => {
           </ListItemButton>
 
           <ListItemButton
-            selected={
-              new RegExp(frontendRoutes.admin.teachers).test(
-                location.pathname
-              ) ||
-              new RegExp(frontendRoutes.admin.addTeacher).test(
-                location.pathname
-              ) ||
-              new RegExp(frontendRoutes.admin.editTeacher).test(
-                location.pathname
-              )
-            }
-            // onClick={() => navigate(frontendRoutes.admin.teachers)}
+            onClick={() => navigate(frontendRoutes.admin.teachers)}
+            selected={new RegExp(frontendRoutes.admin.teachers).test(
+              location.pathname
+            )}
           >
             <ListItemIcon>
               <IconSchool />
             </ListItemIcon>
-            <ListItemText primary="Преподаватели" secondary="в разработке" />
-            <IconLockSquareRounded />
+            <ListItemText primary="Преподаватели" />
           </ListItemButton>
 
           <ListItemButton selected={false}>
