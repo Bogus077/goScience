@@ -23,7 +23,7 @@ import {
   CreateProjectTaskPage,
   KidWeekSummaryPage,
   MotivationPage,
-  MembersPage,
+  MembersPageWrapper,
   AdminMainPage,
   AdminAddMemberPage,
   AdminEditMemberPage,
@@ -140,11 +140,11 @@ export function App() {
                 {/* Members */}
                 <Route
                   path={`${frontendRoutes.members}/:version`}
-                  element={<MembersPage />}
+                  element={<MembersPageWrapper />}
                 />
                 <Route
                   path={frontendRoutes.members}
-                  element={<MembersPage />}
+                  element={<MembersPageWrapper />}
                 />
               </Route>
 
