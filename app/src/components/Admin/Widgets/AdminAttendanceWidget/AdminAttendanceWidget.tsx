@@ -50,8 +50,8 @@ export const AdminAttendanceWidget = () => {
     })
     .sort(
       (dateA, dateB) =>
-        new Date(dateA.createdAt as string).getDate() -
-        new Date(dateB.createdAt as string).getDate()
+        new Date(dateA.createdAt as string).getTime() -
+        new Date(dateB.createdAt as string).getTime()
     );
 
   const handleKidsAttendanceLink = useCallback(
