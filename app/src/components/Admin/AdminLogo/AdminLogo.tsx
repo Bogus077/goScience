@@ -11,8 +11,8 @@ export const AdminLogo = () => {
       className={styles.logo}
       onClick={() => navigate(frontendRoutes.admin.mainPage)}
     >
-      <div className={styles.black}>go</div>
-      Science
+      <div className={styles.black}>кк</div>
+      Авангард
     </div>
   );
 };

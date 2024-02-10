@@ -47,6 +47,8 @@ import { AdminProtectedRoutes } from './utils/router/AdminProtectedRoutes';
 import { AdminMembersPage } from './pages/Admin/AdminMembersPage';
 import { ru } from 'date-fns/locale';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
+import { AdminEventsPage } from './pages/Admin/AdminEventsPage';
+import { AdminEditEventPage } from './pages/Admin/AdminEditEventPage';
 
 const store = createStore(); // Possible additional params to store init func
 const persistor = persistStore(store);
@@ -197,6 +199,14 @@ export function App() {
                 <Route
                   path={frontendRoutes.admin.addEvent}
                   element={<AdminAddEventPage />}
+                />
+                <Route
+                  path={frontendRoutes.admin.events}
+                  element={<AdminEventsPage />}
+                />
+                <Route
+                  path={`${frontendRoutes.admin.editEvent}/:id`}
+                  element={<AdminEditEventPage />}
                 />
               </Route>
             </Routes>

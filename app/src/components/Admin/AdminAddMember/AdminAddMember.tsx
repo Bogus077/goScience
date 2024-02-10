@@ -116,6 +116,24 @@ export const AdminAddMember = () => {
                     helperText={formik.touched.name && formik.errors.name}
                   />
                 </Grid>
+                <Grid item width={300}>
+                  <TextField
+                    id="middleName"
+                    name="middleName"
+                    label="Отчество"
+                    variant="outlined"
+                    fullWidth
+                    value={formik.values.middleName}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.middleName &&
+                      Boolean(formik.errors.middleName)
+                    }
+                    helperText={
+                      formik.touched.middleName && formik.errors.middleName
+                    }
+                  />
+                </Grid>
               </Grid>
 
               <Grid item container spacing={2}>

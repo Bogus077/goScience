@@ -5,7 +5,6 @@ import {
   IconHome2,
   IconUsers,
   IconCalendarEvent,
-  IconFileCheck,
   IconMailbox,
   IconLockSquareRounded,
   IconHistory,
@@ -69,20 +68,16 @@ export const AdminSidebar = () => {
             <ListItemText primary="Преподаватели" />
           </ListItemButton>
 
-          <ListItemButton selected={false}>
+          <ListItemButton
+            onClick={() => navigate(frontendRoutes.admin.events)}
+            selected={new RegExp(frontendRoutes.admin.events).test(
+              location.pathname
+            )}
+          >
             <ListItemIcon>
               <IconCalendarEvent />
             </ListItemIcon>
-            <ListItemText primary="Мероприятия" secondary="в разработке" />
-            <IconLockSquareRounded />
-          </ListItemButton>
-
-          <ListItemButton selected={false}>
-            <ListItemIcon>
-              <IconFileCheck />
-            </ListItemIcon>
-            <ListItemText primary="Документы" secondary="в разработке" />
-            <IconLockSquareRounded />
+            <ListItemText primary="Мероприятия" />
           </ListItemButton>
 
           <ListItemButton

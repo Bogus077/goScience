@@ -1,6 +1,7 @@
 import {
   AddTeacherRequest,
   AddTeachersResponse,
+  ChangeTeacherPasswordRequest,
   EditTeacherRequest,
   EditTeacherResponse,
   GetTeachersResponse,
@@ -91,8 +92,19 @@ import {
   CheckPhoneResponse,
 } from '../models/User/auth';
 import { SignUpRequest, SignUpResponse } from '../models/User/signUp';
-import { GetUserResponse, UpdateUserClassRequest } from '../models/User/user';
+import {
+  GetUserResponse,
+  RemoveUserRequest,
+  UpdateUserClassRequest,
+} from '../models/User/user';
 import { rosatomBaseQueryWithReAuth } from '../utils/api';
+import {
+  CreateEventRequest,
+  DeleteEventRequest,
+  Event,
+  GetEventRequest,
+  UpdateEventRequest,
+} from '../models/Event/event';
 
 export const GSAPI = createApi({
   reducerPath: 'GS_REDUCER',
@@ -124,6 +136,8 @@ export const GSAPI = createApi({
     'AttendanceList',
     'Teacher',
     'Teachers',
+    'Event',
+    'Events',
   ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
@@ -175,6 +189,16 @@ export const GSAPI = createApi({
       }),
       providesTags: (result) =>
         result ? [{ type: 'User' as const, id: result.id }] : [],
+    }),
+
+    removeUser: build.mutation<unknown, RemoveUserRequest>({
+      query: (params) => ({
+        url: '/user/delete',
+        method: 'delete',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'User' }, 'Users'],
     }),
 
     getUsers: build.query<GetUserResponse[], unknown>({
@@ -725,13 +749,79 @@ export const GSAPI = createApi({
     }),
 
     editTeacher: build.mutation<EditTeacherResponse, EditTeacherRequest>({
+      query: (body) => ({
+        url: '/user/update',
+        method: 'post',
+        body,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'User' }, 'Users'],
+    }),
+
+    updateTeacherPassword: build.mutation<
+      { result: string },
+      ChangeTeacherPasswordRequest
+    >({
       query: (params) => ({
-        url: '/teacher/edit',
+        url: '/user/changePassword',
         method: 'post',
         body: params,
       }),
+    }),
+
+    createEvent: build.mutation<Event, CreateEventRequest>({
+      query: (body) => ({
+        url: '/event/add',
+        method: 'post',
+        body,
+      }),
       invalidatesTags: (result, error, arg) =>
-        error ? [] : [{ type: 'Teacher' }, 'Teachers'],
+        error ? [] : [{ type: 'Event' }, 'Events'],
+    }),
+
+    updateEvent: build.mutation<Event, UpdateEventRequest>({
+      query: (body) => ({
+        url: '/event/update',
+        method: 'post',
+        body,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Event' }, 'Events'],
+    }),
+
+    deleteEvent: build.mutation<Event, DeleteEventRequest>({
+      query: (body) => ({
+        url: '/event/remove',
+        method: 'delete',
+        body,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Event' }, 'Events'],
+    }),
+
+    getEvents: build.query<Event[], void>({
+      query: () => ({
+        url: '/event/get',
+      }),
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'Event' as const,
+                id,
+              })),
+              'Events',
+            ]
+          : ['Events'];
+      },
+    }),
+
+    getEvent: build.query<Event, GetEventRequest>({
+      query: (params) => ({
+        url: '/event/getOne',
+        params,
+      }),
+      providesTags: (result) => (result ? ['Event'] : []),
     }),
   }),
 });
@@ -785,4 +875,11 @@ export const {
   useEditTeacherMutation,
   useAddRoleToUserMutation,
   useRemoveRoleFromUserMutation,
+  useUpdateTeacherPasswordMutation,
+  useRemoveUserMutation,
+  useCreateEventMutation,
+  useGetEventsQuery,
+  useGetEventQuery,
+  useUpdateEventMutation,
+  useDeleteEventMutation,
 } = GSAPI;

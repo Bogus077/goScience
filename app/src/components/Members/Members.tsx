@@ -171,7 +171,7 @@ export const Members = ({
       ) : (
         <div className={styles.author}>
           <strong>Дизайн и разработка приложения:</strong> <br /> Владислав
-          Андреевич Ш. <br /> 2022 - 2023 год
+          Андреевич Ш. <br /> 2022 - 2024 год
         </div>
       )}
     </div>

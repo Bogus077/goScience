@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { IconArrowLeft, IconSquarePlus } from '@tabler/icons';
+import { IconArrowLeft, IconEdit } from '@tabler/icons';
 import { FormikContext, useFormik } from 'formik';
 import { useSnackbar } from 'notistack';
 import React, { useCallback, useMemo } from 'react';
@@ -20,45 +20,53 @@ import {
 import { frontendRoutes } from '../../../utils/router/routes';
 import { AdminTeacherChooser } from '../AdminForms/AdminTeacherChooser';
 import { AdminMembersChooser } from '../AdminForms/AdminMembersChooser';
-import { useCreateEventMutation } from '../../../redux/GSApi';
+import { useUpdateEventMutation } from '../../../redux/GSApi';
+import { Event } from '../../../models/Event/event';
+import { transformEventToFormValues } from './utils';
 
 const rightBlock = 2;
 
-export const AdminAddEvent = () => {
+type AdminEditEventProps = {
+  event: Event;
+};
+
+export const AdminEditEvent = ({ event }: AdminEditEventProps) => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const [triggerCreateEvent, createEventQueryState] = useCreateEventMutation();
+  const [triggerUpdateEvent, updateEventQueryState] = useUpdateEventMutation();
 
   const handleSubmit = useCallback(
     async (values: typeof addEventInitialValues) => {
-      if (createEventQueryState.isLoading) return;
+      if (updateEventQueryState.isLoading) return;
 
       try {
-        await triggerCreateEvent({
+        await triggerUpdateEvent({
           ...values,
           Users: values.users,
           Members: values.members,
+          id: event.id,
         }).unwrap();
-        enqueueSnackbar(`Мероприятие ${values.title} успешно добавлено`, {
+        enqueueSnackbar(`Мероприятие ${values.title} успешно обновлено`, {
           variant: 'success',
         });
         navigate(frontendRoutes.admin.events);
       } catch {
-        enqueueSnackbar(`Ошибка создания нового мероприятия`, {
+        enqueueSnackbar(`Ошибка изменения мероприятия`, {
           variant: 'error',
         });
       }
     },
     [
-      createEventQueryState.isLoading,
+      updateEventQueryState.isLoading,
+      triggerUpdateEvent,
+      event.id,
       enqueueSnackbar,
       navigate,
-      triggerCreateEvent,
     ]
   );
 
   const formik = useFormik({
-    initialValues: addEventInitialValues,
+    initialValues: transformEventToFormValues(event),
     validationSchema: addEventValidationSchema,
     onSubmit: handleSubmit,
   });
@@ -88,7 +96,7 @@ export const AdminAddEvent = () => {
             <IconButton onClick={() => navigate(frontendRoutes.admin.events)}>
               <IconArrowLeft />
             </IconButton>
-            <Typography variant="h4">Добавить мероприятие</Typography>
+            <Typography variant="h4">Изменить мероприятие</Typography>
           </Grid>
 
           {/* Блок основной информации */}
@@ -290,17 +298,17 @@ export const AdminAddEvent = () => {
               <Grid item container spacing={2}>
                 <Grid item minWidth={300}>
                   <Button
-                    startIcon={<IconSquarePlus />}
+                    startIcon={<IconEdit />}
                     fullWidth={true}
                     type="submit"
                     size="large"
                     variant="contained"
                     onClick={() => formik.handleSubmit()}
                     disabled={
-                      !formik.isValid || createEventQueryState.isLoading
+                      !formik.isValid || updateEventQueryState.isLoading
                     }
                   >
-                    Добавить
+                    Сохранить
                   </Button>
                 </Grid>
               </Grid>

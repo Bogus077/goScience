@@ -107,15 +107,15 @@ export const AdminAddTeacher = () => {
               </Grid>
               <Grid item width={300}>
                 <TextField
-                  id="middlename"
-                  name="middlename"
+                  id="middleName"
+                  name="middleName"
                   label="Отчество"
                   variant="outlined"
                   fullWidth
-                  value={formik.values.middlename}
+                  value={formik.values.middleName}
                   onChange={formik.handleChange}
-                  error={Boolean(formik.errors.middlename)}
-                  helperText={formik.errors.middlename}
+                  error={Boolean(formik.errors.middleName)}
+                  helperText={formik.errors.middleName}
                 />
               </Grid>
               <Grid item xs={12} container spacing={2}>

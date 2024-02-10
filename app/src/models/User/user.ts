@@ -12,6 +12,7 @@ export type User = {
   phone: string;
   name: string;
   surname: string;
+  middleName?: string;
   UserSetting: UserSetting;
   Classes: {
     id: number;
@@ -30,5 +31,9 @@ export type UserSetting = {
 export type GetUserResponse = User;
 
 export type UpdateUserClassRequest = {
+  id: number;
+};
+
+export type RemoveUserRequest = {
   id: number;
 };

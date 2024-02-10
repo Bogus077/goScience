@@ -2,6 +2,7 @@ import {
   Button,
   Chip,
   Grid,
+  IconButton,
   Paper,
   Stack,
   TableContainer,
@@ -11,7 +12,12 @@ import {
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 // eslint-disable-next-line import/no-unresolved
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
-import { IconUserPlus, IconUserMinus } from '@tabler/icons';
+import {
+  IconUserPlus,
+  IconUserMinus,
+  IconTrashX,
+  IconEdit,
+} from '@tabler/icons';
 import { useSnackbar } from 'notistack';
 import { useCallback, useState } from 'react';
 import {
@@ -19,10 +25,14 @@ import {
   useGetUserQuery,
   useGetUsersQuery,
   useRemoveRoleFromUserMutation,
+  useRemoveUserMutation,
+  useUpdateTeacherPasswordMutation,
 } from '../../../redux/GSApi';
 import { ConfirmModal } from '../ConfirmModal';
 import { User } from '../../../models/User/user';
 import { getUserRole } from '../../../utils/user/user';
+import { useNavigate } from 'react-router-dom';
+import { frontendRoutes } from '../../../utils/router/routes';
 
 export const AdminTeachers = () => {
   const { data } = useGetUsersQuery('');
@@ -30,9 +40,17 @@ export const AdminTeachers = () => {
   const [removeRole, { isLoading: isRemoveRoleLoading }] =
     useRemoveRoleFromUserMutation();
   const [addRole, { isLoading: isAddRoleLoading }] = useAddRoleToUserMutation();
+  const [removeUser, { isLoading: isRemoveUserLoading }] =
+    useRemoveUserMutation();
+  const [changePassword, { isLoading: isPasswordChangeLoading }] =
+    useUpdateTeacherPasswordMutation();
+
+  const navigate = useNavigate();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const [userRoleToDelete, setUserRoleToDelete] = useState<User | null>(null);
+  const [userToDelete, setUserToDelete] = useState<User | null>(null);
   const [userRoleToAdd, setUserRoleToAdd] = useState<User | null>(null);
 
   const handleRoleRemove = useCallback(
@@ -41,6 +59,33 @@ export const AdminTeachers = () => {
   );
 
   const handleRoleAdd = useCallback((user: User) => setUserRoleToAdd(user), []);
+
+  const handleUserDelete = useCallback(
+    (user: User) => setUserToDelete(user),
+    []
+  );
+
+  const handleUserRemoveAccept = useCallback(async () => {
+    if (userToDelete) {
+      try {
+        await removeUser({ id: userToDelete.id }).unwrap();
+        enqueueSnackbar(
+          `Преподаватель ${userToDelete?.surname} ${userToDelete?.name} удалён`,
+          {
+            variant: 'success',
+          }
+        );
+      } catch {
+        enqueueSnackbar(
+          `Ошибка удаления преподавателя ${userToDelete?.surname} ${userToDelete?.name}`,
+          {
+            variant: 'error',
+          }
+        );
+      }
+      setUserToDelete(null);
+    }
+  }, [enqueueSnackbar, removeUser, userToDelete]);
 
   const handleRoleRemoveAccept = useCallback(async () => {
     const result =
@@ -113,7 +158,9 @@ export const AdminTeachers = () => {
       headerName: 'ФИО',
       flex: 1,
       renderCell: (params) => (
-        <Typography>{`${params.row.surname} ${params.row.name}`}</Typography>
+        <Typography>{`${params.row.surname} ${params.row.name} ${
+          params.row.middleName ?? ''
+        }`}</Typography>
       ),
     },
     {
@@ -162,6 +209,16 @@ export const AdminTeachers = () => {
                 Выдать доступ
               </Button>
             )}
+            <IconButton onClick={() => handleUserDelete(params.row)}>
+              <IconTrashX color="darkRed" />
+            </IconButton>
+            <IconButton
+              onClick={() =>
+                navigate(`${frontendRoutes.admin.editTeacher}/${params.row.id}`)
+              }
+            >
+              <IconEdit />
+            </IconButton>
           </Stack>
         ),
     },
@@ -193,7 +250,7 @@ export const AdminTeachers = () => {
             userRoleToDelete.id === 1 ? 'Не надо так делать' : 'Отозвать доступ'
           }
           isSubmitting={isRemoveRoleLoading}
-          agreeButtonText="Отмена"
+          agreeButtonText="Отозвать доступ"
         >
           {userRoleToDelete.id === 1
             ? 'Отозвать доступ у админа? За вами уже выехали. Оставайтесь на месте'
@@ -212,6 +269,19 @@ export const AdminTeachers = () => {
         >
           Преподавателю {userRoleToAdd.surname} {userRoleToAdd.name} будет выдан
           доступ к расходу
+        </ConfirmModal>
+      )}
+
+      {userToDelete && (
+        <ConfirmModal
+          open={Boolean(userToDelete)}
+          onAgree={handleUserRemoveAccept}
+          onCancel={() => setUserToDelete(null)}
+          title="Удалить пользователя?"
+          isSubmitting={isAddRoleLoading}
+        >
+          Преподаватель {userToDelete.surname} {userToDelete.name} будет
+          безвозвратно удалён
         </ConfirmModal>
       )}
     </Grid>

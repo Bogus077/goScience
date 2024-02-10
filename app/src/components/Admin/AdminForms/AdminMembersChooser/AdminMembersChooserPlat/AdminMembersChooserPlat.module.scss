@@ -1,0 +1,28 @@
+@import '../../../../../assets/helpers/index.scss';
+
+.platHeader {
+  border: 1px solid $backgroundColor;
+  border-radius: 5px;
+  padding: 3px 10px;
+}
+
+.kid {
+  cursor: pointer;
+
+  &__name {
+    background-color: $backgroundColor;
+    padding: 3px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 5px;
+    border: 1px solid $disableColor;
+    color: $secondaryColor;
+
+    &_active {
+      border: 1px solid $positiveColor;
+      transition: 0.3s;
+      color: $mainTextColor;
+    }
+  }
+}
