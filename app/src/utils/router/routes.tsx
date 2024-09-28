@@ -14,7 +14,11 @@ export const frontendRoutes = {
     addEvent: '/admin/events/add',
     editEvent: '/admin/events/edit',
     addDoc: '/admin/addDoc',
+    marks: {
+      marks: '/admin/marks',
+    },
   },
+
   kidWeekStats: '/stats',
   dashboard: '/dashboard',
   members: '/',

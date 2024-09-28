@@ -8,7 +8,7 @@ export const CreateProjectPage = () => {
   const { data, isLoading } = useGetUserTeamsQuery('');
 
   useEffect(() => {
-    document.title = 'Добавить проект | GS';
+    document.title = 'Добавить проект | ККА';
   });
 
   return (

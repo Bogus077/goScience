@@ -123,7 +123,9 @@ export const AdminEditMember = () => {
       contactName: member.MemberContacts[0]?.name ?? '',
       contactPhone: member.MemberContacts[0]?.phone ?? '',
       contactAddress: member.MemberContacts[0]?.address ?? '',
+      position: member.position ?? '',
       dob: member.dob as Date,
+      middleName: member.middleName ?? '',
     };
   }, []);
 
@@ -261,19 +263,16 @@ export const AdminEditMember = () => {
                         fullWidth
                         error={Boolean(formik.errors.dob)}
                         helperText={
-                          !isNaN(Date.parse(formik.values.dob?.toString())) && (
-                            <Typography>
-                              {formatDuration(
-                                intervalToDuration({
-                                  start: new Date(formik.values.dob),
-                                  end: new Date(),
-                                }),
-                                {
-                                  format: ['years'],
-                                  locale: ru,
-                                }
-                              )}
-                            </Typography>
+                          !isNaN(Date.parse(formik.values.dob?.toString())) &&
+                          formatDuration(
+                            intervalToDuration({
+                              start: new Date(formik.values.dob),
+                              end: new Date(),
+                            }),
+                            {
+                              format: ['years'],
+                              locale: ru,
+                            }
                           )
                         }
                       />
@@ -325,7 +324,7 @@ export const AdminEditMember = () => {
                     <MenuItem value="2">2 взвод</MenuItem>
                     <MenuItem value="3">3 взвод</MenuItem>
                     <MenuItem value="4">4 взвод</MenuItem>
-                    <MenuItem value="5">Спортвзвод</MenuItem>
+                    <MenuItem value="5">5 взвод</MenuItem>
                   </Select>
                 </Grid>
               </Grid>
@@ -389,10 +388,11 @@ export const AdminEditMember = () => {
                 />
               </Grid>
               <Grid item xs={12} container spacing={2}>
-                <Grid item width={300}>
+                <Grid item width={600}>
                   <AdminAddressField
                     name="contactAddress"
                     label="Адрес проживания"
+                    defaultValue={member?.MemberContacts[0]?.address}
                   />
                 </Grid>
               </Grid>
@@ -403,7 +403,6 @@ export const AdminEditMember = () => {
                   label="Эл. почта"
                   variant="outlined"
                   fullWidth
-                  disabled
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   error={Boolean(formik.errors.email)}
@@ -421,6 +420,37 @@ export const AdminEditMember = () => {
                   onChange={formik.handleChange}
                   error={Boolean(formik.errors.password)}
                   helperText={formik.errors.password}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+
+          {/* Блок медицины */}
+          <Grid item container xs={12} spacing={2}>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+            <Grid item xs={rightBlock}>
+              <Typography variant="h5" sx={{ mb: 2 }}>
+                Особенности здоровья
+              </Typography>
+
+              <Typography variant="subtitle2">
+                Информация о состоянии здоровья
+              </Typography>
+            </Grid>
+            <Grid item container xs={12 - rightBlock} spacing={2}>
+              <Grid item width={300}>
+                <TextField
+                  id="allergy"
+                  name="allergy"
+                  label="Аллергия"
+                  variant="outlined"
+                  fullWidth
+                  value={formik.values.allergy}
+                  onChange={formik.handleChange}
+                  error={Boolean(formik.errors.allergy)}
+                  helperText={formik.errors.allergy}
                 />
               </Grid>
             </Grid>

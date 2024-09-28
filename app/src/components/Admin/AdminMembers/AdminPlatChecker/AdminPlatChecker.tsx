@@ -33,8 +33,8 @@ export const AdminPlatChecker = ({
       <ToggleButton value={4} aria-label="4 взвод">
         4 взвод
       </ToggleButton>
-      <ToggleButton value={5} aria-label="Спортвзвод">
-        Спортвзвод
+      <ToggleButton value={5} aria-label="5 взвод">
+        5 взвод
       </ToggleButton>
       <ToggleButton value={[1, 2, 3, 4, 5]} aria-label="Все взвода">
         Все

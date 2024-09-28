@@ -17,6 +17,7 @@ export type Member = {
   email: string;
   password: string;
   position: string;
+  allergy: string;
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;

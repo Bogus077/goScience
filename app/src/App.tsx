@@ -49,6 +49,7 @@ import { ru } from 'date-fns/locale';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
 import { AdminEventsPage } from './pages/Admin/AdminEventsPage';
 import { AdminEditEventPage } from './pages/Admin/AdminEditEventPage';
+import { AdminMarksPage } from './pages/Admin/AdminMarksPage';
 
 const store = createStore(); // Possible additional params to store init func
 const persistor = persistStore(store);
@@ -207,6 +208,12 @@ export function App() {
                 <Route
                   path={`${frontendRoutes.admin.editEvent}/:id`}
                   element={<AdminEditEventPage />}
+                />
+
+                {/* Marks */}
+                <Route
+                  path={frontendRoutes.admin.marks.marks}
+                  element={<AdminMarksPage />}
                 />
               </Route>
             </Routes>

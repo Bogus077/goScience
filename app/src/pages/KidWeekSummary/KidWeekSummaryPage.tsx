@@ -4,7 +4,7 @@ import styles from './KidWeekSummaryPage.module.scss';
 
 export const KidWeekSummaryPage = () => {
   useEffect(() => {
-    document.title = 'Ну что, подведём итоги? | GS';
+    document.title = 'Ну что, подведём итоги? | ККА';
   });
 
   return (

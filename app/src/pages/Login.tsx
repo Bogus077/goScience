@@ -15,7 +15,7 @@ export const LoginPage = () => {
   }, [isAuth, navigate]);
 
   useEffect(() => {
-    document.title = 'Вход | GS';
+    document.title = 'Вход | ККА';
   });
 
   return <Login />;

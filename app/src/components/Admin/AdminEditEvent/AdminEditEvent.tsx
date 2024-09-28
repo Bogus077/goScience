@@ -213,7 +213,9 @@ export const AdminEditEvent = ({ event }: AdminEditEventProps) => {
                   value={formik.values.orderNumber}
                   onChange={formik.handleChange}
                   error={Boolean(formik.errors.orderNumber)}
-                  helperText={formik.errors.orderNumber ?? 'Можно не указывать'}
+                  helperText={
+                    formik.errors.orderNumber ?? 'Только цифры, например "55"'
+                  }
                 />
               </Grid>
               <Grid item xs={12} container spacing={2}>

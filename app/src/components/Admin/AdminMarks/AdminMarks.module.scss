@@ -1,0 +1,166 @@
+@import '../../../assets/helpers/index.scss';
+
+.info {
+  display: flex;
+  margin-top: 40px;
+  color: $secondaryColor;
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.menu {
+  position: sticky;
+  top: 0px;
+  margin-top: 40px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 20px 0px;
+  background-color: $backgroundColor;
+  z-index: 2;
+
+  &__kid {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid $infoColor;
+    border-radius: 5px;
+  }
+}
+
+.kidList {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.kidname {
+  display: flex;
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 0px;
+  padding: 20px 10px;
+  border: 1px solid $disableColor;
+  border-left: none;
+  border-radius: 5px 5px 0 0;
+  background-color: #fff;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  width: 43px;
+  position: sticky;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+.subjects {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid $disableColor;
+  border-radius: 5px;
+  padding: 0px;
+  width: 100%;
+  padding: 10px;
+
+  &__wrapper {
+    display: flex;
+    height: fit-content;
+    position: relative;
+  }
+
+  &__row {
+    display: flex;
+    width: 100%;
+    min-height: 80px;
+    align-items: center;
+    border-bottom: 1px solid $disableColor;
+    position: relative;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__name {
+    width: 200px;
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    border-right: 1px solid $disableColor;
+    border-left: 1px solid $disableColor;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 20px;
+  }
+}
+
+.average {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.marks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 20px 40px;
+}
+
+.todayMarks {
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  &__subheader {
+    color: $secondaryColor;
+    margin-left: auto;
+    margin-right: 40px;
+    font-size: 16px;
+    align-self: center;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    padding: 20px 20px;
+    border-top: 1px solid $disableColor;
+  }
+
+  &__name {
+    display: flex;
+    width: 150px;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  &__marks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+  }
+}

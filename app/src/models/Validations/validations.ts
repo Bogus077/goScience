@@ -144,6 +144,7 @@ export const addMemberInitialValues = {
   email: '',
   password: '',
   position: '',
+  allergy: '',
 };
 
 export const editMemberInitialValues = addMemberInitialValues;
@@ -192,7 +193,7 @@ export const addEventValidationSchema = object({
   startAddress: string().required(VALIDATION_ERRORS.REQUIRED),
   finishAddress: string().required(VALIDATION_ERRORS.REQUIRED),
   orderDate: date().required(VALIDATION_ERRORS.REQUIRED),
-  orderNumber: string().optional(),
+  orderNumber: string().required(VALIDATION_ERRORS.REQUIRED),
   members: array().min(1, VALIDATION_ERRORS.EVENTS.MINKIDS),
   users: array().min(1, VALIDATION_ERRORS.EVENTS.MINTEACHERS),
 });

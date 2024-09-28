@@ -7,7 +7,7 @@ import { useGetCurrentClassQuery } from '../../redux/GSApi';
 export const CreateTaskPage = () => {
   const { data, isLoading } = useGetCurrentClassQuery('');
   useEffect(() => {
-    document.title = 'Добавить задание | GS';
+    document.title = 'Добавить задание | ККА';
   });
 
   return (

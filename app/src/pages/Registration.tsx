@@ -15,7 +15,7 @@ export const RegistrationPage = () => {
   }, [isAuth, navigate]);
 
   useEffect(() => {
-    document.title = 'Регистрация | GS';
+    document.title = 'Регистрация | ККА';
   });
 
   return <Registration />;

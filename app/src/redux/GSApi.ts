@@ -2,6 +2,7 @@ import {
   AddTeacherRequest,
   AddTeachersResponse,
   ChangeTeacherPasswordRequest,
+  ClearTeacherPasswordRequest,
   EditTeacherRequest,
   EditTeacherResponse,
   GetTeachersResponse,
@@ -138,6 +139,7 @@ export const GSAPI = createApi({
     'Teachers',
     'Event',
     'Events',
+    'AddressList',
   ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
@@ -769,6 +771,17 @@ export const GSAPI = createApi({
       }),
     }),
 
+    clearTeacherPassword: build.mutation<
+      { result: string },
+      ClearTeacherPasswordRequest
+    >({
+      query: (params) => ({
+        url: '/user/clearPassword',
+        method: 'post',
+        body: params,
+      }),
+    }),
+
     createEvent: build.mutation<Event, CreateEventRequest>({
       query: (body) => ({
         url: '/event/add',
@@ -823,6 +836,13 @@ export const GSAPI = createApi({
       }),
       providesTags: (result) => (result ? ['Event'] : []),
     }),
+
+    getAddressList: build.query<string[], void>({
+      query: () => ({
+        url: '/event/address',
+      }),
+      providesTags: (result) => (result ? ['AddressList'] : []),
+    }),
   }),
 });
 
@@ -876,10 +896,12 @@ export const {
   useAddRoleToUserMutation,
   useRemoveRoleFromUserMutation,
   useUpdateTeacherPasswordMutation,
+  useClearTeacherPasswordMutation,
   useRemoveUserMutation,
   useCreateEventMutation,
   useGetEventsQuery,
   useGetEventQuery,
   useUpdateEventMutation,
   useDeleteEventMutation,
+  useGetAddressListQuery,
 } = GSAPI;

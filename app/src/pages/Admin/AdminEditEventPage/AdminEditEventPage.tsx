@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AdminLayout } from '../../../components/Admin/AdminLayout';
 import { AdminEditEvent } from '../../../components/Admin/AdminEditEvent';
 import { useParams } from 'react-router-dom';
@@ -10,6 +10,11 @@ export const AdminEditEventPage = () => {
   const { data: event, isLoading } = useGetEventQuery({
     id: parseInt(id ?? '1'),
   });
+
+  useEffect(() => {
+    document.title = 'Редактировать мероприятие | ККА';
+  });
+
   return (
     <AdminLayout>
       {isLoading || !id || !event ? (

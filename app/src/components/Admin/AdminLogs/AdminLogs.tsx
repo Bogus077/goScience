@@ -22,7 +22,7 @@ import Button from '@mui/material/Button';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 import Tooltip from '@mui/material/Tooltip';
-import { Typography } from '@mui/material';
+import { Badge, Typography } from '@mui/material';
 import formatWithOptions from 'date-fns/fp/formatWithOptions';
 
 type AdminLogsTypes = {
@@ -48,6 +48,19 @@ export const AdminLogs = ({
       })
     )
   );
+
+  const userIdsStatus = userIds.map((user) => ({
+    id: user[0],
+    name: `${user[1][0]} ${user[1][1]}`,
+    status:
+      logs.find(
+        (log) =>
+          log.log === `${user[1][0]} ${user[1][1]} отключился от таблицы` ||
+          log.log === `${user[1][0]} ${user[1][1]} подключился к таблице`
+      )?.log === `${user[1].join(' ')} подключился к таблице`
+        ? true
+        : false,
+  }));
 
   const handleSearchChange = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -248,9 +261,16 @@ export const AdminLogs = ({
           size="small"
           exclusive
         >
-          {userIds.map((user) => (
-            <ToggleButton value={user[0]} aria-label="50" key={user[0]}>
-              {user[1].join(' ')}
+          {userIdsStatus.map((user) => (
+            <ToggleButton value={user.id} aria-label="50" key={user.id}>
+              <Badge
+                color="success"
+                variant="dot"
+                invisible={!user.status}
+                key={user.id}
+              >
+                {user.name}
+              </Badge>
             </ToggleButton>
           ))}
           <ToggleButton value={0} aria-label="50">

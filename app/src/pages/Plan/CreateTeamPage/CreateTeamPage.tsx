@@ -7,7 +7,7 @@ import { useGetCurrentClassQuery } from '../../../redux/GSApi';
 export const CreateTeamPage = () => {
   const { data, isLoading } = useGetCurrentClassQuery('');
   useEffect(() => {
-    document.title = 'Добавить команду | GS';
+    document.title = 'Добавить команду | ККА';
   });
 
   return (

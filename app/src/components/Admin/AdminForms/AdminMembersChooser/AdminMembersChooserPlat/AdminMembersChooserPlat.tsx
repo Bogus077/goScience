@@ -32,7 +32,7 @@ export const AdminMembersChooserPlat = ({
       {/* Заголовок */}
       <Grid item>
         <Typography className={styles.platHeader} fontWeight="bold">
-          {plat === 5 ? 'Спортвзвод' : `${plat} Взвод`}
+          {`${plat} Взвод`}
         </Typography>
       </Grid>
 

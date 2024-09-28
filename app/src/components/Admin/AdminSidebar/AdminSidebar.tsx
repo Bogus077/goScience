@@ -11,6 +11,7 @@ import {
   IconUserCircle,
   IconBell,
   IconSchool,
+  IconNotes,
 } from '@tabler/icons';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -19,13 +20,14 @@ import ListItemText from '@mui/material/ListItemText';
 import { frontendRoutes } from '../../../utils/router/routes';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useGetUserQuery } from '../../../redux/GSApi';
-import { isUserAdmin } from '../../../utils/user/user';
+import { isUserAdmin, isUserAdminOrHead } from '../../../utils/user/user';
 
 export const AdminSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { data: user } = useGetUserQuery('');
   const isAdmin = user && isUserAdmin(user);
+  const isAdminOrHead = user && isUserAdminOrHead(user);
 
   return (
     <div className={styles.sidebar}>
@@ -57,18 +59,6 @@ export const AdminSidebar = () => {
           </ListItemButton>
 
           <ListItemButton
-            onClick={() => navigate(frontendRoutes.admin.teachers)}
-            selected={new RegExp(frontendRoutes.admin.teachers).test(
-              location.pathname
-            )}
-          >
-            <ListItemIcon>
-              <IconSchool />
-            </ListItemIcon>
-            <ListItemText primary="Преподаватели" />
-          </ListItemButton>
-
-          <ListItemButton
             onClick={() => navigate(frontendRoutes.admin.events)}
             selected={new RegExp(frontendRoutes.admin.events).test(
               location.pathname
@@ -79,6 +69,32 @@ export const AdminSidebar = () => {
             </ListItemIcon>
             <ListItemText primary="Мероприятия" />
           </ListItemButton>
+
+          {isAdminOrHead && (
+            <ListItemButton
+              onClick={() => navigate(frontendRoutes.admin.teachers)}
+              selected={new RegExp(frontendRoutes.admin.teachers).test(
+                location.pathname
+              )}
+            >
+              <ListItemIcon>
+                <IconSchool />
+              </ListItemIcon>
+              <ListItemText primary="Преподаватели" />
+            </ListItemButton>
+          )}
+
+            <ListItemButton
+              onClick={() => navigate(frontendRoutes.admin.marks.marks)}
+              selected={new RegExp(frontendRoutes.admin.marks.marks).test(
+                location.pathname
+              )}
+            >
+              <ListItemIcon>
+                <IconNotes />
+              </ListItemIcon>
+              <ListItemText primary="Оценки" />
+            </ListItemButton>
 
           <ListItemButton
             selected={false}

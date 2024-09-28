@@ -48,7 +48,7 @@ export const MembersPlat = ({
       })}
     >
       <div className={styles.plat__header}>
-        <span>{plat === 5 ? 'Спортвзвод' : `${plat} Взвод`}</span>
+        <span>{`${plat} Взвод`}</span>
         <div className={styles.plat__submenu}>
           <Submenu
             direction="down"

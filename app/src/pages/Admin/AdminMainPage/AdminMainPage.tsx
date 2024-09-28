@@ -1,10 +1,14 @@
 import { Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AdminLayout } from '../../../components/Admin/AdminLayout';
 import { AdminAttendanceWidget } from '../../../components/Admin/Widgets/AdminAttendanceWidget';
 import { AdminBirthdayWidget } from '../../../components/Admin/Widgets/AdminBirthdayWidget';
 
 export const AdminMainPage = () => {
+  useEffect(() => {
+    document.title = 'Панель администрирования | ККА';
+  });
+
   return (
     <AdminLayout>
       <Grid container spacing={2}>

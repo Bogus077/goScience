@@ -20,3 +20,4 @@ export type AddTeachersResponse = Teacher;
 export type EditTeacherRequest = AddTeacherRequest & { id: number };
 export type EditTeacherResponse = Teacher;
 export type ChangeTeacherPasswordRequest = { password: string; phone: string };
+export type ClearTeacherPasswordRequest = { phone: string };

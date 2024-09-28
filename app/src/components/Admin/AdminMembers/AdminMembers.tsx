@@ -118,8 +118,7 @@ export const AdminMembers = () => {
       field: 'plat',
       headerName: 'Взвод',
       flex: 0.5,
-      renderCell: (params) =>
-        params.row.plat === 5 ? 'Спортвзвод' : `${params.row.plat} взвод`,
+      renderCell: (params) => `${params.row.plat} взвод`,
     },
     {
       field: 'dob',
@@ -181,6 +180,12 @@ export const AdminMembers = () => {
           </IconButton>
         </>
       ),
+    },
+    {
+      field: 'allergy',
+      headerName: 'Аллергия',
+      flex: 1,
+      renderCell: (params) => params.row.allergy,
     },
     // {
     //   field: 'password',

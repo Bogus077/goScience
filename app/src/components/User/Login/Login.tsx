@@ -18,6 +18,7 @@ import { FetchError } from '../../../models/Api/errors';
 import { useNavigate } from 'react-router-dom';
 import { frontendRoutes } from '../../../utils/router/routes';
 import { VALIDATION_ERRORS } from '../../../models/Validations/errors';
+import { Link } from '@mui/material';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -76,10 +77,10 @@ export const Login = () => {
       {
         title: 'Пароль',
         description:
-          'Введите пароль, выбранный при регистрации. Если вы его не помните, нажмите кнопку “Восстановить пароль”',
+          'Введите пароль, выбранный при регистрации. Если вы его не помните, обратитесь к Владиславу Андреевичу',
         link: {
-          title: 'Восстановить пароль',
-          url: '/#',
+          title: 'Восстановить пароль (отключено)',
+          url: '',
         },
         img: loginBookImg,
         buttons: {

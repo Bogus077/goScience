@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AdminLayout } from '../../../components/Admin/AdminLayout';
 import { AdminLogs } from '../../../components/Admin/AdminLogs';
 import { LogsFilters } from '../../../models/Logs/logs';
@@ -11,6 +11,10 @@ export const AdminLogsPage = () => {
   }, []);
 
   const { data, isLoading } = useGetLogsQuery(filters);
+
+  useEffect(() => {
+    document.title = 'Логи | ККА';
+  });
 
   return (
     <AdminLayout>

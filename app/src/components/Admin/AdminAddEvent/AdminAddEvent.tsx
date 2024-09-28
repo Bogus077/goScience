@@ -1,6 +1,7 @@
 import {
   Button,
   Card,
+  Chip,
   Divider,
   Grid,
   IconButton,
@@ -20,7 +21,10 @@ import {
 import { frontendRoutes } from '../../../utils/router/routes';
 import { AdminTeacherChooser } from '../AdminForms/AdminTeacherChooser';
 import { AdminMembersChooser } from '../AdminForms/AdminMembersChooser';
-import { useCreateEventMutation } from '../../../redux/GSApi';
+import {
+  useCreateEventMutation,
+  useGetAddressListQuery,
+} from '../../../redux/GSApi';
 
 const rightBlock = 2;
 
@@ -28,6 +32,7 @@ export const AdminAddEvent = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const [triggerCreateEvent, createEventQueryState] = useCreateEventMutation();
+  const { data: addressList, isLoading } = useGetAddressListQuery();
 
   const handleSubmit = useCallback(
     async (values: typeof addEventInitialValues) => {
@@ -73,6 +78,20 @@ export const AdminAddEvent = () => {
   const onMembersListChange = useCallback(
     (members: number[]) => {
       formik.setFieldValue('members', members);
+    },
+    [formik]
+  );
+
+  const setStartAddress = useCallback(
+    (address: string) => {
+      formik.setFieldValue('startAddress', address);
+    },
+    [formik]
+  );
+
+  const setFinishAddress = useCallback(
+    (address: string) => {
+      formik.setFieldValue('finishAddress', address);
     },
     [formik]
   );
@@ -140,7 +159,7 @@ export const AdminAddEvent = () => {
                 </Grid>
               </Grid>
 
-              <Grid item xs={12} container spacing={2}>
+              <Grid item xs={12} container spacing={2} direction="column">
                 <Grid item width={600}>
                   <TextField
                     id="startAddress"
@@ -157,9 +176,19 @@ export const AdminAddEvent = () => {
                     }
                   />
                 </Grid>
+                <Grid item container spacing={1} sx={{ mt: -2, mb: 3 }}>
+                  {addressList?.map((address) => (
+                    <Grid item key={address}>
+                      <Chip
+                        label={address}
+                        onClick={() => setStartAddress(address)}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
               </Grid>
 
-              <Grid item xs={12} container spacing={2}>
+              <Grid item xs={12} container spacing={2} direction="column">
                 <Grid item width={600}>
                   <TextField
                     id="finishAddress"
@@ -175,6 +204,16 @@ export const AdminAddEvent = () => {
                       'Укажите адрес, где будет проходить мероприятие'
                     }
                   />
+                </Grid>
+                <Grid item container spacing={1} sx={{ mt: -2 }}>
+                  {addressList?.map((address) => (
+                    <Grid item key={address}>
+                      <Chip
+                        label={address}
+                        onClick={() => setFinishAddress(address)}
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
               </Grid>
             </Grid>
@@ -205,7 +244,9 @@ export const AdminAddEvent = () => {
                   value={formik.values.orderNumber}
                   onChange={formik.handleChange}
                   error={Boolean(formik.errors.orderNumber)}
-                  helperText={formik.errors.orderNumber ?? 'Можно не указывать'}
+                  helperText={
+                    formik.errors.orderNumber ?? 'Только цифры, например "55"'
+                  }
                 />
               </Grid>
               <Grid item xs={12} container spacing={2}>

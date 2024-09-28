@@ -16,7 +16,7 @@ export const TeamPage = () => {
     useGetUserProjectsQuery('');
 
   useEffect(() => {
-    document.title = 'Коллектив | GS';
+    document.title = 'Коллектив | ККА';
   });
 
   return (

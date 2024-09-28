@@ -5,8 +5,25 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import formatWithOptions from 'date-fns/fp/formatWithOptions';
 import ru from 'date-fns/locale/ru';
+import petrovich from 'petrovich';
 
 export function createEventDoc(event: Event) {
+  const person = {
+    first: event.Users[0]?.name,
+    middle: event.Users[0]?.middleName ?? '',
+    last: event.Users[0]?.surname,
+  };
+
+  const accusative = petrovich(person, 'accusative');
+  const dative = petrovich(person, 'dative');
+  const genitive = petrovich(person, 'genitive');
+
+  const userName = {
+    dative: `${dative.last} ${dative.first} ${dative.middle}`,
+    accusative: `${accusative.last} ${accusative.first} ${accusative.middle}`,
+    genitive: `${genitive.last} ${genitive.first} ${genitive.middle}`,
+  };
+
   const orderDate = formatWithOptions(
     { locale: ru },
     'd MMMM yyyy'
@@ -139,15 +156,11 @@ export function createEventDoc(event: Event) {
         bold: true,
       },
       {
-        text: `2. Назначить сопровождающего и ответственного за жизнь и здоровье детей на время мероприятия: ${
-          event.Users[0]?.surname
-        } ${event.Users[0]?.name} ${
-          event.Users[0]?.middleName ?? ''
-        } (Приложение №1)`,
+        text: `2. Назначить сопровождающим и ответственным за жизнь и здоровье детей на время мероприятия ${userName.accusative} (Приложение №1)`,
         alignment: 'justify',
       },
       {
-        text: `3. Сопровождающему провести с кадетами инструктаж о правилах поведения в пути следования и во время мероприятия.`,
+        text: `3. ${userName.dative} провести с кадетами инструктаж о правилах поведения в пути следования и во время мероприятия.`,
         alignment: 'justify',
       },
       {

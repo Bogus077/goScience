@@ -17,16 +17,17 @@ import {
   IconUserMinus,
   IconTrashX,
   IconEdit,
+  IconPencilMinus,
 } from '@tabler/icons';
 import { useSnackbar } from 'notistack';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   useAddRoleToUserMutation,
   useGetUserQuery,
   useGetUsersQuery,
   useRemoveRoleFromUserMutation,
   useRemoveUserMutation,
-  useUpdateTeacherPasswordMutation,
+  useClearTeacherPasswordMutation,
 } from '../../../redux/GSApi';
 import { ConfirmModal } from '../ConfirmModal';
 import { User } from '../../../models/User/user';
@@ -40,10 +41,9 @@ export const AdminTeachers = () => {
   const [removeRole, { isLoading: isRemoveRoleLoading }] =
     useRemoveRoleFromUserMutation();
   const [addRole, { isLoading: isAddRoleLoading }] = useAddRoleToUserMutation();
-  const [removeUser, { isLoading: isRemoveUserLoading }] =
-    useRemoveUserMutation();
-  const [changePassword, { isLoading: isPasswordChangeLoading }] =
-    useUpdateTeacherPasswordMutation();
+  const [removeUser] = useRemoveUserMutation();
+  const [clearPassword, { isLoading: isPasswordClearLoading }] =
+    useClearTeacherPasswordMutation();
 
   const navigate = useNavigate();
 
@@ -52,6 +52,7 @@ export const AdminTeachers = () => {
   const [userRoleToDelete, setUserRoleToDelete] = useState<User | null>(null);
   const [userToDelete, setUserToDelete] = useState<User | null>(null);
   const [userRoleToAdd, setUserRoleToAdd] = useState<User | null>(null);
+  const [userClearPassword, setUserClearPassword] = useState<User | null>(null);
 
   const handleRoleRemove = useCallback(
     (user: User) => setUserRoleToDelete(user),
@@ -87,6 +88,28 @@ export const AdminTeachers = () => {
     }
   }, [enqueueSnackbar, removeUser, userToDelete]);
 
+  const handleUserPasswordCleanAccept = useCallback(async () => {
+    if (userClearPassword) {
+      try {
+        await clearPassword({ phone: userClearPassword.phone }).unwrap();
+        enqueueSnackbar(
+          `Пароль преподавателя ${userClearPassword?.surname} ${userClearPassword?.name} успешно сброшен`,
+          {
+            variant: 'success',
+          }
+        );
+      } catch {
+        enqueueSnackbar(
+          `Ошибка сброса пароля преподавателя ${userClearPassword?.surname} ${userClearPassword?.name}`,
+          {
+            variant: 'error',
+          }
+        );
+      }
+      setUserClearPassword(null);
+    }
+  }, [enqueueSnackbar, clearPassword, userClearPassword]);
+
   const handleRoleRemoveAccept = useCallback(async () => {
     const result =
       userRoleToDelete?.id &&
@@ -110,6 +133,7 @@ export const AdminTeachers = () => {
       );
     }
   }, [
+    userRoleToDelete,
     enqueueSnackbar,
     removeRole,
     userRoleToDelete?.id,
@@ -212,6 +236,9 @@ export const AdminTeachers = () => {
             <IconButton onClick={() => handleUserDelete(params.row)}>
               <IconTrashX color="darkRed" />
             </IconButton>
+            <IconButton onClick={() => setUserClearPassword(params.row)}>
+              <IconPencilMinus color="darkRed" />
+            </IconButton>
             <IconButton
               onClick={() =>
                 navigate(`${frontendRoutes.admin.editTeacher}/${params.row.id}`)
@@ -282,6 +309,20 @@ export const AdminTeachers = () => {
         >
           Преподаватель {userToDelete.surname} {userToDelete.name} будет
           безвозвратно удалён
+        </ConfirmModal>
+      )}
+
+      {userClearPassword && (
+        <ConfirmModal
+          open={Boolean(userClearPassword)}
+          onAgree={handleUserPasswordCleanAccept}
+          onCancel={() => setUserClearPassword(null)}
+          title="Сбросить пароль пользователя?"
+          isSubmitting={isAddRoleLoading}
+        >
+          Пароль преподавателя {userClearPassword.surname}
+          {userClearPassword.name} будет сброшен. Новый пароль автоматически
+          установится при первом входе.
         </ConfirmModal>
       )}
     </Grid>

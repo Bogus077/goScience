@@ -10,7 +10,7 @@ export const MotivationPage = () => {
   const { data, isLoading } = useGetSummaryQuery('');
 
   useEffect(() => {
-    document.title = 'Мотивация | GS';
+    document.title = 'Мотивация | ККА';
   });
 
   return isLoading || !data ? (
