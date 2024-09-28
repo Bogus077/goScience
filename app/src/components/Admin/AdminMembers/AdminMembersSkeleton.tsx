@@ -1,7 +1,6 @@
 import Grid from '@mui/material/Grid';
 // eslint-disable-next-line import/named
 import Skeleton, { SkeletonProps } from '@mui/material/Skeleton';
-import { Box } from '@mui/system';
 import React from 'react';
 
 const skeletonProps: SkeletonProps = {

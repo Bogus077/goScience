@@ -9,12 +9,15 @@ export type Member = {
   id: number;
   name: string;
   surname: string;
+  middleName: string;
   dob?: Date;
   sex: 'male' | 'female';
   plat: number;
   status: boolean;
   email: string;
   password: string;
+  position: string;
+  allergy: string;
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;

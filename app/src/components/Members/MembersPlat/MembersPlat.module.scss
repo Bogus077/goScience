@@ -53,6 +53,7 @@ $colWidth: 200px;
   }
 
   &__kid {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -63,6 +64,19 @@ $colWidth: 200px;
 
     &_female {
       background-color: rgb(252, 229, 231);
+    }
+
+    &_position {
+      position: absolute;
+      right: 35px;
+      top: -2px;
+      font-size: 10px;
+      padding: 1px 3px;
+      background-color: $infoColor;
+      border: 1px solid $disableColor;
+      border-radius: 2px;
+      opacity: 0.7;
+      color: $mainTextColor !important;
     }
 
     & > span {
@@ -163,6 +177,11 @@ $colWidth: 200px;
 
     &__kid {
       font-size: 10px;
+
+      &_position {
+        right: 30px;
+        top: -2px;
+      }
     }
 
     &__row {
@@ -181,6 +200,11 @@ $colWidth: 200px;
     &__kid {
       font-size: 14px;
       padding: 3px 20px;
+
+      &_position {
+        right: 55px;
+        top: -2px;
+      }
     }
 
     &__row {

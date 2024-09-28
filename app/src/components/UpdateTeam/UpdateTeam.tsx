@@ -26,7 +26,7 @@ export const UpdateTeam = ({ kids, team }: UpdateTeamTypes) => {
     team.Kids.map((kid) => kid.id ?? 0)
   );
   //TODO обработка ошибок
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors] = useState<string[]>([]);
 
   const [updateTeam, { isLoading }] = useUpdateTeamMutation();
 

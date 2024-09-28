@@ -15,9 +15,7 @@ export const MembersPrintPlat = ({ kids, plat }: MembersPrintPlatTypes) => {
 
   return (
     <div className={styles.plat}>
-      <div className={styles.plat__header}>
-        {plat === 5 ? 'Спортвзвод' : `${plat} ВЗВОД`}
-      </div>
+      <div className={styles.plat__header}>{`${plat} ВЗВОД`}</div>
       <div className={styles.sum}>
         <div className={styles.sum__row}>
           <div className={styles.sum__type}>Всего</div>

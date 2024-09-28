@@ -10,9 +10,15 @@ export const frontendRoutes = {
     teachers: '/admin/teachers',
     addTeacher: '/admin/teachers/add',
     editTeacher: '/admin/teachers/edit',
+    events: '/admin/events',
     addEvent: '/admin/events/add',
+    editEvent: '/admin/events/edit',
     addDoc: '/admin/addDoc',
+    marks: {
+      marks: '/admin/marks',
+    },
   },
+
   kidWeekStats: '/stats',
   dashboard: '/dashboard',
   members: '/',
@@ -46,4 +52,5 @@ export const frontendRoutes = {
     editTask: '/project/updateTask',
   },
   versions: '/changelog',
+  policy: '/policy',
 };

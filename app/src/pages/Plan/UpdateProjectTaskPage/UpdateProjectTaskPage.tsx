@@ -22,7 +22,7 @@ export const UpdateProjectTaskPage = () => {
   });
 
   useEffect(() => {
-    document.title = 'Изменить задачу проекта | GS';
+    document.title = 'Изменить задачу проекта | ККА';
 
     if (!taskId) {
       navigate(frontendRoutes.plan.team);

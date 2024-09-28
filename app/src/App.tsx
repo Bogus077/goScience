@@ -23,7 +23,7 @@ import {
   CreateProjectTaskPage,
   KidWeekSummaryPage,
   MotivationPage,
-  MembersPage,
+  MembersPageWrapper,
   AdminMainPage,
   AdminAddMemberPage,
   AdminEditMemberPage,
@@ -36,6 +36,7 @@ import {
   AdminEditTeacherPage,
   AdminAddEventPage,
   VersionsPage,
+  PolicyPage,
 } from './pages';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { frontendRoutes } from './utils/router/routes';
@@ -46,6 +47,9 @@ import { AdminProtectedRoutes } from './utils/router/AdminProtectedRoutes';
 import { AdminMembersPage } from './pages/Admin/AdminMembersPage';
 import { ru } from 'date-fns/locale';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
+import { AdminEventsPage } from './pages/Admin/AdminEventsPage';
+import { AdminEditEventPage } from './pages/Admin/AdminEditEventPage';
+import { AdminMarksPage } from './pages/Admin/AdminMarksPage';
 
 const store = createStore(); // Possible additional params to store init func
 const persistor = persistStore(store);
@@ -70,6 +74,7 @@ export function App() {
                 path={frontendRoutes.versions}
                 element={<VersionsPage />}
               />
+              <Route path={frontendRoutes.policy} element={<PolicyPage />} />
 
               <Route element={<ProtectedRoutes />}>
                 {/* Study */}
@@ -138,11 +143,11 @@ export function App() {
                 {/* Members */}
                 <Route
                   path={`${frontendRoutes.members}/:version`}
-                  element={<MembersPage />}
+                  element={<MembersPageWrapper />}
                 />
                 <Route
                   path={frontendRoutes.members}
-                  element={<MembersPage />}
+                  element={<MembersPageWrapper />}
                 />
               </Route>
 
@@ -195,6 +200,20 @@ export function App() {
                 <Route
                   path={frontendRoutes.admin.addEvent}
                   element={<AdminAddEventPage />}
+                />
+                <Route
+                  path={frontendRoutes.admin.events}
+                  element={<AdminEventsPage />}
+                />
+                <Route
+                  path={`${frontendRoutes.admin.editEvent}/:id`}
+                  element={<AdminEditEventPage />}
+                />
+
+                {/* Marks */}
+                <Route
+                  path={frontendRoutes.admin.marks.marks}
+                  element={<AdminMarksPage />}
                 />
               </Route>
             </Routes>

@@ -7,7 +7,7 @@ import { useGetUsersClassesQuery } from '../redux/GSApi';
 export const ClassSettingsPage = () => {
   const { data, isLoading } = useGetUsersClassesQuery('');
   useEffect(() => {
-    document.title = 'Настройки класса | GS';
+    document.title = 'Настройки класса | ККА';
   });
 
   return (

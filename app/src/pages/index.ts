@@ -24,3 +24,5 @@ export { AdminAddTeacherPage } from './Admin/AdminAddTeacherPage';
 export { AdminEditTeacherPage } from './Admin/AdminEditTeacherPage';
 export { AdminAddEventPage } from './Admin/AdminAddEventPage';
 export { VersionsPage } from './Versions';
+export { PolicyPage } from './Policy/policy';
+export { MembersPageWrapper } from './Members/MembersPageWrapper';

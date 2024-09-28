@@ -64,6 +64,7 @@ export const AdminAddDoc = () => {
       },
     };
   }, [membersTable]);
+
   const handleCreate = useCallback(
     () => pdfMake.createPdf(docDefinition as TDocumentDefinitions).open(),
     [docDefinition]

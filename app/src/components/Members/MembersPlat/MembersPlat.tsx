@@ -1,6 +1,6 @@
 import React from 'react';
 import { Member } from '../../../models/members/members';
-import { sortBySurname } from '../../../utils/members/members';
+import { sortByPosition, sortBySurname } from '../../../utils/members/members';
 import classNames from 'classnames/bind';
 import styles from './MembersPlat.module.scss';
 import { Submenu } from '../../UI/Submenu';
@@ -34,6 +34,12 @@ export const MembersPlat = ({
   };
 
   const kidsIll = kids.reduce((sum, kid) => (kid.status ? sum : sum + 1), 0);
+  const kidsOnPositions = kids.filter(
+    (kid) => kid.position && kid.position !== ''
+  );
+  const kidsWithoutPositions = kids.filter(
+    (kid) => !kid.position || kid.position === ''
+  );
 
   return (
     <div
@@ -42,7 +48,7 @@ export const MembersPlat = ({
       })}
     >
       <div className={styles.plat__header}>
-        <span>{plat === 5 ? 'Спортвзвод' : `${plat} Взвод`}</span>
+        <span>{`${plat} Взвод`}</span>
         <div className={styles.plat__submenu}>
           <Submenu
             direction="down"
@@ -83,7 +89,7 @@ export const MembersPlat = ({
         </div>
       </div>
 
-      {kids.sort(sortBySurname).map((kid, key) => (
+      {kidsOnPositions.sort(sortByPosition).map((kid, key) => (
         <div
           className={cx('plat__kid', {
             plat__kid_female: kid.sex === 'female' && genderSeparate,
@@ -93,6 +99,30 @@ export const MembersPlat = ({
           onClick={() => handleChangeStatus(kid.id, !kid.status)}
         >
           <span>{`${kid.surname} ${kid.name}`}</span>
+          {kid.position && (
+            <div className={styles.plat__kid_position}>{kid.position}</div>
+          )}
+          {isPageToPrint ? (
+            <div className={styles.plat__status}>{kid.status ? '' : 'б'}</div>
+          ) : (
+            <div className={styles.plat__status} />
+          )}
+        </div>
+      ))}
+
+      {kidsWithoutPositions.sort(sortBySurname).map((kid, key) => (
+        <div
+          className={cx('plat__kid', {
+            plat__kid_female: kid.sex === 'female' && genderSeparate,
+            plat__kid_ill: !kid.status,
+          })}
+          key={kid.id}
+          onClick={() => handleChangeStatus(kid.id, !kid.status)}
+        >
+          <span>{`${kid.surname} ${kid.name}`}</span>
+          {kid.position && (
+            <div className={styles.plat__kid_position}>{kid.position}</div>
+          )}
           {isPageToPrint ? (
             <div className={styles.plat__status}>{kid.status ? '' : 'б'}</div>
           ) : (

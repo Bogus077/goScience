@@ -14,7 +14,7 @@ export const StudyPage = () => {
   const { data, isLoading } = useGetCurrentClassQuery('');
 
   useEffect(() => {
-    document.title = 'Учеба | GS';
+    document.title = 'Учеба | ККА';
   });
 
   const handleAddTask = useCallback(() => {

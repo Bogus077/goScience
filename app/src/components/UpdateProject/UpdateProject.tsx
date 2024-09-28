@@ -24,7 +24,7 @@ export const UpdateProject = ({ teams, project }: CreateTeamTypes) => {
   const navigate = useNavigate();
   const [activeTeam, setActiveTeam] = useState<number[]>([project.TeamId]);
   //TODO обработка ошибок
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors] = useState<string[]>([]);
 
   const [updateProject, { isLoading }] = useUpdateProjectMutation();
 

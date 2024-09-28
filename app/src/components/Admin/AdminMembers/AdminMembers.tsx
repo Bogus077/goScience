@@ -68,21 +68,21 @@ export const AdminMembers = () => {
     );
   }
 
-  function getMemberStatus(field: GridRenderCellParams<boolean>) {
-    return field.value ? (
-      <FormControlLabel
-        disabled
-        control={<Switch color="success" checked={true} size="small" />}
-        label="В корпусе"
-      />
-    ) : (
-      <FormControlLabel
-        disabled
-        control={<Switch color="error" size="small" />}
-        label="Отсутствует"
-      />
-    );
-  }
+  // function getMemberStatus(field: GridRenderCellParams<boolean>) {
+  //   return field.value ? (
+  //     <FormControlLabel
+  //       disabled
+  //       control={<Switch color="success" checked={true} size="small" />}
+  //       label="В корпусе"
+  //     />
+  //   ) : (
+  //     <FormControlLabel
+  //       disabled
+  //       control={<Switch color="error" size="small" />}
+  //       label="Отсутствует"
+  //     />
+  //   );
+  // }
 
   const handleMemberEdit = (field: GridRenderCellParams<string>) => {
     navigate(`${frontendRoutes.admin.editMember}/${field.row.id}`);
@@ -118,8 +118,7 @@ export const AdminMembers = () => {
       field: 'plat',
       headerName: 'Взвод',
       flex: 0.5,
-      renderCell: (params) =>
-        params.row.plat === 5 ? 'Спортвзвод' : `${params.row.plat} взвод`,
+      renderCell: (params) => `${params.row.plat} взвод`,
     },
     {
       field: 'dob',
@@ -181,6 +180,12 @@ export const AdminMembers = () => {
           </IconButton>
         </>
       ),
+    },
+    {
+      field: 'allergy',
+      headerName: 'Аллергия',
+      flex: 1,
+      renderCell: (params) => params.row.allergy,
     },
     // {
     //   field: 'password',

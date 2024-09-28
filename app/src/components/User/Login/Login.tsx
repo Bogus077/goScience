@@ -7,6 +7,7 @@ import { FormikContext, useFormik } from 'formik';
 import { getFormikBaseProps } from '../../../utils/formik/baseProps';
 import { InputPhone } from '../../UI/Form/InputPhone';
 import loginBookImg from '../../../assets/img/loginbook.jpg';
+import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 import {
   authInitialValues,
   loginValidationSchema,
@@ -17,6 +18,7 @@ import { FetchError } from '../../../models/Api/errors';
 import { useNavigate } from 'react-router-dom';
 import { frontendRoutes } from '../../../utils/router/routes';
 import { VALIDATION_ERRORS } from '../../../models/Validations/errors';
+import { Link } from '@mui/material';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -75,10 +77,10 @@ export const Login = () => {
       {
         title: 'Пароль',
         description:
-          'Введите пароль, выбранный при регистрации. Если вы его не помните, нажмите кнопку “Восстановить пароль”',
+          'Введите пароль, выбранный при регистрации. Если вы его не помните, обратитесь к Владиславу Андреевичу',
         link: {
-          title: 'Восстановить пароль',
-          url: '/#',
+          title: 'Восстановить пароль (отключено)',
+          url: '',
         },
         img: loginBookImg,
         buttons: {
@@ -153,6 +155,16 @@ export const Login = () => {
   return (
     <div className={styles.login}>
       <FormikContext.Provider value={formik}>
+        <div className={styles.androidDownload}>
+          <InstallMobileIcon />
+          <a
+            className={styles.androidDownload__link}
+            href="/download/kkAvangard.apk"
+            target="_blank"
+          >
+            Скачать android-приложение
+          </a>
+        </div>
         <UserSteps steps={steps}>
           <div>
             <InputPhone

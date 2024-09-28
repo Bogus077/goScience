@@ -20,7 +20,7 @@ export const UpdateProjectPage = () => {
   const project = projects?.find((pr) => pr.id === projectId);
 
   useEffect(() => {
-    document.title = 'Изменить проект | GS';
+    document.title = 'Изменить проект | ККА';
 
     if (!params.projectId || !project) {
       navigate(frontendRoutes.plan.team);

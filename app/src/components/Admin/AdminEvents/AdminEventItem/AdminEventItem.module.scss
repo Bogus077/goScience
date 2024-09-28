@@ -1,0 +1,74 @@
+@import '../../../../assets/helpers/index.scss';
+
+.eventWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 250px;
+  border: 1px solid $disableColor;
+  border-radius: 5px;
+  cursor: default;
+  background-color: #fff;
+  padding: 20px 0 0;
+}
+
+.eventDate {
+  display: flex;
+  width: fit-content;
+  font-size: 12px;
+  margin: 0 20px 10px auto;
+  color: $secondaryColor;
+  padding: 3px 10px;
+  background-color: $backgroundColor;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 16px;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.address {
+  padding: 10px 20px;
+  color: $secondaryColor;
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  margin: auto 20px 10px;
+  justify-content: space-between;
+}
+
+.people {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid $disableColor;
+  padding: 0px 20px 0;
+  cursor: pointer;
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    padding: 10px 10px 10px;
+    &:first-child {
+      border-right: 1px solid $disableColor;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    color: $secondaryColor;
+  }
+
+  &__count {
+    font-size: 22px;
+    text-align: center;
+    font-weight: bold;
+  }
+}

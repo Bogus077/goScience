@@ -16,7 +16,7 @@ export const UpdateTeamPage = () => {
   const { data: teams, isLoading: isTeamLoading } = useGetUserTeamsQuery('');
 
   useEffect(() => {
-    document.title = 'Изменить команду | GS';
+    document.title = 'Изменить команду | ККА';
   });
 
   const teamId = parseInt(params.teamId ?? '0');

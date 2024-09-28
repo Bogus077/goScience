@@ -123,6 +123,7 @@ export const createProjectTaskInitialValues = {
 export const addMemberValidationSchema = object({
   name: string().required(VALIDATION_ERRORS.REQUIRED),
   surname: string().required(VALIDATION_ERRORS.REQUIRED),
+  middleName: string().required(VALIDATION_ERRORS.REQUIRED),
   sex: string().required(VALIDATION_ERRORS.REQUIRED),
   plat: number().required(VALIDATION_ERRORS.REQUIRED),
   dob: date().required(VALIDATION_ERRORS.REQUIRED),
@@ -133,6 +134,7 @@ export const editMemberValidationSchema = addMemberValidationSchema;
 export const addMemberInitialValues = {
   name: '',
   surname: '',
+  middleName: '',
   dob: new Date('2000/01/01'),
   sex: 'male',
   plat: 1,
@@ -141,6 +143,8 @@ export const addMemberInitialValues = {
   contactAddress: '',
   email: '',
   password: '',
+  position: '',
+  allergy: '',
 };
 
 export const editMemberInitialValues = addMemberInitialValues;
@@ -166,14 +170,14 @@ export const addNotificationInitialValues = {
 export const addTeacherValidationSchema = object({
   name: string().required(VALIDATION_ERRORS.REQUIRED),
   surname: string().required(VALIDATION_ERRORS.REQUIRED),
-  middlename: string().required(VALIDATION_ERRORS.REQUIRED),
+  middleName: string().required(VALIDATION_ERRORS.REQUIRED),
   phone: string().required(VALIDATION_ERRORS.REQUIRED),
 });
 
 export const addTeacherInitialValues = {
   name: '',
   surname: '',
-  middlename: '',
+  middleName: '',
   phone: '',
 };
 
@@ -185,19 +189,22 @@ export const editTeacherValidationSchema = addTeacherValidationSchema;
  */
 export const addEventValidationSchema = object({
   title: string().required(VALIDATION_ERRORS.REQUIRED),
-  eventDate: date().required(VALIDATION_ERRORS.REQUIRED),
+  startDate: date().required(VALIDATION_ERRORS.REQUIRED),
+  startAddress: string().required(VALIDATION_ERRORS.REQUIRED),
+  finishAddress: string().required(VALIDATION_ERRORS.REQUIRED),
   orderDate: date().required(VALIDATION_ERRORS.REQUIRED),
-  address: string().required(VALIDATION_ERRORS.REQUIRED),
-  kids: array().min(1, VALIDATION_ERRORS.EVENTS.MINKIDS),
-  teachers: array().min(1, VALIDATION_ERRORS.EVENTS.MINTEACHERS),
+  orderNumber: string().required(VALIDATION_ERRORS.REQUIRED),
+  members: array().min(1, VALIDATION_ERRORS.EVENTS.MINKIDS),
+  users: array().min(1, VALIDATION_ERRORS.EVENTS.MINTEACHERS),
 });
 
 export const addEventInitialValues = {
   title: '',
-  orderNumber: '',
-  eventDate: new Date(),
+  startDate: new Date(),
+  startAddress: '',
+  finishAddress: '',
   orderDate: new Date(),
-  address: '',
-  kids: [],
-  teachers: [],
+  orderNumber: '',
+  members: [] as number[],
+  users: [] as number[],
 };

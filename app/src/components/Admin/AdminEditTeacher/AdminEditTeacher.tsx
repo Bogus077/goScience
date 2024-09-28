@@ -11,31 +11,29 @@ import { IconArrowLeft, IconDeviceFloppy, IconTrashX } from '@tabler/icons';
 import { FormikContext, useFormik } from 'formik';
 import { useSnackbar } from 'notistack';
 import React, { useCallback, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Teacher } from '../../../models/Teacher/teacher';
+import { useNavigate } from 'react-router-dom';
 import {
   editTeacherInitialValues,
   editTeacherValidationSchema,
 } from '../../../models/Validations/validations';
 import {
   useEditTeacherMutation,
-  useGetTeachersQuery,
   useRemoveTeacherMutation,
 } from '../../../redux/GSApi';
 import { frontendRoutes } from '../../../utils/router/routes';
 import { ConfirmModal } from '../ConfirmModal';
+import { User } from '../../../models/User/user';
 const rightBlock = 2;
 
-export const AdminEditTeacher = () => {
-  const { data } = useGetTeachersQuery('');
-  const [editTeacher] = useEditTeacherMutation();
+type AdminEditTeacherProps = {
+  teacher: User;
+};
+
+export const AdminEditTeacher = ({ teacher }: AdminEditTeacherProps) => {
+  const [editTeacher, editTeacherQueryState] = useEditTeacherMutation();
   const navigate = useNavigate();
-  const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
-  const teacher = data?.find(
-    (teacher) => teacher.id.toString() === id?.toString()
-  );
-  const [deleteTeacher, setDeleteTeacher] = useState<Teacher | null>(null);
+  const [deleteTeacher, setDeleteTeacher] = useState<User | null>(null);
   const [removeTeacher, { isLoading: isRemoveTeacherLoading }] =
     useRemoveTeacherMutation();
 
@@ -58,7 +56,7 @@ export const AdminEditTeacher = () => {
 
   const handleSubmit = useCallback(
     async (values: typeof editTeacherInitialValues) => {
-      const result = await editTeacher({ ...values, id: parseInt(id ?? '0') });
+      const result = await editTeacher({ ...values, id: teacher.id });
       if ('data' in result) {
         enqueueSnackbar(
           `Данные преподавателя ${values.surname} ${values.name} успешно обновлены`,
@@ -73,11 +71,13 @@ export const AdminEditTeacher = () => {
         });
       }
     },
-    [editTeacher, enqueueSnackbar, id, navigate]
+    [editTeacher, enqueueSnackbar, navigate, teacher.id]
   );
 
   const formik = useFormik({
-    initialValues: teacher ? teacher : editTeacherInitialValues,
+    initialValues: teacher
+      ? { ...teacher, middleName: teacher.middleName ?? '' }
+      : editTeacherInitialValues,
     validationSchema: editTeacherValidationSchema,
     onSubmit: handleSubmit,
     enableReinitialize: true,
@@ -138,15 +138,15 @@ export const AdminEditTeacher = () => {
               </Grid>
               <Grid item width={300}>
                 <TextField
-                  id="middlename"
-                  name="middlename"
+                  id="middleName"
+                  name="middleName"
                   label="Отчество"
                   variant="outlined"
                   fullWidth
-                  value={formik.values.middlename}
+                  value={formik.values.middleName}
                   onChange={formik.handleChange}
-                  error={Boolean(formik.errors.middlename)}
-                  helperText={formik.errors.middlename}
+                  error={Boolean(formik.errors.middleName)}
+                  helperText={formik.errors.middleName}
                 />
               </Grid>
               <Grid item xs={12} container spacing={2}>
@@ -161,6 +161,7 @@ export const AdminEditTeacher = () => {
                     onChange={formik.handleChange}
                     error={Boolean(formik.errors.phone)}
                     helperText={formik.errors.phone}
+                    disabled={true}
                   />
                 </Grid>
               </Grid>
@@ -196,7 +197,9 @@ export const AdminEditTeacher = () => {
                     variant="outlined"
                     color="error"
                     onClick={handleTeacherRemove}
-                    disabled={!formik.isValid}
+                    disabled={
+                      !formik.isValid || editTeacherQueryState.isLoading
+                    }
                   >
                     Удалить
                   </Button>

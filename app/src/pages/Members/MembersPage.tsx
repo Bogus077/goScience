@@ -17,7 +17,7 @@ export const MembersPage = () => {
   useEffect(() => setModalOpen(error), [error]);
 
   useEffect(() => {
-    document.title = 'Расход | GS';
+    document.title = 'Расход | ККА';
   });
 
   return (

@@ -15,7 +15,7 @@ export const CreateProjectTaskPage = () => {
   const { data: teams, isLoading: isTeamsLoading } = useGetUserTeamsQuery('');
 
   useEffect(() => {
-    document.title = 'Добавить задачу | GS';
+    document.title = 'Добавить задачу | ККА';
   });
 
   return (

@@ -17,7 +17,9 @@ export const UserSteps = ({ children, steps }: UserStepsTypes) => {
       <UserStepsContent steps={steps} currentStep={step} setStep={setStep}>
         {children}
       </UserStepsContent>
-      <UserStepsSidebar steps={steps} currentStep={step} setStep={setStep} />
+      <div className={styles.sidebar}>
+        <UserStepsSidebar steps={steps} currentStep={step} setStep={setStep} />
+      </div>
     </div>
   );
 };

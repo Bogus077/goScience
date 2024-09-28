@@ -6,7 +6,7 @@ import { useGetUsersClassesQuery } from '../../redux/GSApi';
 export const CreateKidPage = () => {
   const { data: classes, isLoading } = useGetUsersClassesQuery('');
   useEffect(() => {
-    document.title = 'Добавить ученика | GS';
+    document.title = 'Добавить ученика | ККА';
   });
 
   return !classes || isLoading ? (
