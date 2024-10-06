@@ -64,7 +64,12 @@ import {
   UpdateProjectTaskResponse,
 } from '../models/Project/Project';
 import { GetUserStatsResponse } from '../models/Stats/stats';
-import { GetSummaryResponse } from '../models/summary/summary';
+import {
+  ChangeSummaryStatusRequest,
+  CreateSummaryRequest,
+  GetSummaryItemResponse,
+  GetSummaryResponse,
+} from '../models/summary/summary';
 import {
   ChangeTaskStatusRequest,
   ChangeTaskStatusResponse,
@@ -585,6 +590,31 @@ export const GSAPI = createApi({
       },
     }),
 
+    changeSummaryStatus: build.mutation<
+      GetSummaryItemResponse,
+      ChangeSummaryStatusRequest
+    >({
+      query: (params) => ({
+        url: '/summary/status',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'KidsSummary' }, 'KidsSummary'],
+    }),
+
+    createSummary: build.mutation<GetSummaryItemResponse, CreateSummaryRequest>(
+      {
+        query: (params) => ({
+          url: '/summary/create',
+          method: 'post',
+          body: params,
+        }),
+        invalidatesTags: (result, error, arg) =>
+          error ? [] : [{ type: 'KidsSummary' }, 'KidsSummary'],
+      }
+    ),
+
     //Members
     getMembers: build.query<GetMembersResponse, unknown>({
       query: () => ({
@@ -843,6 +873,13 @@ export const GSAPI = createApi({
       }),
       providesTags: (result) => (result ? ['AddressList'] : []),
     }),
+
+    getHelpAdvice: build.query<string[], void>({
+      query: () => ({
+        url: '/helper/help',
+      }),
+      // providesTags: (result) => (result ? ['AddressList'] : []),
+    }),
   }),
 });
 
@@ -880,6 +917,8 @@ export const {
   useRemoveProjectTaskMutation,
   useDoneProjectTaskMutation,
   useGetSummaryQuery,
+  useChangeSummaryStatusMutation,
+  useCreateSummaryMutation,
   useGetMembersQuery,
   useAddMemberMutation,
   useRemoveMemberMutation,
@@ -904,4 +943,5 @@ export const {
   useUpdateEventMutation,
   useDeleteEventMutation,
   useGetAddressListQuery,
+  useGetHelpAdviceQuery,
 } = GSAPI;

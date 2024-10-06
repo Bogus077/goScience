@@ -42,6 +42,7 @@ export type EditMemberRequest = {
   surname: string;
   plat: number;
   sex: string;
+  contactAddress?: string;
 };
 
 export type EditMemberResponse = Member;

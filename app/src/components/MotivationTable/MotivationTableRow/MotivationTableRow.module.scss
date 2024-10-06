@@ -1,0 +1,75 @@
+@import '../../../assets/helpers/index.scss';
+
+.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 50px;
+  border-bottom: 2px solid $backgroundColor;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  gap: 20px;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.summary {
+  display: flex;
+
+  &_positive,
+  &_negative {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__header {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding-right: 20px;
+    border-right: 2px solid $disableColor;
+    font-weight: bold;
+    font-size: 16px;
+    color: $secondaryColor;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+
+    &:last-child {
+      margin-left: 38px;
+    }
+  }
+}
+
+.task {
+  display: flex;
+  align-items: center;
+
+  &__label {
+    &_checked {
+      color: $secondaryColor;
+      text-decoration: line-through;
+    }
+  }
+
+  &__createdAt {
+    margin-left: 10px;
+    color: $secondaryColor;
+  }
+}
+
+.checked {
+  color: $positiveColor !important; // зеленый цвет
+}

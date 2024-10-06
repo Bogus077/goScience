@@ -41,3 +41,13 @@ export const sortByPosition = (a: Member, b: Member) => {
     }
   }
 };
+
+export const sortByDate = (a: Date, b: Date) => {
+  if (a > b) {
+    return 1;
+  } else if (b > a) {
+    return -1;
+  } else {
+    return 0;
+  }
+};

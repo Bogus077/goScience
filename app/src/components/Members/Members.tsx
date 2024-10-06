@@ -152,7 +152,7 @@ export const Members = ({
           4
         </div>
         <div className={styles.switcher__item} onClick={() => scrollRight(5)}>
-          Спорт
+          5
         </div>
       </div>
 

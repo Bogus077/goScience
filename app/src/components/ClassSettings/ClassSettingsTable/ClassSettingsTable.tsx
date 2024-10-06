@@ -14,10 +14,10 @@ export const ClassSettingsTable = ({ userClass }: ClassSettingsTableTypes) => {
       <div className={styles.table__row}>
         <span className={styles.table__header}>Список учеников</span>
       </div>
-      {userClass.Kids.map((kid) => (
+      {userClass.Kids?.map((kid) => (
         <ClassSettingRow kid={kid} key={kid.id} />
       ))}
-      {userClass.Kids.length === 0 && (
+      {userClass.Kids?.length === 0 && (
         <div className={styles.table__empty}>
           <img src={studentImg} alt="student" />
           <span className={styles.table__empty_header}>Тут никого нет</span>

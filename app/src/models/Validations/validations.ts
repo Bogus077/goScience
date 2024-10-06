@@ -208,3 +208,12 @@ export const addEventInitialValues = {
   members: [] as number[],
   users: [] as number[],
 };
+
+// Summary
+export const createSummaryInitialValues = {
+  label: '',
+};
+
+export const createSummaryValidationSchema = object({
+  label: string().required(VALIDATION_ERRORS.REQUIRED),
+});

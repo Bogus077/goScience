@@ -9,7 +9,7 @@ export const AdminLogo = () => {
   return (
     <div
       className={styles.logo}
-      onClick={() => navigate(frontendRoutes.admin.mainPage)}
+      onClick={() => navigate(frontendRoutes.members)}
     >
       <div className={styles.black}>кк</div>
       Авангард

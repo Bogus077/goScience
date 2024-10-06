@@ -99,7 +99,14 @@ export const AdminEditMember = () => {
 
   const handleSubmit = useCallback(
     async (values: typeof editMemberInitialValues) => {
-      const result = await editMember({ ...values, id: parseInt(id ?? '0') });
+      const result = await editMember({
+        ...values,
+        id: parseInt(id ?? '0'),
+        contactAddress:
+          values.contactAddress === ''
+            ? member?.MemberContacts[0]?.address
+            : values.contactAddress,
+      });
       if ('data' in result) {
         enqueueSnackbar(
           `Данные кадета ${values.surname} ${values.name} успешно обновлены`,

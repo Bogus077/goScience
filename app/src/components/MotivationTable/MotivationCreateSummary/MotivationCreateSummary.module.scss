@@ -1,0 +1,29 @@
+@import '../../../assets/helpers/index.scss';
+
+.form {
+  display: flex;
+  gap: 10px;
+
+  &__submit {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+
+    &_disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:not(&_disabled) {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.edit {
+  color: $secondaryColor;
+  cursor: pointer;
+}

@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './MembersStatus.module.scss';
 import PrintIcon from '@mui/icons-material/Print';
 import IconButton from '@mui/material/IconButton';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { useNavigate } from 'react-router-dom';
 import { frontendRoutes } from '../../../utils/router/routes';
@@ -24,6 +25,10 @@ export const MembersStatus = ({ status, isLoading }: MembersStatusTypes) => {
     () => navigate(frontendRoutes.admin.mainPage),
     [navigate]
   );
+  const handleDashboard = useCallback(
+    () => navigate(frontendRoutes.dashboard),
+    [navigate]
+  );
 
   return (
     <div className={styles.status}>
@@ -36,6 +41,11 @@ export const MembersStatus = ({ status, isLoading }: MembersStatusTypes) => {
         <Tooltip title="Панель администрирования">
           <IconButton size="small" onClick={handleAdminPanel}>
             <AdminPanelSettingsIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Дашборд">
+          <IconButton size="small" onClick={handleDashboard}>
+            <DashboardIcon fontSize="small" />
           </IconButton>
         </Tooltip>
       </Stack>

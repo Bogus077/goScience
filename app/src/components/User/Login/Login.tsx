@@ -159,7 +159,7 @@ export const Login = () => {
           <InstallMobileIcon />
           <a
             className={styles.androidDownload__link}
-            href="/download/kkAvangard.apk"
+            href="https://play.google.com/store/apps/details?id=com.bogus077.kkavangard"
             target="_blank"
           >
             Скачать android-приложение
