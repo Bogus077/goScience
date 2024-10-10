@@ -4,6 +4,10 @@
     flex-direction: column;
     margin-top: 40px;
 
+    @media screen and (max-width: 600px) {
+      margin-top: 20px;
+    }
+
     & > *:first-child {
       margin-bottom: 20px;
     }

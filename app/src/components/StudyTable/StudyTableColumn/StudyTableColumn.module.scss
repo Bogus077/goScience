@@ -5,6 +5,10 @@
   flex-direction: column;
   width: 24%;
 
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+
   & > div:not(:last-child, :first-child) {
     border-bottom: 1px solid $disableColor;
   }

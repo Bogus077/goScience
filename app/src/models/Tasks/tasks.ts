@@ -75,10 +75,15 @@ export type ChangeTaskStatusRequest = {
   status: boolean;
   id: number;
 };
-
 export type ChangeTaskStatusResponse = Task | TaskDay | TaskWeek | TaskMonth;
 
 export type RemoveTaskRequest = {
   type: TaskTypes;
   id: number;
 };
+
+export type AddDayToTaskRequest = {
+  id: number;
+};
+
+export type AddDayToTaskResponse = TaskDay;

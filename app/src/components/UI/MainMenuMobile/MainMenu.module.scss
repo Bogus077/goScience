@@ -1,40 +1,30 @@
 @import '../../../assets/helpers/index.scss';
 
 .menu {
-  height: 100vh;
-  width: 100px;
+  height: 60px;
+  width: 100vw;
   background-color: #fff;
   box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.25);
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   transition: 0.3s;
 
   &__items {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
     height: 100%;
   }
 
   &__item {
     display: flex;
     margin-left: 25px;
-
-    &_disabled {
-      color: $secondaryColor;
-      cursor: default;
-    }
-
-    &:not(:last-child) {
-      margin-bottom: 30px;
-    }
+    justify-content: space-between;
   }
 
   &__classChanger {
     display: flex;
     justify-content: center;
-    padding: 40px 0;
+    margin-right: 20px;
   }
 
   &__user {

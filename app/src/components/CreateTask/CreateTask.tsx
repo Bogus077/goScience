@@ -85,7 +85,6 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
           ? { ...newTask, TasksWeekId: activeLinks[0], points }
           : { ...newTask, points };
 
-        //TODO: add form-input for points
         const result = await createDayTask(newDayTask);
         if ('data' in result) {
           if (result.data.errors && result.data.errors.length > 0) {

@@ -10,12 +10,20 @@
   background-color: #fff;
   border-radius: 10px;
 
+  @media screen and (max-width: 600px) {
+    width: 90px;
+  }
+
   &__info {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     height: 90px;
+
+    @media screen and (max-width: 600px) {
+      height: 80px;
+    }
   }
 
   &__assistant {
@@ -30,6 +38,11 @@
     font-size: 12px;
     cursor: pointer;
 
+    @media screen and (max-width: 600px) {
+      text-align: center;
+      height: 40px;
+    }
+
     &:hover {
       text-decoration: underline;
     }
@@ -39,6 +52,10 @@
 .activity {
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 
   &__info {
     display: flex;

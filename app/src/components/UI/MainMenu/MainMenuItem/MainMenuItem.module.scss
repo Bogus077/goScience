@@ -9,6 +9,16 @@
   justify-content: center;
   align-items: center;
 
+  @media screen and (max-width: 600px) {
+    width: 40px;
+    height: 40px;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
   &__wrapper {
     display: flex;
     align-items: center;
@@ -34,5 +44,14 @@
 
   &_active {
     background-color: $mainColor;
+  }
+
+  &_disabled {
+    cursor: default;
+    svg {
+      path {
+        fill: $disableColor;
+      }
+    }
   }
 }

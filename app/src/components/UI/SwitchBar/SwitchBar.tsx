@@ -30,7 +30,7 @@ export const SwitchBar = ({
           key={item.id}
           onClick={() => handleClick(item.active, item.id)}
         >
-          {item.label}
+          <span>{item.label}</span>
         </div>
       ))}
 

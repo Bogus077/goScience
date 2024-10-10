@@ -11,9 +11,33 @@
   &__sideMenu {
     position: absolute;
     z-index: 2;
+
+    &_mobile {
+      display: none;
+    }
+
+    &_desktop {
+      display: block;
+    }
+
+    @media screen and (max-width: 600px) {
+      &_mobile {
+        display: block;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+      }
+      &_desktop {
+        display: none;
+      }
+    }
   }
 
   &__main {
     padding: 40px 80px 40px 180px;
+
+    @media screen and (max-width: 600px) {
+      padding: 20px 20px 80px 20px;
+    }
   }
 }

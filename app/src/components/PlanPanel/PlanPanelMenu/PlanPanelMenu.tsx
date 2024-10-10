@@ -20,6 +20,7 @@ export const PlanPanelMenu = () => {
       <PlanPanelMenuItem
         title="discipline"
         active={location.pathname === frontendRoutes.plan.discipline}
+        disabled
       />
       <PlanPanelMenuItem
         title="collective"

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TaskTypes } from '../../../models/Tasks/tasks';
 import {
+  useAddDayToTaskMutation,
   useChangeTaskStatusMutation,
   useRemoveTaskMutation,
 } from '../../../redux/GSApi';
@@ -9,6 +10,7 @@ import { IconCheck } from '../Icons/Forms/IconCheck';
 import { IconCross } from '../Icons/Forms/IconCross';
 import { IconEdit } from '../Icons/Tables/IconEdit';
 import styles from './TaskDo.module.scss';
+import { IconAddDay } from '../Icons/Forms/IconAddDay';
 
 type TaskDoTypes = {
   id: number;
@@ -21,9 +23,12 @@ export const TaskDo = ({ id, type, handleResetActiveTasks }: TaskDoTypes) => {
   const [removeTask, { isLoading: IsRemoveLoading }] = useRemoveTaskMutation();
   const [changeStatus, { isLoading: isChangeLoading }] =
     useChangeTaskStatusMutation();
+  const [addDayToTask, { isLoading: isAddDayLoading }] =
+    useAddDayToTaskMutation();
 
   const [check, setCheck] = useState(false);
   const [remove, setRemove] = useState(false);
+  const [addDay, setAddDay] = useState(false);
 
   const handleCheckTask = async () => {
     if (isChangeLoading) return;
@@ -34,6 +39,13 @@ export const TaskDo = ({ id, type, handleResetActiveTasks }: TaskDoTypes) => {
       id,
     };
     await changeStatus(newStatus);
+    if (handleResetActiveTasks) handleResetActiveTasks();
+  };
+
+  const handleAddDayToTask = async () => {
+    if (isAddDayLoading) return;
+
+    await addDayToTask({ id });
     if (handleResetActiveTasks) handleResetActiveTasks();
   };
 
@@ -58,21 +70,34 @@ export const TaskDo = ({ id, type, handleResetActiveTasks }: TaskDoTypes) => {
           onMouseEnter={() => setCheck(true)}
           onMouseLeave={() => setCheck(false)}
           onClick={handleCheckTask}
+          title="Выполнено"
         >
           <IconCheck disabled={!check} />
         </div>
 
-        <div className={styles.do__icon} onClick={handleEditTask}>
+        {/* <div className={styles.do__icon} onClick={handleEditTask}>
           <IconEdit size={15} />
-        </div>
+        </div> */}
         <div
           className={styles.do__icon}
           onMouseEnter={() => setRemove(true)}
           onMouseLeave={() => setRemove(false)}
           onClick={() => setRemoveModal(true)}
+          title="Удалить задачу"
         >
           <IconCross disabled={!remove} />
         </div>
+        {type === 'day' && (
+          <div
+            className={styles.do__icon}
+            onMouseEnter={() => setAddDay(true)}
+            onMouseLeave={() => setAddDay(false)}
+            onClick={handleAddDayToTask}
+            title="Добавить день"
+          >
+            <IconAddDay disabled={!addDay} />
+          </div>
+        )}
       </div>
       <div className={styles.triangle} />
       <ConfirmModal

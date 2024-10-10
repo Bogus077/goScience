@@ -103,9 +103,25 @@ export function MotivationTableRow({ kid, period }: MotivationTableRowProps) {
     );
   };
 
-  const kidSummaryUsers = kid.KidSummaryUsers ?? [];
-  const kidSummaryTasks = kid.KidSummaryTasks ?? [];
-  const KidSummaryProjectTasks = kid.KidSummaryProjectTasks ?? [];
+  const filterTasksForPeriod = (
+    tasks: (KidSummaryTasks | KidSummaryUser | KidSummaryProjectTasks)[]
+  ) => {
+    if (period === 1) {
+      return tasks.filter(
+        (task) =>
+          task.createdAt &&
+          new Date(task.createdAt).toDateString() === new Date().toDateString()
+      );
+    } else {
+      return tasks;
+    }
+  };
+
+  const kidSummaryUsers = filterTasksForPeriod(kid.KidSummaryUsers ?? []);
+  const kidSummaryTasks = filterTasksForPeriod(kid.KidSummaryTasks ?? []);
+  const KidSummaryProjectTasks = filterTasksForPeriod(
+    kid.KidSummaryProjectTasks ?? []
+  );
 
   return (
     <div className={styles.row}>

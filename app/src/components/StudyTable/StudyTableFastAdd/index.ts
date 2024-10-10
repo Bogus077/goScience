@@ -1,0 +1,1 @@
+export { StudyTableFastAdd } from './StudyTableFastAdd';

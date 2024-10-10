@@ -12,6 +12,7 @@ type Props = {
   active?: boolean;
   expanded?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 export const MainMenuItem = ({
@@ -19,6 +20,7 @@ export const MainMenuItem = ({
   active = false,
   expanded = false,
   onClick = () => {},
+  disabled,
 }: Props) => {
   const item = { label: 'Название', icon: <></> };
 
@@ -46,7 +48,11 @@ export const MainMenuItem = ({
       className={styles.item__wrapper}
       onClick={() => (active ? () => {} : onClick())}
     >
-      <div className={cx('item', { item_active: active })}>{item.icon}</div>
+      <div
+        className={cx('item', { item_active: active, item_disabled: disabled })}
+      >
+        {item.icon}
+      </div>
       <div className={cx('item__label', { item__label_expanded: expanded })}>
         {item.label}
       </div>

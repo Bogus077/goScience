@@ -78,9 +78,17 @@ export const createTaskValidationSchema = object({
   label: string().required(VALIDATION_ERRORS.REQUIRED),
 });
 
+export const createFastTaskValidationSchema = object({
+  label: string().required(VALIDATION_ERRORS.REQUIRED),
+});
+
 export const createTaskInitialValues = {
   label: '',
   description: '',
+};
+
+export const createFastTaskInitialValues = {
+  label: '',
 };
 
 /**
@@ -193,7 +201,13 @@ export const addEventValidationSchema = object({
   startAddress: string().required(VALIDATION_ERRORS.REQUIRED),
   finishAddress: string().required(VALIDATION_ERRORS.REQUIRED),
   orderDate: date().required(VALIDATION_ERRORS.REQUIRED),
-  orderNumber: string().required(VALIDATION_ERRORS.REQUIRED),
+  orderNumber: string()
+    .test(
+      'isNumber',
+      VALIDATION_ERRORS.ONLY_NUMBERS,
+      (value) => typeof value === 'string' && !isNaN(Number(value))
+    )
+    .required(VALIDATION_ERRORS.REQUIRED),
   members: array().min(1, VALIDATION_ERRORS.EVENTS.MINKIDS),
   users: array().min(1, VALIDATION_ERRORS.EVENTS.MINTEACHERS),
 });

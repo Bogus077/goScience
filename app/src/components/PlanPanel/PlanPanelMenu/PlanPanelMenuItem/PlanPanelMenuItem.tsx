@@ -13,9 +13,14 @@ const cx = classNames.bind(styles);
 type Props = {
   title: 'study' | 'motivation' | 'discipline' | 'collective';
   active?: boolean;
+  disabled?: boolean;
 };
 
-export const PlanPanelMenuItem = ({ title, active = false }: Props) => {
+export const PlanPanelMenuItem = ({
+  title,
+  active = false,
+  disabled,
+}: Props) => {
   const navigate = useNavigate();
 
   const item = {
@@ -50,6 +55,7 @@ export const PlanPanelMenuItem = ({ title, active = false }: Props) => {
     <div
       className={cx('item', {
         item_active: active,
+        item_disabled: disabled,
       })}
       onClick={() => navigate(item.link)}
     >

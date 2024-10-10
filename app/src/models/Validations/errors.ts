@@ -1,5 +1,6 @@
 export const VALIDATION_ERRORS = {
   REQUIRED: 'Обязательное поле не заполнено',
+  ONLY_NUMBERS: 'Только цифры',
 
   SERVER: {
     UNTYPED_ERROR: 'Ошибка сервера',

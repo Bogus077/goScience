@@ -12,8 +12,17 @@
   padding: 20px;
   cursor: pointer;
 
+  @media screen and (max-width: 600px) {
+    width: 90px;
+    height: 55px;
+    padding: 10px;
+  }
+
   .title {
     font-size: 16px;
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+    }
   }
 
   .triangle {
@@ -34,6 +43,26 @@
 
     .triangle {
       display: block;
+
+      @media screen and (max-width: 600px) {
+        display: none;
+      }
+    }
+  }
+
+  &_disabled {
+    cursor: default;
+    background-color: $backgroundColor;
+    border: 1px solid $disableColor;
+
+    svg {
+      path {
+        fill: $disableColor;
+      }
+    }
+
+    .title {
+      color: $secondaryColor;
     }
   }
 }

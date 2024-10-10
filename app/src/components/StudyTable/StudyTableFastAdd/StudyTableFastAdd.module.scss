@@ -1,0 +1,35 @@
+@import '../../../assets/helpers/colors.scss';
+
+.fastAdd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+}
+
+.button {
+  cursor: pointer;
+}
+
+.edit {
+  cursor: pointer;
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+
+  svg {
+    color: $secondaryColor;
+  }
+}
+
+.skeleton {
+  width: 300px;
+  height: 35px;
+
+  span {
+    height: 100%;
+  }
+}

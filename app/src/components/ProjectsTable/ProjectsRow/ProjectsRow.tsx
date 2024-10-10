@@ -47,7 +47,9 @@ export const ProjectsRow = ({ project }: ProjectsRowTypes) => {
           type={project.archived ? 'disable' : 'positive'}
           text={project.archived ? 'В архиве' : 'Активен'}
         />
-        <div className={styles.row__title}>{project.label}</div>
+        <div className={styles.row__title} title={project.label}>
+          {project.label}
+        </div>
         <div className={styles.row__submenu}>
           <Submenu
             links={[

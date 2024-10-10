@@ -14,6 +14,7 @@ import {
 } from '../../../utils/tasks/tasks';
 import { countKidActivity } from '../../../utils/kid/kid';
 import { Task } from '../../UI/Task';
+import { StudyTableFastAdd } from '../StudyTableFastAdd';
 const cx = classNames.bind(styles);
 
 type TableRowTypes = {
@@ -67,6 +68,7 @@ export const StudyTableRow = ({
           lastName={kid.surname}
         />
         <div className={styles.row__tasks}>
+          <StudyTableFastAdd kid={kid} />
           {dayTasks.lateTasks.map((task) => (
             <Task task={task} key={task.id} />
           ))}

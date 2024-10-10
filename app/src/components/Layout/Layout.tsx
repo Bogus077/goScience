@@ -4,6 +4,7 @@ import { PanelHeader } from '../PanelHeader';
 import { MainMenu } from '../UI/MainMenu';
 import { PageLoader } from '../UI/PageLoader';
 import styles from './Layout.module.scss';
+import { MainMenuMobile } from '../UI/MainMenuMobile';
 
 type Props = {
   children: ReactElement;
@@ -19,7 +20,12 @@ export const Layout = ({ children }: Props) => {
       ) : (
         <>
           <div className={styles.layout__sideMenu}>
-            <MainMenu user={data} />
+            <div className={styles.layout__sideMenu_mobile}>
+              <MainMenuMobile user={data} />
+            </div>
+            <div className={styles.layout__sideMenu_desktop}>
+              <MainMenu user={data} />
+            </div>
           </div>
           <div className={styles.layout__main}>
             <PanelHeader />

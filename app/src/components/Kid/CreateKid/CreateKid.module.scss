@@ -3,6 +3,7 @@
 .form {
   display: flex;
   flex-direction: column;
+  z-index: 1;
 
   &__class {
     display: flex;

@@ -71,6 +71,8 @@ import {
   GetSummaryResponse,
 } from '../models/summary/summary';
 import {
+  AddDayToTaskRequest,
+  AddDayToTaskResponse,
   ChangeTaskStatusRequest,
   ChangeTaskStatusResponse,
   CreateDayTaskRequest,
@@ -358,6 +360,16 @@ export const GSAPI = createApi({
     >({
       query: (params) => ({
         url: '/tasks/status',
+        method: 'post',
+        body: params,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        error ? [] : [{ type: 'Class' }, 'Classes', 'TaskStats'],
+    }),
+
+    addDayToTask: build.mutation<AddDayToTaskResponse, AddDayToTaskRequest>({
+      query: (params) => ({
+        url: '/tasks/addDay',
         method: 'post',
         body: params,
       }),
@@ -901,6 +913,7 @@ export const {
   useCreateMonthTaskMutation,
   useCreateQuarterTaskMutation,
   useChangeTaskStatusMutation,
+  useAddDayToTaskMutation,
   useRemoveTaskMutation,
   useGetUserStatsQuery,
   useGetUserTeamsQuery,
