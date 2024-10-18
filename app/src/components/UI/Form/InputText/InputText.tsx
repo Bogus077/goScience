@@ -14,6 +14,7 @@ type InputTextTypes = {
   disabled?: boolean;
   onChange?: () => void;
   onBlur?: () => void;
+  autoFocus?: boolean;
 };
 
 export const InputText = ({
@@ -24,6 +25,7 @@ export const InputText = ({
   required,
   disabled,
   onBlur,
+  autoFocus,
 }: InputTextTypes) => {
   const [field, { error }] = useField<string>(name);
 
@@ -40,6 +42,7 @@ export const InputText = ({
         placeholder={placeholder}
         disabled={disabled}
         onBlur={onBlur}
+        autoFocus={autoFocus}
       />
       {isInvalid && (
         <div

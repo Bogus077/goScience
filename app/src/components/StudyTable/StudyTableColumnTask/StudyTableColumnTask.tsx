@@ -12,6 +12,7 @@ import {
   TaskWeek,
 } from '../../../models/Tasks/tasks';
 import { getActiveTasks, isActiveTasksEmpty } from '../../../utils/tasks/tasks';
+import Skeleton from '@mui/material/Skeleton';
 const cx = classNames.bind(styles);
 
 type StudyTableColumnTaskTypes = {
@@ -26,6 +27,7 @@ type StudyTableColumnTaskTypes = {
   activeTasks: ActiveTasks;
   setActiveTasks: React.Dispatch<React.SetStateAction<ActiveTasks>>;
   handleResetActiveTasks: () => void;
+  isFetching?: boolean;
 };
 
 export const StudyTableColumnTask = ({
@@ -40,9 +42,15 @@ export const StudyTableColumnTask = ({
   activeTasks,
   setActiveTasks,
   handleResetActiveTasks,
+  isFetching,
 }: StudyTableColumnTaskTypes) => {
   const [taskPopup, setTaskPopup] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const taskRef = useRef(document.createElement('div'));
+
+  useEffect(() => {
+    setIsLoading(isFetching ?? false);
+  }, [isFetching]);
 
   useEffect(() => {
     //Обрабатываем клик вне компонента
@@ -88,17 +96,26 @@ export const StudyTableColumnTask = ({
       onClick={handleClick}
       ref={taskRef}
     >
-      <span>{task.label}</span>
-      <div
-        className={cx('task__points', {
-          task__points_disabled: task.points === 0,
-          task__points_warning:
-            task.points > POINTS.positive && task.points <= POINTS.warning,
-          task__points_negative: task.points > POINTS.warning,
-        })}
-      >
-        {task.points ?? 0}
-      </div>
+      {isLoading ? (
+        <div className={styles.task__skeleton}>
+          <Skeleton height={30} />
+        </div>
+      ) : (
+        <span>{task.label}</span>
+      )}
+
+      {!isLoading && (
+        <div
+          className={cx('task__points', {
+            task__points_disabled: task.points === 0,
+            task__points_warning:
+              task.points > POINTS.positive && task.points <= POINTS.warning,
+            task__points_negative: task.points > POINTS.warning,
+          })}
+        >
+          {task.points ?? 0}
+        </div>
+      )}
 
       <div
         className={cx('task__popup', {
@@ -109,6 +126,7 @@ export const StudyTableColumnTask = ({
           id={task.id}
           type={type}
           handleResetActiveTasks={handleResetActiveTasks}
+          setIsLoading={setIsLoading}
         />
       </div>
     </div>

@@ -70,7 +70,11 @@ export const StudyTableFastAdd = ({ kid }: StudyTableFastAddTypes) => {
           </div>
         ) : (
           <div className={styles.fastAdd}>
-            <InputText name="label" placeholder="Новая задача" />
+            <InputText
+              name="label"
+              placeholder="Новая задача"
+              autoFocus={true}
+            />
             <div className={styles.button} onClick={() => formik.submitForm()}>
               <IconCheck
                 disabled={Boolean(

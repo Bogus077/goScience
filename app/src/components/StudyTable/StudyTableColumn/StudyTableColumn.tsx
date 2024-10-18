@@ -32,6 +32,7 @@ type StudyTableColumnTypes = {
   activeTasks: ActiveTasks;
   setActiveTasks: React.Dispatch<React.SetStateAction<ActiveTasks>>;
   handleResetActiveTasks: () => void;
+  isFetching?: boolean;
 };
 
 export const StudyTableColumn = ({
@@ -46,6 +47,7 @@ export const StudyTableColumn = ({
   tasksWeeks,
   tasksQuarters,
   handleResetActiveTasks,
+  isFetching,
 }: StudyTableColumnTypes) => {
   const isNoActiveTasks = isActiveTasksEmpty(activeTasks);
 
@@ -74,6 +76,7 @@ export const StudyTableColumn = ({
           tasksMonths={tasksMonths}
           tasksQuarters={tasksQuarters}
           handleResetActiveTasks={handleResetActiveTasks}
+          isFetching={isFetching}
         />
       ))}
 
@@ -99,6 +102,7 @@ export const StudyTableColumn = ({
           tasksMonths={tasksMonths}
           tasksQuarters={tasksQuarters}
           handleResetActiveTasks={handleResetActiveTasks}
+          isFetching={isFetching}
         />
       ))}
 
@@ -124,6 +128,7 @@ export const StudyTableColumn = ({
           tasksMonths={tasksMonths}
           tasksQuarters={tasksQuarters}
           handleResetActiveTasks={handleResetActiveTasks}
+          isFetching={isFetching}
         />
       ))}
     </div>

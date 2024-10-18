@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styles from './StudyTableRow.module.scss';
+import Markdown from 'markdown-to-jsx';
 import classNames from 'classnames/bind';
 import { IconArrow } from '../../UI/Icons/MainMenu/IconArrow';
 import { UserCol } from '../../UserCol';
@@ -15,19 +16,33 @@ import {
 import { countKidActivity } from '../../../utils/kid/kid';
 import { Task } from '../../UI/Task';
 import { StudyTableFastAdd } from '../StudyTableFastAdd';
+import { IconHelp } from '../../UI/Icons/Forms/IconHelp';
+import Skeleton from '@mui/material/Skeleton';
+import { useHelpAssistant } from '../../../hooks/useHelpAssistant';
 const cx = classNames.bind(styles);
 
 type TableRowTypes = {
   kid: Kid;
   extended?: number;
+  isFetching?: boolean;
   setExtended: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 
 export const StudyTableRow = ({
   kid,
   extended,
+  isFetching,
   setExtended,
 }: TableRowTypes) => {
+  const {
+    messages,
+    loading: isAssistantLoading,
+    getHelpAssistant,
+  } = useHelpAssistant({
+    type: 'tasks',
+    params: { KidId: kid.id?.toString() },
+  });
+
   const [activeTasks, setActiveTasks] = useState<ActiveTasks>({
     days: [],
     weeks: [],
@@ -122,6 +137,41 @@ export const StudyTableRow = ({
           inner_extended: extended === kid.id,
         })}
       >
+        <div
+          className={styles.helper}
+          onClick={
+            isAssistantLoading || messages.length > 0
+              ? undefined
+              : getHelpAssistant
+          }
+        >
+          <div
+            className={styles.helper__button}
+            title="Помощь ассистента"
+            onClick={
+              isAssistantLoading || messages.length > 0
+                ? undefined
+                : getHelpAssistant
+            }
+          >
+            <IconHelp disabled={isAssistantLoading || messages.length > 0} />
+          </div>
+          <div className={styles.helper__text}>
+            {isAssistantLoading && messages.length === 0 ? (
+              <div className={styles.helper__skeleton}>
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+              </div>
+            ) : messages.length > 0 ? (
+              <div className={styles.helper__content}>
+                {<Markdown>{messages.join('')}</Markdown>}
+              </div>
+            ) : (
+              'Помощь ассистента'
+            )}
+          </div>
+        </div>
         <StudyTableColumn
           type="day"
           header="День"
@@ -137,6 +187,7 @@ export const StudyTableRow = ({
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
           handleResetActiveTasks={handleResetActiveTasks}
+          isFetching={isFetching}
         />
         <StudyTableColumn
           type="week"
@@ -153,6 +204,7 @@ export const StudyTableRow = ({
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
           handleResetActiveTasks={handleResetActiveTasks}
+          isFetching={isFetching}
         />
         <StudyTableColumn
           type="month"
@@ -169,6 +221,7 @@ export const StudyTableRow = ({
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
           handleResetActiveTasks={handleResetActiveTasks}
+          isFetching={isFetching}
         />
         <StudyTableColumn
           type="quarter"
@@ -185,6 +238,7 @@ export const StudyTableRow = ({
           activeTasks={activeTasks}
           setActiveTasks={setActiveTasks}
           handleResetActiveTasks={handleResetActiveTasks}
+          isFetching={isFetching}
         />
       </div>
     </div>

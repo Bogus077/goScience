@@ -16,11 +16,17 @@ type TaskDoTypes = {
   id: number;
   type: TaskTypes;
   handleResetActiveTasks?: () => void;
+  setIsLoading?: (value: React.SetStateAction<boolean>) => void;
 };
 
-export const TaskDo = ({ id, type, handleResetActiveTasks }: TaskDoTypes) => {
+export const TaskDo = ({
+  id,
+  type,
+  handleResetActiveTasks,
+  setIsLoading,
+}: TaskDoTypes) => {
   const [isRemoveModal, setRemoveModal] = useState(false);
-  const [removeTask, { isLoading: IsRemoveLoading }] = useRemoveTaskMutation();
+  const [removeTask, { isLoading: isRemoveLoading }] = useRemoveTaskMutation();
   const [changeStatus, { isLoading: isChangeLoading }] =
     useChangeTaskStatusMutation();
   const [addDayToTask, { isLoading: isAddDayLoading }] =
@@ -32,6 +38,7 @@ export const TaskDo = ({ id, type, handleResetActiveTasks }: TaskDoTypes) => {
 
   const handleCheckTask = async () => {
     if (isChangeLoading) return;
+    setIsLoading?.(true);
 
     const newStatus = {
       type,
@@ -39,19 +46,25 @@ export const TaskDo = ({ id, type, handleResetActiveTasks }: TaskDoTypes) => {
       id,
     };
     await changeStatus(newStatus);
+    setIsLoading?.(false);
+
     if (handleResetActiveTasks) handleResetActiveTasks();
   };
 
   const handleAddDayToTask = async () => {
     if (isAddDayLoading) return;
+    setIsLoading?.(true);
 
     await addDayToTask({ id });
+    setIsLoading?.(false);
+
     if (handleResetActiveTasks) handleResetActiveTasks();
   };
 
   const handleEditTask = () => {};
   const handleRemoveTask = async () => {
-    if (IsRemoveLoading) return;
+    if (isRemoveLoading) return;
+    setIsLoading?.(true);
 
     const newStatus = {
       type,
@@ -60,6 +73,8 @@ export const TaskDo = ({ id, type, handleResetActiveTasks }: TaskDoTypes) => {
 
     setRemoveModal(false);
     await removeTask(newStatus);
+    setIsLoading?.(false);
+
     if (handleResetActiveTasks) handleResetActiveTasks();
   };
 

@@ -1,5 +1,5 @@
 import { FormikContext, useFormik } from 'formik';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Kid } from '../../models/Kid/kid';
 import {
@@ -24,6 +24,15 @@ import { SwitchBar } from '../UI/SwitchBar';
 import styles from './CreateTask.module.scss';
 import { LinkEvent } from './LinkEvent';
 
+type LastTask = {
+  type: number;
+  KidId: number[];
+  links: number[];
+  points: number;
+  date: Date;
+  label: string;
+  description: string;
+};
 type CreateTaskTypes = {
   kids: Kid[];
 };
@@ -46,6 +55,15 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
     useCreateMonthTaskMutation();
   const [createQuarterTask, { isLoading: isQuarterTaskCreating }] =
     useCreateQuarterTaskMutation();
+
+  const lastTasksJson = localStorage.getItem('lastTasks');
+  const lastTasks: LastTask[] | null = lastTasksJson
+    ? JSON.parse(lastTasksJson)
+    : null;
+
+  useEffect(() => {
+    setActiveLinks([]);
+  }, [type]);
 
   const isLoading =
     isDayTaskCreating ||
@@ -78,6 +96,14 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
         date: date.toISOString(),
         status: false,
       };
+
+      localStorage.setItem(
+        'lastTasks',
+        JSON.stringify([
+          { ...newTask, type, date, points, links: activeLinks },
+          ...(lastTasks?.slice(0, 4) ?? []),
+        ])
+      );
 
       //Если день:
       if (type === 1) {
@@ -170,6 +196,20 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
     { label: 'Четверть', active: type === 4, id: 4 },
   ];
 
+  const applyLastTask = (lastTask: LastTask) => {
+    if (lastTask) {
+      setType(lastTask.type);
+      setActiveKids(lastTask.KidId);
+      setActiveLinks(lastTask.links);
+      setPoints(lastTask.points);
+      setDate(new Date(lastTask.date));
+      formik.setValues({
+        label: lastTask.label,
+        description: lastTask.description,
+      });
+    }
+  };
+
   const getDateFinish = useCallback(() => {
     if (!date) return undefined;
     const dateFinish = new Date(date.toDateString());
@@ -194,6 +234,18 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
     <FormikContext.Provider value={formik}>
       <div className={styles.form}>
         <div className={styles.form__header}>Новое задание</div>
+
+        {lastTasks && (
+          <div className={styles.lastTasks__wrapper}>
+            {lastTasks.map((lastTask) => (
+              <Button
+                type="regular"
+                onClick={() => applyLastTask(lastTask)}
+                label={lastTask.label}
+              />
+            ))}
+          </div>
+        )}
 
         <div className={styles.form__content}>
           <SwitchBar items={taskTypes} handleChangeActive={setType} />

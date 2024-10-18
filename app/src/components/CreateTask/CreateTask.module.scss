@@ -48,3 +48,22 @@
     background-color: #fff;
   }
 }
+
+.lastTasks {
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 20px 0 10px;
+    gap: 20px;
+
+    > div {
+      margin-top: 0;
+    }
+
+    @media screen and (max-width: 600px) {
+      gap: 10px;
+      justify-content: center;
+    }
+  }
+}

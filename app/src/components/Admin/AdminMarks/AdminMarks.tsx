@@ -23,10 +23,43 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import HelpCenterOutlinedIcon from '@mui/icons-material/HelpCenterOutlined';
+import HistoryIcon from '@mui/icons-material/History';
+import {
+  useGetHelpAdviceQuery,
+  useGetMarksQuery,
+  useLazyGetHelpAdviceQuery,
+  useUploadMarksMutation,
+  useUploadMarksTxtMutation,
+} from '../../../redux/GSApi';
+import { API_URL } from '../../../utils/api';
+import { KidMarks } from '../../../models/Marks/marks';
+import { Loader } from '../../UI/Loader';
+import { useHelpAssistant } from '../../../hooks/useHelpAssistant';
+import Markdown from 'markdown-to-jsx';
+import { IconButton, Skeleton } from '@mui/material';
+import { format } from 'date-fns';
+import ru from 'date-fns/locale/ru';
 
 export const AdminMarks = () => {
-  const [excel, setExcel] = useState<Row[] | null>(null);
+  const [kids, setKids] = useState<KidMarks[] | null>(null);
   const [averageFilter, setAverageFilter] = useState(99);
+  const {
+    data: marksFromServer,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useGetMarksQuery();
+  const [triggerMarksTxtUpload, marksTxtUploadQueryState] =
+    useUploadMarksTxtMutation();
+
+  const {
+    messages,
+    loading: isAssistantLoading,
+    getHelpAssistant,
+  } = useHelpAssistant({
+    type: 'marks',
+  });
 
   // Высота меню
   const [menuHeight, setMenuHeight] = useState(0);
@@ -34,6 +67,15 @@ export const AdminMarks = () => {
   useEffect(() => {
     setMenuHeight(menuRef?.current?.clientHeight ?? 0);
   });
+
+  useEffect(() => {
+    if (
+      marksFromServer?.marksList.length &&
+      marksFromServer?.marksList.length > 0
+    ) {
+      setKids(marksFromServer.marksList[0].marks);
+    }
+  }, [marksFromServer]);
 
   // Загрузка файла
   const handleDeliveryFileUpload = async (
@@ -43,12 +85,15 @@ export const AdminMarks = () => {
       return;
     }
 
-    readXlsxFile(event.target.files[0]).then((rows) => {
-      setExcel(rows);
+    await readXlsxFile(event.target.files[0]).then((rows) => {
+      const kidsNew = getMarks({ excel: rows });
+
+      setKids(kidsNew);
+
+      kidsNew && triggerMarksTxtUpload({ marks: kidsNew }).unwrap();
     });
   };
 
-  const kids = useMemo(() => getMarks({ excel }), [excel]);
   const kidsFiltered = useMemo(() => {
     return kids
       ?.map((kid) => {
@@ -122,14 +167,18 @@ export const AdminMarks = () => {
         </Button>
       </Grid>
 
-      {!excel ? (
-        <div className={styles.info}>
-          Загрузите отчёт "Распечатка классного журнала", чтобы увидеть оценки.
-          <br />
-          Обратите внимание, что АСУ РСО выдаёт отчёт в формате xls (это старый
-          файл экселя, который похоронили ещё в 2007). Вам необходимо
-          пересохранить этот отчёт в формате xlsx (Открываем файл в экселе -
-          файл - сохранить как - Книга Excel (*.xlsx))
+      {!kids ? (
+        <div className={styles.info__wrapper}>
+          <div className={styles.info}>
+            Загрузите отчёт "Распечатка классного журнала", чтобы увидеть
+            оценки.
+            <br />
+            Обратите внимание, что АСУ РСО выдаёт отчёт в формате xls (это
+            старый файл экселя, который похоронили ещё в 2007). Вам необходимо
+            пересохранить этот отчёт в формате xlsx (Открываем файл в экселе -
+            файл - сохранить как - Книга Excel (*.xlsx))
+          </div>
+          <div>{isLoading && <Loader />}</div>
         </div>
       ) : (
         <div className={styles.wrapper}>
@@ -182,34 +231,65 @@ export const AdminMarks = () => {
             </AccordionDetails>
           </Accordion>
 
-          {/* Фильтры */}
-          <div className={styles.filters}>
-            <ButtonGroup variant="outlined" aria-label="Фильтрация по оценкам">
+          <div className={styles.helpPanel}>
+            <div className={styles.helpPanel__helpButton}>
               <Button
-                onClick={() => setAverageFilter(2.5)}
-                variant={averageFilter >= 2.5 ? 'contained' : 'outlined'}
+                startIcon={<HelpCenterOutlinedIcon />}
+                variant="outlined"
+                onClick={
+                  messages.length > 0 || isAssistantLoading
+                    ? undefined
+                    : getHelpAssistant
+                }
+                disabled={messages.length > 0 || isAssistantLoading}
               >
-                Двойки
+                Помощь ассистента
               </Button>
-              <Button
-                onClick={() => setAverageFilter(3.5)}
-                variant={averageFilter >= 3.5 ? 'contained' : 'outlined'}
+            </div>
+            {/* Фильтры */}
+            <div className={styles.filters}>
+              <ButtonGroup
+                variant="outlined"
+                aria-label="Фильтрация по оценкам"
               >
-                Тройки
-              </Button>
-              <Button
-                onClick={() => setAverageFilter(4.5)}
-                variant={averageFilter >= 4.5 ? 'contained' : 'outlined'}
-              >
-                Четверки
-              </Button>
-              <Button
-                onClick={() => setAverageFilter(99)}
-                variant={averageFilter >= 5 ? 'contained' : 'outlined'}
-              >
-                Все оценки
-              </Button>
-            </ButtonGroup>
+                <Button
+                  onClick={() => setAverageFilter(2.5)}
+                  variant={averageFilter >= 2.5 ? 'contained' : 'outlined'}
+                >
+                  Двойки
+                </Button>
+                <Button
+                  onClick={() => setAverageFilter(3.5)}
+                  variant={averageFilter >= 3.5 ? 'contained' : 'outlined'}
+                >
+                  Тройки
+                </Button>
+                <Button
+                  onClick={() => setAverageFilter(4.5)}
+                  variant={averageFilter >= 4.5 ? 'contained' : 'outlined'}
+                >
+                  Четверки
+                </Button>
+                <Button
+                  onClick={() => setAverageFilter(99)}
+                  variant={averageFilter >= 5 ? 'contained' : 'outlined'}
+                >
+                  Все оценки
+                </Button>
+              </ButtonGroup>
+            </div>
+            {isAssistantLoading && messages.length === 0 && (
+              <div className={styles.helpPanel__loading}>
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+              </div>
+            )}
+            {messages.length > 0 && (
+              <div className={styles.helpPanel__message}>
+                <Markdown>{messages.join('')}</Markdown>
+              </div>
+            )}
           </div>
 
           <div className={styles.kidList}>
@@ -234,6 +314,25 @@ export const AdminMarks = () => {
                     scrollMarginTop: menuHeight,
                   }}
                 >
+                  <div className={styles.subjects__header}>
+                    <HistoryIcon />
+                    {marksFromServer?.dateList?.map((date, index) => {
+                      const dateObj = new Date(date);
+                      return (
+                        <Button
+                          key={`${dateObj.toDateString()}-${kid.kid}-${index}`}
+                          size="small"
+                          variant="outlined"
+                          onClick={() =>
+                            marksFromServer?.marksList?.[index]?.marks &&
+                            setKids(marksFromServer?.marksList?.[index]?.marks)
+                          }
+                        >
+                          {format(dateObj, 'dd MMMM', { locale: ru })}
+                        </Button>
+                      );
+                    })}
+                  </div>
                   {kid.subjects.map((subject) => (
                     <div
                       key={`${kid}-${subject.subject}`}

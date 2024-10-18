@@ -11,6 +11,11 @@
   font-size: 12px;
   cursor: pointer;
 
+  &__skeleton {
+    width: 100%;
+    padding-right: 10px;
+  }
+
   &_disabled {
     opacity: 0.1;
     transition: 0.3s;

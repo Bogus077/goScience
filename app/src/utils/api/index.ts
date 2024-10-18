@@ -22,6 +22,7 @@ export const API_URL = process.env.REACT_APP_API_URL;
 
 export const GSBaseQuery = fetchBaseQuery({
   baseUrl: API_URL,
+  credentials: 'include',
   prepareHeaders: (headers, reduxApi) => {
     const state = reduxApi.getState() as AppState;
 

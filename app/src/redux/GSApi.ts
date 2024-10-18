@@ -113,6 +113,17 @@ import {
   GetEventRequest,
   UpdateEventRequest,
 } from '../models/Event/event';
+import {
+  DownloadMarksResponse,
+  UploadMarksFileRequest,
+  UploadMarksFileResponse,
+  UploadMarksTxtRequest,
+  UploadMarksTxtResponse,
+} from '../models/Marks/marks';
+import {
+  GetDefaultHelperResponse,
+  GetHelpWithTasksRequest,
+} from '../models/Helper/helprer';
 
 export const GSAPI = createApi({
   reducerPath: 'GS_REDUCER',
@@ -147,6 +158,8 @@ export const GSAPI = createApi({
     'Event',
     'Events',
     'AddressList',
+    'kidMarks',
+    'assistant',
   ],
   keepUnusedDataFor: 30,
   endpoints: (build) => ({
@@ -385,6 +398,45 @@ export const GSAPI = createApi({
       }),
       invalidatesTags: (result, error, arg) =>
         error ? [] : [{ type: 'Class' }, 'Classes'],
+    }),
+
+    uploadMarks: build.mutation<
+      UploadMarksFileResponse,
+      UploadMarksFileRequest
+    >({
+      query: ({ formData }) => ({
+        url: '/marks/upload',
+        method: 'post',
+        body: formData,
+      }),
+    }),
+
+    uploadMarksTxt: build.mutation<
+      UploadMarksTxtResponse,
+      UploadMarksTxtRequest
+    >({
+      query: ({ marks }) => ({
+        url: '/marks/uploadTxt',
+        method: 'post',
+        body: marks,
+      }),
+    }),
+
+    getMarks: build.query<DownloadMarksResponse, void>({
+      query: () => ({
+        url: '/marks/download',
+        resposeType: 'string',
+      }),
+      // providesTags: (result) =>
+      //   result
+      //     ? [
+      //         ...result.marks.map(({ kid }) => ({
+      //           type: 'kidMarks' as const,
+      //           kid,
+      //         })),
+      //         'kidMarks',
+      //       ]
+      //     : [],
     }),
 
     getUserStats: build.query<GetUserStatsResponse, unknown>({
@@ -886,11 +938,22 @@ export const GSAPI = createApi({
       providesTags: (result) => (result ? ['AddressList'] : []),
     }),
 
-    getHelpAdvice: build.query<string[], void>({
+    getHelpAdvice: build.query<GetDefaultHelperResponse, void>({
       query: () => ({
         url: '/helper/help',
       }),
       // providesTags: (result) => (result ? ['AddressList'] : []),
+    }),
+
+    getHelpAdviceWithTasks: build.mutation<
+      GetDefaultHelperResponse,
+      GetHelpWithTasksRequest
+    >({
+      query: (body) => ({
+        url: '/helper/tasks',
+        method: 'post',
+        body,
+      }),
     }),
   }),
 });
@@ -957,4 +1020,9 @@ export const {
   useDeleteEventMutation,
   useGetAddressListQuery,
   useGetHelpAdviceQuery,
+  useLazyGetHelpAdviceQuery,
+  useUploadMarksMutation,
+  useUploadMarksTxtMutation,
+  useGetMarksQuery,
+  useGetHelpAdviceWithTasksMutation,
 } = GSAPI;
