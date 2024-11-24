@@ -5,7 +5,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import formatWithOptions from 'date-fns/fp/formatWithOptions';
 import ru from 'date-fns/locale/ru';
-import petrovich from 'petrovich';
+import { incline } from 'lvovich';
 
 export function createEventDoc(event: Event) {
   const person = {
@@ -14,9 +14,9 @@ export function createEventDoc(event: Event) {
     last: event.Users[0]?.surname,
   };
 
-  const accusative = petrovich(person, 'accusative');
-  const dative = petrovich(person, 'dative');
-  const genitive = petrovich(person, 'genitive');
+  const accusative = incline(person, 'accusative');
+  const dative = incline(person, 'dative');
+  const genitive = incline(person, 'genitive');
 
   const userName = {
     dative: `${dative.last} ${dative.first} ${dative.middle}`,
@@ -200,7 +200,7 @@ export function createEventDoc(event: Event) {
         text: `к приказу от ${orderDate}г. № ${event.orderNumber ?? '___'}/од`,
         alignment: 'right',
         fontSize: 10,
-        margin: [0, 0, 0, 10],
+        margin: [0, 0, 0, 0],
       },
       {
         text: 'Список сопровождающих',

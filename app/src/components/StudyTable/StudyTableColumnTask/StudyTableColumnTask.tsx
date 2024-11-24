@@ -49,7 +49,7 @@ export const StudyTableColumnTask = ({
   const taskRef = useRef(document.createElement('div'));
 
   useEffect(() => {
-    setIsLoading(isFetching ?? false);
+    if (!isFetching && isLoading) setIsLoading(false);
   }, [isFetching]);
 
   useEffect(() => {

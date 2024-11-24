@@ -16,6 +16,7 @@
     "classnames": "^2.3.1",
     "date-fns": "^2.29.3",
     "formik": "^2.2.9",
+    "lvovich": "^2.0.2",
     "markdown-to-jsx": "^7.5.0",
     "notistack": "^2.0.8",
     "pdfmake": "^0.2.7",

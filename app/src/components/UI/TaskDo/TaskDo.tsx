@@ -46,7 +46,7 @@ export const TaskDo = ({
       id,
     };
     await changeStatus(newStatus);
-    setIsLoading?.(false);
+    setIsLoading?.(true);
 
     if (handleResetActiveTasks) handleResetActiveTasks();
   };
@@ -56,7 +56,7 @@ export const TaskDo = ({
     setIsLoading?.(true);
 
     await addDayToTask({ id });
-    setIsLoading?.(false);
+    setIsLoading?.(true);
 
     if (handleResetActiveTasks) handleResetActiveTasks();
   };
@@ -73,7 +73,7 @@ export const TaskDo = ({
 
     setRemoveModal(false);
     await removeTask(newStatus);
-    setIsLoading?.(false);
+    setIsLoading?.(true);
 
     if (handleResetActiveTasks) handleResetActiveTasks();
   };

@@ -73,7 +73,31 @@ export const AdminMarks = () => {
       marksFromServer?.marksList.length &&
       marksFromServer?.marksList.length > 0
     ) {
-      setKids(marksFromServer.marksList[0].marks);
+      const newMarks = marksFromServer.marksList[0].marks;
+      const lastMarks = marksFromServer.marksList[1]?.marks;
+
+      if (lastMarks) {
+        const marksWithNewLabel = newMarks.map((kid, kidIndex) => ({
+          kid: kid.kid,
+          subjects: kid.subjects.map((subject, subjectIndex) => ({
+            subject: subject.subject,
+            marks: subject.marks.map((mark, markIndex) => ({
+              mark: mark.mark,
+              month: mark.month,
+              date: mark.date,
+              new:
+                mark.mark !==
+                lastMarks[kidIndex]?.subjects[subjectIndex]?.marks[markIndex]
+                  ?.mark,
+            })),
+            average: subject.average,
+          })),
+        }));
+
+        setKids(marksWithNewLabel);
+      } else {
+        setKids(marksFromServer.marksList[0].marks);
+      }
     }
   }, [marksFromServer]);
 

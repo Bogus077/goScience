@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styles from './AdminEventItem.module.scss';
+import cn from 'classnames/bind';
 import { Event } from '../../../../models/Event/event';
 import formatWithOptions from 'date-fns/fp/formatWithOptions';
 import ru from 'date-fns/locale/ru';
@@ -11,6 +12,9 @@ import { useDeleteEventMutation } from '../../../../redux/GSApi';
 import { useSnackbar } from 'notistack';
 import { ConfirmModal } from '../../ConfirmModal';
 import { createEventDoc } from './utils';
+import Tooltip from '@mui/material/Tooltip';
+
+const cx = cn.bind(styles);
 
 type AdminEventItemTypes = {
   event: Event;
@@ -49,7 +53,12 @@ export const AdminEventItem = ({ event }: AdminEventItemTypes) => {
     'd MMMM yyyy'
   )(new Date(event.startDate));
   return (
-    <div className={styles.eventWrapper}>
+    <div
+      className={cx(styles.eventWrapper, {
+        eventWrapper_old:
+          new Date(event.startDate).getTime() < new Date().getTime(),
+      })}
+    >
       <div
         className={styles.eventDate}
         onClick={() =>
@@ -58,23 +67,28 @@ export const AdminEventItem = ({ event }: AdminEventItemTypes) => {
       >
         {eventDate}
       </div>
-      <div
-        className={styles.title}
-        onClick={() =>
-          navigate(`${frontendRoutes.admin.editEvent}/${event.id}`)
-        }
-      >
-        {event.title}
-      </div>
+      <Tooltip title={event.title}>
+        <div
+          className={styles.title}
+          onClick={() =>
+            navigate(`${frontendRoutes.admin.editEvent}/${event.id}`)
+          }
+          aria-label={event.title}
+        >
+          {event.title}
+        </div>
+      </Tooltip>
 
-      <div
-        className={styles.address}
-        onClick={() =>
-          navigate(`${frontendRoutes.admin.editEvent}/${event.id}`)
-        }
-      >
-        {event.finishAddress}
-      </div>
+      <Tooltip title={event.finishAddress}>
+        <div
+          className={styles.address}
+          onClick={() =>
+            navigate(`${frontendRoutes.admin.editEvent}/${event.id}`)
+          }
+        >
+          {event.finishAddress}
+        </div>
+      </Tooltip>
 
       <div className={styles.buttons}>
         <IconButton

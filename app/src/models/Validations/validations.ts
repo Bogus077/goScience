@@ -76,6 +76,12 @@ export const createKidValidationSchema = editKidValidationSchema;
  */
 export const createTaskValidationSchema = object({
   label: string().required(VALIDATION_ERRORS.REQUIRED),
+  tasks: array(
+    object({
+      label: string().required(VALIDATION_ERRORS.REQUIRED),
+      date: date().required(VALIDATION_ERRORS.REQUIRED),
+    })
+  ),
 });
 
 export const createFastTaskValidationSchema = object({
@@ -85,6 +91,7 @@ export const createFastTaskValidationSchema = object({
 export const createTaskInitialValues = {
   label: '',
   description: '',
+  tasks: [] as { label: string; date: Date }[],
 };
 
 export const createFastTaskInitialValues = {

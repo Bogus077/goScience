@@ -328,6 +328,17 @@ export const GSAPI = createApi({
         error ? [] : [{ type: 'Class' }, 'Classes'],
     }),
 
+    createDayTaskWithoutCache: build.mutation<
+      CreateDayTaskResponse,
+      CreateDayTaskRequest
+    >({
+      query: (params) => ({
+        url: '/tasks/createDayTask',
+        method: 'post',
+        body: params,
+      }),
+    }),
+
     createWeekTask: build.mutation<
       CreateWeekTaskResponse,
       CreateWeekTaskRequest
@@ -971,7 +982,9 @@ export const {
   useRemoveKidMutation,
   useChangeUserClassMutation,
   useGetCurrentClassQuery,
+  useLazyGetCurrentClassQuery,
   useCreateDayTaskMutation,
+  useCreateDayTaskWithoutCacheMutation,
   useCreateWeekTaskMutation,
   useCreateMonthTaskMutation,
   useCreateQuarterTaskMutation,

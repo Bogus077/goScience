@@ -56,6 +56,7 @@
     align-items: center;
     padding: 20px 0 10px;
     gap: 20px;
+    color: $secondaryColor;
 
     > div {
       margin-top: 0;
@@ -66,4 +67,17 @@
       justify-content: center;
     }
   }
+}
+
+.repeatedTask {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.repeatedTasksList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

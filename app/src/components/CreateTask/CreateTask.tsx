@@ -1,20 +1,25 @@
-import { FormikContext, useFormik } from 'formik';
+import { FieldArray, FormikContext, useFormik } from 'formik';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Kid } from '../../models/Kid/kid';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   createTaskInitialValues,
   createTaskValidationSchema,
 } from '../../models/Validations/validations';
 import {
   useCreateDayTaskMutation,
+  useCreateDayTaskWithoutCacheMutation,
   useCreateMonthTaskMutation,
   useCreateQuarterTaskMutation,
   useCreateWeekTaskMutation,
+  useGetCurrentClassQuery,
+  useLazyGetCurrentClassQuery,
 } from '../../redux/GSApi';
 import { frontendRoutes } from '../../utils/router/routes';
 import { ConfirmModal } from '../UI/ConfirmModal';
 import { DatePicker } from '../UI/DatePicker';
+import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Button } from '../UI/Form/Button';
 import { InputText } from '../UI/Form/InputText';
 import { KidChooser } from '../UI/KidChooser';
@@ -23,6 +28,17 @@ import { PointsPicker } from '../UI/PointsPicker';
 import { SwitchBar } from '../UI/SwitchBar';
 import styles from './CreateTask.module.scss';
 import { LinkEvent } from './LinkEvent';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  ButtonGroup,
+  IconButton,
+  Button as MuiButton,
+  TextField,
+  Tooltip,
+} from '@mui/material';
+import { IconRepeatOnce, IconTrashX } from '@tabler/icons';
 
 type LastTask = {
   type: number;
@@ -32,9 +48,15 @@ type LastTask = {
   date: Date;
   label: string;
   description: string;
+  repeatedTasks: RepeatedTask[];
 };
 type CreateTaskTypes = {
   kids: Kid[];
+};
+
+type RepeatedTask = {
+  label: string;
+  date: Date;
 };
 
 export const CreateTask = ({ kids }: CreateTaskTypes) => {
@@ -46,9 +68,13 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
   const [points, setPoints] = useState<number>(1);
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [errors, setErrors] = useState<string[]>([]);
+  const [repeatedTaskExpanded, setRepeatedTaskExpanded] =
+    useState<boolean>(false);
+  const [triggerGetCurrenClass, getCurrentClassQueryState] =
+    useLazyGetCurrentClassQuery();
 
   const [createDayTask, { isLoading: isDayTaskCreating }] =
-    useCreateDayTaskMutation();
+    useCreateDayTaskWithoutCacheMutation();
   const [createWeekTask, { isLoading: isWeekTaskCreating }] =
     useCreateWeekTaskMutation();
   const [createMonthTask, { isLoading: isMonthTaskCreating }] =
@@ -69,7 +95,9 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
     isDayTaskCreating ||
     isWeekTaskCreating ||
     isMonthTaskCreating ||
-    isQuarterTaskCreating;
+    isQuarterTaskCreating ||
+    getCurrentClassQueryState.isLoading ||
+    getCurrentClassQueryState.isFetching;
 
   const handleSubmit = useCallback(
     async (values: typeof createTaskInitialValues) => {
@@ -100,7 +128,14 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
       localStorage.setItem(
         'lastTasks',
         JSON.stringify([
-          { ...newTask, type, date, points, links: activeLinks },
+          {
+            ...newTask,
+            type,
+            date,
+            points,
+            links: activeLinks,
+            repeatedTasks: values.tasks,
+          },
           ...(lastTasks?.slice(0, 4) ?? []),
         ])
       );
@@ -116,7 +151,42 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
           if (result.data.errors && result.data.errors.length > 0) {
             setErrors(result.data.errors);
           } else {
-            navigate(frontendRoutes.plan.study);
+            if (values.tasks.length > 0) {
+              const requests = values.tasks.map(async (task) => {
+                const newDayTask = activeLinks[0]
+                  ? {
+                      ...newTask,
+                      TasksWeekId: activeLinks[0],
+                      points,
+                      label: task.label,
+                      date: task.date as unknown as string,
+                    }
+                  : {
+                      ...newTask,
+                      points,
+                      label: task.label,
+                      date: task.date as unknown as string,
+                    };
+
+                const result = await createDayTask(newDayTask);
+                if ('data' in result) {
+                  if (result.data.errors && result.data.errors.length > 0) {
+                    setErrors(result.data.errors);
+                  }
+                }
+              });
+
+              await Promise.all(requests);
+
+              const result = await triggerGetCurrenClass('').unwrap();
+              console.log(result);
+              if (result) {
+                navigate(frontendRoutes.plan.study);
+              }
+            } else {
+              await triggerGetCurrenClass('').unwrap();
+              navigate(frontendRoutes.plan.study);
+            }
           }
         }
       }
@@ -206,6 +276,7 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
       formik.setValues({
         label: lastTask.label,
         description: lastTask.description,
+        tasks: lastTask.repeatedTasks,
       });
     }
   };
@@ -230,6 +301,32 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
     }
   }, [date, type]);
 
+  const handleAddRepeatedTask = () => {
+    const task = formik.values;
+    const repeatedTasks = formik.values.tasks;
+    const taskDate =
+      repeatedTasks.length > 0
+        ? new Date(repeatedTasks[repeatedTasks.length - 1].date)
+        : new Date(date ?? '');
+    taskDate.setDate(taskDate.getDate() + 1);
+    taskDate.setHours(0);
+    taskDate.setMinutes(0);
+    taskDate.setSeconds(0);
+
+    const weekDays = [
+      'в воскресенье',
+      'в понедельник',
+      'во вторник',
+      'в среду',
+      'в четверг',
+      'в пятницу',
+      'в субботу',
+    ];
+    const taskLabel = `${task.label} ${weekDays[taskDate.getDay()]}`;
+
+    return { label: taskLabel, date: taskDate };
+  };
+
   return (
     <FormikContext.Provider value={formik}>
       <div className={styles.form}>
@@ -237,13 +334,20 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
 
         {lastTasks && (
           <div className={styles.lastTasks__wrapper}>
-            {lastTasks.map((lastTask) => (
-              <Button
-                type="regular"
-                onClick={() => applyLastTask(lastTask)}
-                label={lastTask.label}
-              />
-            ))}
+            <ButtonGroup
+              variant="text"
+              aria-label="Выбрать из предыдущих задач"
+              color="inherit"
+            >
+              {lastTasks.map((lastTask) => (
+                <MuiButton
+                  onClick={() => applyLastTask(lastTask)}
+                  key={lastTask.date.toString()}
+                >
+                  {lastTask.label}
+                </MuiButton>
+              ))}
+            </ButtonGroup>
           </div>
         )}
 
@@ -262,6 +366,68 @@ export const CreateTask = ({ kids }: CreateTaskTypes) => {
                 placeholder="Выучить таблицу"
                 label="Название"
               />
+
+              {type === 1 && (
+                <Accordion
+                  expanded={repeatedTaskExpanded}
+                  onChange={() => setRepeatedTaskExpanded((prev) => !prev)}
+                >
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    Повторяющиеся задания
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FieldArray
+                      name="tasks"
+                      render={(arrayHelpers) => (
+                        <div className={styles.repeatedTasksList}>
+                          {formik.values.tasks.map((task, index) => (
+                            <div className={styles.repeatedTask} key={index}>
+                              <InputText
+                                name={`tasks.${index}.label`}
+                                placeholder="Выучить таблицу"
+                                label="Название"
+                              />
+                              <div>
+                                <MuiDatePicker
+                                  label="Дата"
+                                  value={formik.values.tasks[index].date}
+                                  onChange={(newValue) => {
+                                    formik.setFieldValue(
+                                      `tasks.${index}.date`,
+                                      newValue
+                                    );
+                                  }}
+                                  renderInput={(params) => (
+                                    <TextField {...params} fullWidth />
+                                  )}
+                                />
+                              </div>
+                              <div>
+                                <IconButton
+                                  onClick={() => arrayHelpers.remove(index)}
+                                  disabled={!date || !formik.values.label}
+                                >
+                                  <IconTrashX />
+                                </IconButton>
+                              </div>
+                            </div>
+                          ))}
+                          <div>
+                            <MuiButton
+                              onClick={() =>
+                                arrayHelpers.push(handleAddRepeatedTask())
+                              }
+                              disabled={!date || !formik.values.label}
+                            >
+                              Добавить повторяющееся задание
+                            </MuiButton>
+                          </div>
+                        </div>
+                      )}
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              )}
               <InputText
                 name="description"
                 placeholder="Доучить последний ст"

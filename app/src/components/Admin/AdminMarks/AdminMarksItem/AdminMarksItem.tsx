@@ -10,6 +10,7 @@ type AdminMarksItemTypes = {
     mark: string | number;
     month: string;
     date: string;
+    new?: boolean;
   };
   description?: string;
 };
@@ -45,7 +46,7 @@ export const AdminMarksItem = ({ mark, description }: AdminMarksItemTypes) => {
           mark_4: mark.mark === 4,
           mark_3: mark.mark === 3,
           mark_2: mark.mark === 2,
-          // mark_today: isToday,
+          mark_new: mark.new,
         })}
       >
         {isToday && <div className={styles.date}>Сегодня</div>}

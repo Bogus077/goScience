@@ -89,22 +89,24 @@ export const StudyTableColumn = ({
           Просрочено:
         </div>
       )}
-      {tasks.lateTasks.map((task) => (
-        <StudyTableColumnTask
-          type={type}
-          isLate={true}
-          key={task.id}
-          task={task}
-          activeTasks={activeTasks}
-          setActiveTasks={setActiveTasks}
-          tasksDays={tasksDays}
-          tasksWeeks={tasksWeeks}
-          tasksMonths={tasksMonths}
-          tasksQuarters={tasksQuarters}
-          handleResetActiveTasks={handleResetActiveTasks}
-          isFetching={isFetching}
-        />
-      ))}
+      {tasks.lateTasks
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+        .map((task) => (
+          <StudyTableColumnTask
+            type={type}
+            isLate={true}
+            key={task.id}
+            task={task}
+            activeTasks={activeTasks}
+            setActiveTasks={setActiveTasks}
+            tasksDays={tasksDays}
+            tasksWeeks={tasksWeeks}
+            tasksMonths={tasksMonths}
+            tasksQuarters={tasksQuarters}
+            handleResetActiveTasks={handleResetActiveTasks}
+            isFetching={isFetching}
+          />
+        ))}
 
       {tasks.futureTasks.length > 0 && (
         <div
@@ -115,22 +117,24 @@ export const StudyTableColumn = ({
           Будущие задачи:
         </div>
       )}
-      {tasks.futureTasks.map((task) => (
-        <StudyTableColumnTask
-          type={type}
-          isFuture={true}
-          key={task.id}
-          task={task}
-          activeTasks={activeTasks}
-          setActiveTasks={setActiveTasks}
-          tasksDays={tasksDays}
-          tasksWeeks={tasksWeeks}
-          tasksMonths={tasksMonths}
-          tasksQuarters={tasksQuarters}
-          handleResetActiveTasks={handleResetActiveTasks}
-          isFetching={isFetching}
-        />
-      ))}
+      {tasks.futureTasks
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+        .map((task) => (
+          <StudyTableColumnTask
+            type={type}
+            isFuture={true}
+            key={task.id}
+            task={task}
+            activeTasks={activeTasks}
+            setActiveTasks={setActiveTasks}
+            tasksDays={tasksDays}
+            tasksWeeks={tasksWeeks}
+            tasksMonths={tasksMonths}
+            tasksQuarters={tasksQuarters}
+            handleResetActiveTasks={handleResetActiveTasks}
+            isFetching={isFetching}
+          />
+        ))}
     </div>
   );
 };
